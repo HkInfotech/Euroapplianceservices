@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="EuroMobileApp.Views.ViewImagePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    Title="View Image"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <AbsoluteLayout
+        AbsoluteLayout.LayoutBounds="0,0,1,1"
+        AbsoluteLayout.LayoutFlags="All"
+        BackgroundColor="Transparent">
+        <AbsoluteLayout
+            AbsoluteLayout.LayoutBounds=".5,.5, AutoSize, AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="Transparent">
+
+            <Grid
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="White"
+                HeightRequest="500"
+                RowDefinitions="auto,*,auto"
+                WidthRequest="350">
+                <Grid Grid.Row="0" BackgroundColor="{DynamicResource NavigationPrimary}">
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                            Margin="20,0,0,10"
+                            FontFamily="{StaticResource RobotoCondensedBold}"
+                            FontSize="Medium"
+                            Text="{trans:Translate EuroApplianceServiceLtd}"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="End" />
+                        <StackLayout HorizontalOptions="EndAndExpand">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="50"
+                                HorizontalOptions="EndAndExpand"
+                                Source="whitelogo.png"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+                <Image Grid.Row="1" Source="{Binding FileSource}" />
+                <Button
+                    Grid.Row="2"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource blueDark}"
+                    Command="{prism:GoBack}"
+                    Text="{trans:Translate Cancel}"
+                    TextColor="{DynamicResource WhiteColor}" />
+
+            </Grid>
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+</pages:PopupPage>

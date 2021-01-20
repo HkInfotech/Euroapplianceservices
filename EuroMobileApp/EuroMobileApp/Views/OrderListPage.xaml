@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EuroMobileApp.Views.OrderListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:control="clr-namespace:EuroMobileApp.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    x:Name="thisPage"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="True">
+    <NavigationPage.TitleView>
+        <Grid Padding="0,0,5,5" ColumnDefinitions="15*,80*,15*">
+
+            <Image
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="Start"
+                VerticalOptions="Center">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource FontAwesomeIconLight}"
+                        Glyph="{x:Static Icons:IconFonts.AlignRight}"
+                        Color="{DynamicResource WhiteColor}" />
+                </Image.Source>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{prism:GoBack}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Label
+                Grid.Column="1"
+                FontFamily="{StaticResource RobotoCondensedBold}"
+                FontSize="Medium"
+                Text="{trans:Translate EuroApplianceServiceLtd}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+            <Image
+                Grid.Column="2"
+                Aspect="AspectFill"
+                HorizontalOptions="End"
+                VerticalOptions="Center">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource FontAwesomeIconLight}"
+                        Glyph="{x:Static Icons:IconFonts.SignOut}"
+                        Color="{DynamicResource WhiteColor}" />
+                </Image.Source>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LogOutCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <Yummy:PancakeView
+                Grid.Row="0"
+                BackgroundColor="{DynamicResource blueDark}"
+                HeightRequest="60">
+                <Grid ColumnDefinitions="90*,10*">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="Small"
+                        HorizontalOptions="Center"
+                        Text="{trans:Translate MyOrders}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Center" />
+                    <Image
+                        Grid.Column="1"
+                        Aspect="AspectFill"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesomeIconLight}"
+                                Glyph="{x:Static Icons:IconFonts.Search}"
+                                Color="{DynamicResource WhiteColor}" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToWorkOrderFilterCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+
+            </Yummy:PancakeView>
+            <ContentView
+                x:Name="contentView"
+                Grid.Row="1"
+                Padding="0,0,0,0"
+                ControlTemplate="{StaticResource EuroMasterTemplate}">
+                <Grid RowDefinitions="Auto,*">
+
+                    <!--<Yummy:PancakeView>
+                        <Grid Padding="20" ColumnDefinitions="*,Auto">
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Placeholder="{trans:Translate UserName}"
+                                PlaceholderColor="{DynamicResource grayMedium}"
+                                Text="{Binding UserName.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateUserNameCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <Image
+                                Grid.Column="1"
+                                Aspect="AspectFit"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="{StaticResource FontAwesomeIconLight}"
+                                        Glyph="{x:Static Icons:IconFonts.Search}"
+                                        Size="25"
+                                        Color="{DynamicResource grayMedium}" />
+                                </Image.Source>
+                            </Image>
+
+                        </Grid>
+                    </Yummy:PancakeView>-->
+                    <StackLayout Grid.Row="1">
+                        <RefreshView
+                            Command="{Binding RefreshCommand}"
+                            IsRefreshing="{Binding IsRefreshing}"
+                            RefreshColor="{DynamicResource blueDark}">
+
+                            <CollectionView
+                                x:Name="UserOrders"
+                                EmptyView="{trans:Translate NoUserOrder}"
+                                ItemsSource="{Binding ListItems}"
+                                SelectionMode="None">
+
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout
+                                            Padding="10,5,10,5"
+                                            BackgroundColor="{DynamicResource transparent}"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource grayBase}"
+                                                BorderColor="{DynamicResource grayLight}"
+                                                CornerRadius="10"
+                                                HasShadow="False"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand">
+                                                <Grid
+                                                    Padding="8,8,0,8"
+                                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                                    ColumnDefinitions="Auto,95*,5*">
+                                                    <BoxView
+                                                        Grid.Column="0"
+                                                        WidthRequest="3"
+                                                        Color="{DynamicResource blueDark}" />
+                                                    <StackLayout Grid.Column="1" Spacing="4">
+                                                        <Grid ColumnSpacing="10">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="50*" />
+                                                                <ColumnDefinition Width="50*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <StackLayout
+                                                                Grid.Column="0"
+                                                                AutomationId="TitleLayout"
+                                                                HorizontalOptions="Start"
+                                                                Spacing="0">
+                                                                <Label
+                                                                    FontSize="10"
+                                                                    Text="{trans:Translate WorkOrderNumber}"
+                                                                    TextColor="{DynamicResource blueDark}"
+                                                                    TextDecorations="Underline" />
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    FontSize="16"
+                                                                    LineBreakMode="TailTruncation"
+                                                                    Text="{Binding Order.WorkOrderId}"
+                                                                    TextColor="{DynamicResource blueDark}"
+                                                                    TextDecorations="Underline" />
+                                                                <StackLayout.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference thisPage}}" CommandParameter="{Binding .}" />
+                                                                </StackLayout.GestureRecognizers>
+                                                            </StackLayout>
+
+                                                            <StackLayout
+                                                                Grid.Column="1"
+                                                                AutomationId="ListIdLayout"
+                                                                HorizontalOptions="Start"
+                                                                Spacing="0">
+                                                                <Label
+                                                                    FontSize="10"
+                                                                    Text="{trans:Translate CustomerName}"
+                                                                    TextColor="{DynamicResource grayDark}" />
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    FontSize="16"
+                                                                    LineBreakMode="TailTruncation"
+                                                                    Text="{Binding Order.CustomerName}" />
+                                                            </StackLayout>
+                                                        </Grid>
+                                                        <Grid ColumnSpacing="10">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="50*" />
+                                                                <ColumnDefinition Width="50*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <StackLayout
+                                                                Grid.Column="0"
+                                                                HorizontalOptions="Start"
+                                                                Spacing="0">
+                                                                <Label
+                                                                    FontSize="10"
+                                                                    Text="{trans:Translate JobStatus}"
+                                                                    TextColor="{DynamicResource grayDark}" />
+                                                                <Label FontSize="14" Text="{Binding Order.JobStatus}" />
+                                                            </StackLayout>
+
+                                                            <StackLayout
+                                                                Grid.Column="1"
+                                                                HorizontalOptions="Start"
+                                                                Spacing="0">
+                                                                <Label
+                                                                    FontSize="10"
+                                                                    Text="{trans:Translate AppDateTime}"
+                                                                    TextColor="{DynamicResource grayDark}" />
+                                                                <Label FontSize="14" Text="{Binding Order.GetWorkOrderDate}" />
+                                                            </StackLayout>
+                                                        </Grid>
+                                                    </StackLayout>
+                                                    <Label
+                                                        Grid.Column="2"
+                                                        FontFamily="{StaticResource FontAwesomeIconLight}"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        Text="{x:Static Icons:IconFonts.ChevronRight}"
+                                                        VerticalOptions="Center" />
+
+                                                </Grid>
+                                            </Frame>
+
+                                        </StackLayout>
+
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+                    </StackLayout>
+                </Grid>
+
+            </ContentView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

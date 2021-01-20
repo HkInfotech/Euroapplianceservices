@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<StackLayout
+    x:Class="EuroMobileApp.Controls.FileControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome">
+    <Frame
+        CornerRadius="10"
+        HeightRequest="100"
+        WidthRequest="100">
+        <StackLayout VerticalOptions="FillAndExpand">
+            <Label
+                FontFamily="{StaticResource FontsFreeNetKonnect}"
+                FontSize="Small"
+                HorizontalOptions="Center"
+                TextColor="{DynamicResource BlacColor}"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontFamily="{DynamicResource FontAwesomeIconLight}"
+                            FontSize="Medium"
+                            Text="{Static Icons:IconFonts.Plus}" />
+                        <Span Text=" " />
+                    </FormattedString>
+                </Label.FormattedText>
+
+            </Label>
+            <StackLayout>
+                <Image
+                    Aspect="Fill"
+                    HeightRequest="100"
+                    IsVisible="True"
+                    Source="https://picsum.photos/seed/picsum/200/30"
+                    WidthRequest="100" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="FileTapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
+        </StackLayout>
+    </Frame>
+    <StackLayout.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding AddCommand}" />
+    </StackLayout.GestureRecognizers>
+</StackLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key> NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>MinimumOSVersion</key>
+	<string>10.0</string>
+	<key>CFBundleDisplayName</key>
+	<string>EURO</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.euroapplianceservice</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>CFBundleName</key>
+	<string>EuroMobileApp</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontsFree-Net-Konnect3.ttf</string>
+		<string>konnect-regular.ttf</string>
+		<string>RobotoCondensed-Bold.ttf</string>
+		<string>RobotoCondensed-BoldItalic.ttf</string>
+		<string>RobotoCondensed-Italic.ttf</string>
+		<string>RobotoCondensed-Light.ttf</string>
+		<string>RobotoCondensed-LightItalic.ttf</string>
+		<string>RobotoCondensed-Regular.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>segoeui.ttf</string>
+		<string>fa-light-pro-300.ttf</string>
+		<string>fa-regular-pro-400.ttf</string>
+		<string>fa-solid-pro-900.ttf</string>
+		<string>FontAwesome5Brands.otf</string>
+		<string>FontAwesome5Regular.otf</string>
+		<string>FontAwesome5Solid.otf</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera to take photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to microphone for taking videos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs access to the photo gallery for picking photos and videos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photos gallery for picking photos and videos.</string>
+</dict>
+</plist>

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EuroMobileApp.Views.OrderDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="True">
+    <NavigationPage.TitleView>
+        <Grid Padding="0,0,5,5">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    Margin="20,0,0,10"
+                    FontFamily="{StaticResource RobotoCondensedBold}"
+                    FontSize="Medium"
+                    Text="{trans:Translate EuroApplianceServiceLtd}"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="End" />
+                <StackLayout HorizontalOptions="EndAndExpand">
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        Source="whitelogo.png"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout>
+            <Yummy:PancakeView
+                Grid.Row="0"
+                BackgroundColor="{DynamicResource blueDark}"
+                HeightRequest="40"
+                IsClippedToBounds="True">
+                <Label
+                    FontFamily="{StaticResource FontsFreeNetKonnect}"
+                    FontSize="Small"
+                    HorizontalOptions="Center"
+                    Text="{trans:Translate MyOrders}"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="Center" />
+            </Yummy:PancakeView>
+            <ContentView x:Name="contentView">
+                <ScrollView
+                    Grid.Row="1"
+                    Margin="5,10,5,10"
+                    HorizontalScrollBarVisibility="Never"
+                    Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="Appliance">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="0">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="0" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="1"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="0">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="Details">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="1">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="0" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="1"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="1">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </ContentView>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

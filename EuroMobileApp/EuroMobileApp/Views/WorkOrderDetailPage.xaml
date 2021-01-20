@@ -1,0 +1,1328 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EuroMobileApp.Views.WorkOrderDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:control="clr-namespace:EuroMobileApp.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    x:Name="workOrderPage"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="True">
+    <NavigationPage.TitleView>
+        <Grid Padding="0,0,5,5" ColumnDefinitions="15*,80*,15*">
+            <Image
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="Start"
+                VerticalOptions="Center">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource FontAwesomeIconLight}"
+                        Glyph="{x:Static Icons:IconFonts.ChevronLeft}"
+                        Color="{DynamicResource WhiteColor}" />
+                </Image.Source>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{prism:GoBack}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Label
+                Grid.Column="1"
+                FontFamily="{StaticResource RobotoCondensedBold}"
+                FontSize="Medium"
+                Text="{trans:Translate EuroApplianceServiceLtd}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+
+
+        </Grid>
+
+    </NavigationPage.TitleView>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="WorkOrderPartTemplate">
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Reveal">
+
+
+                            <SwipeItemView
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource IndianRed}"
+                                Command="{Binding Path=BindingContext.DeletePartCommand, Source={x:Reference Name=workOrderPage}}"
+                                CommandParameter="{Binding .}">
+                                <StackLayout
+                                    BackgroundColor="{DynamicResource IndianRed}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource IndianRed}"
+                                        CornerRadius="5"
+                                        HasShadow="False"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand">
+
+                                        <StackLayout
+                                            Padding="15"
+                                            Spacing="2"
+                                            VerticalOptions="Center">
+                                            <Label TextColor="{DynamicResource WhiteColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                                            FontSize="Small"
+                                                            Text="{x:Static Icons:IconFonts.Trash}" />
+
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </SwipeItemView>
+                            <SwipeItemView
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource blueDark}"
+                                Command="{Binding Path=BindingContext.EditPartCommand, Source={x:Reference Name=workOrderPage}}"
+                                CommandParameter="{Binding .}">
+                                <StackLayout
+                                    BackgroundColor="{DynamicResource transparent}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource blueDark}"
+                                        CornerRadius="5"
+                                        HasShadow="False"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand">
+
+                                        <StackLayout
+                                            Padding="15"
+                                            Spacing="2"
+                                            VerticalOptions="Center">
+                                            <Label TextColor="{DynamicResource WhiteColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                                            FontSize="Small"
+                                                            Text="{x:Static Icons:IconFonts.Edit}" />
+
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </SwipeItemView>
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <SwipeView.Content>
+                        <Yummy:PancakeView
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="StartAndExpand">
+                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <BoxView
+                                    BackgroundColor="{DynamicResource NavigationPrimary}"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="FillAndExpand"
+                                    WidthRequest="3" />
+                                <Grid
+                                    Grid.Column="1"
+                                    ColumnDefinitions="40*,15*,15*,30*"
+                                    RowDefinitions="Auto,Auto">
+
+                                    <StackLayout
+                                        Grid.Column="0"
+                                        AutomationId="ListIdLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate PartNameLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="14"
+                                            Text="{Binding PartName}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        AutomationId="ListIdLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate QuantityLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding Quantity}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Column="2"
+                                        AutomationId="TitleLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate RateLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            LineBreakMode="TailTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="$" />
+                                                    <Span Text="{Binding Rate}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Column="3"
+                                        AutomationId="ListIdLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate TotalAmountLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            LineBreakMode="TailTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="$" />
+                                                    <Span Text="{Binding PurchasePrice}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                            <Yummy:PancakeView.Border>
+                                <Yummy:Border Thickness="2" Color="{DynamicResource tabBorder}" />
+                            </Yummy:PancakeView.Border>
+                        </Yummy:PancakeView>
+                    </SwipeView.Content>
+                </SwipeView>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                RowDefinitions="Auto,Auto,*">
+                <Grid
+                    Grid.Row="0"
+                    Padding="5"
+                    BackgroundColor="{DynamicResource blueDark}"
+                    ColumnDefinitions="10*,45*,30*,15*"
+                    RowDefinitions="Auto,Auto"
+                    RowSpacing="0">
+
+                    <Image
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="0,5,0,0"
+                        Aspect="AspectFill"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                Glyph="{x:Static Icons:IconFonts.UserCircle}"
+                                Size="30"
+                                Color="{DynamicResource WhiteColor}" />
+                        </Image.Source>
+                    </Image>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="Small"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource grayLight}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate CustomerName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="Medium"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding Applianceinfo.CustomerName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="Small"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource grayLight}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate JobNumber}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="Medium"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding Applianceinfo.WorkorderId}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="3"
+                        Aspect="AspectFill"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesomeIconLight}"
+                                Glyph="{x:Static Icons:IconFonts.Save}"
+                                Size="30"
+                                Color="{DynamicResource WhiteColor}" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SaveCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <!--<Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="30"
+                        TextColor="{DynamicResource WhiteColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontFamily="{DynamicResource FontAwesomeIconLight}"
+                                    FontSize="Medium"
+                                    Text="{Static Icons:IconFonts.UserCircle}" />
+                                <Span Text=" " />
+
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="30"
+                        TextColor="{DynamicResource WhiteColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate CustomerName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+                        Grid.Column="2"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="30"
+                        TextColor="{DynamicResource WhiteColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding Applianceinfo.CustomerName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image
+                        Grid.Column="3"
+                        Aspect="AspectFill"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesomeIconLight}"
+                                Glyph="{x:Static Icons:IconFonts.Save}"
+                                Size="30"
+                                Color="{DynamicResource WhiteColor}" />
+                        </Image.Source>
+                    </Image>-->
+                </Grid>
+                <!--#region Order Tab View Page-->
+                <ScrollView
+                    Grid.Row="1"
+                    Margin="5,10,5,10"
+                    HorizontalScrollBarVisibility="Never"
+                    IsClippedToBounds="True"
+                    Orientation="Horizontal">
+                    <StackLayout
+                        IsClippedToBounds="True"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate ApplianceTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="0">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="0" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="0">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate DetailsTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="1">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="1" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="1">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate ServicesTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="2">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="2" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="2">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate PartsTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="3">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="3" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="3">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate TechRemarksTabTitile}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="4">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="4" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="4">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+                <!--#endregion-->
+                <ContentView
+                    x:Name="contentView"
+                    Grid.Row="2"
+                    ControlTemplate="{StaticResource EuroMasterTemplate}"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout>
+                        <!--#region  Appliance Tab Area-->
+
+                        <ScrollView IsVisible="false">
+
+                            <StackLayout Spacing="10">
+
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate ApplianceLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Yummy:PancakeView>
+                                        <control:BorderlessEntry
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                                            FontSize="16"
+                                            InputTransparent="True"
+                                            Keyboard="Text"
+                                            Placeholder="{trans:Translate AppliancePlaceHolder}"
+                                            PlaceholderColor="{DynamicResource grayMedium}"
+                                            Text="{Binding OrderAppliance.Value}"
+                                            VerticalOptions="Center" />
+                                        <Yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ValidateOrderApplianceCommand}" />
+                                        </Yummy:PancakeView.GestureRecognizers>
+                                    </Yummy:PancakeView>
+
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding OrderAppliance.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding OrderAppliance.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate ManufaturerLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Yummy:PancakeView>
+                                        <control:BorderlessEntry
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                                            FontSize="16"
+                                            InputTransparent="True"
+                                            Keyboard="Text"
+                                            Placeholder="{trans:Translate ManufacturerPlaceHolder}"
+                                            PlaceholderColor="{DynamicResource grayMedium}"
+                                            Text="{Binding OrderManufacturer.Value}"
+                                            VerticalOptions="Center" />
+                                        <Yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ValidateOrderManufacturerCommand}" />
+                                        </Yummy:PancakeView.GestureRecognizers>
+                                    </Yummy:PancakeView>
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding OrderManufacturer.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding OrderManufacturer.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate SerialNumberLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <control:BorderlessEntry
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        Keyboard="Text"
+                                        Placeholder="{trans:Translate SerialNumberPlaceHolder}"
+                                        PlaceholderColor="{DynamicResource grayMedium}"
+                                        Text="{Binding OrderSerialNumber.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessEntry.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateOrderSerialNumberCommand}" EventName="TextChanged" />
+                                        </control:BorderlessEntry.Behaviors>
+                                    </control:BorderlessEntry>
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding OrderSerialNumber.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding OrderSerialNumber.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate ModelNumberLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <control:BorderlessEntry
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        Keyboard="Text"
+                                        Placeholder="{trans:Translate ModelPlaceHolder}"
+                                        PlaceholderColor="{DynamicResource grayMedium}"
+                                        Text="{Binding ModelNumber.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessEntry.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateModelNumberCommand}" EventName="TextChanged" />
+                                        </control:BorderlessEntry.Behaviors>
+                                    </control:BorderlessEntry>
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding ModelNumber.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding ModelNumber.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+                                <StackLayout Margin="10,0,10,0" IsClippedToBounds="True">
+                                    <control:FileLayout
+                                        Margin="5,0,4,0"
+                                        AddCommand="{Binding AddImageCommand}"
+                                        ButtonText="{trans:Translate ClickToUploadImage}"
+                                        Files="{Binding DocumentItems}"
+                                        HasFiles="True" />
+
+                                </StackLayout>
+
+
+                            </StackLayout>
+
+                            <ScrollView.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding PositionSelected}"
+                                    TargetType="ScrollView"
+                                    Value="0">
+                                    <Setter Property="IsVisible" Value="true" />
+                                </DataTrigger>
+                            </ScrollView.Triggers>
+
+                        </ScrollView>
+                        <!--#endregion-->
+
+                        <!--#region Detail Tab Area-->
+                        <ScrollView IsVisible="false">
+
+                            <StackLayout Spacing="10">
+
+
+                                <!--  Service Date  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate ServiceDateLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <control:BorderlessDatePicker
+                                        Grid.Column="0"
+                                        Date="{Binding ServiceDate.Value}"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessDatePicker.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateServiceDateCommand}" EventName="DateSelected" />
+                                        </control:BorderlessDatePicker.Behaviors>
+                                    </control:BorderlessDatePicker>
+
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding ServiceDate.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding ServiceDate.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <!--  Service Time  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate ServiceTimeLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <control:BorderlessTimePicker
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        Time="{Binding ServiceTIme.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessTimePicker.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateServiceTimeCommand}" EventName="PropertyChanged" />
+                                        </control:BorderlessTimePicker.Behaviors>
+                                    </control:BorderlessTimePicker>
+
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding ServiceTIme.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding ServiceTIme.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <!--  Job Nature  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate JobNatureLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Yummy:PancakeView>
+                                        <control:BorderlessEntry
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                                            FontSize="16"
+                                            InputTransparent="True"
+                                            Keyboard="Text"
+                                            Placeholder="{trans:Translate JobNaturePlaceHolder}"
+                                            PlaceholderColor="{DynamicResource grayMedium}"
+                                            Text="{Binding JobNature.Value}"
+                                            VerticalOptions="Center" />
+                                        <Yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ValidateJobNatureCommand}" />
+                                        </Yummy:PancakeView.GestureRecognizers>
+                                    </Yummy:PancakeView>
+
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding JobNature.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding JobNature.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <!--  Technician  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate TechnicianLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Yummy:PancakeView>
+                                        <control:BorderlessEntry
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                                            FontSize="16"
+                                            InputTransparent="True"
+                                            Keyboard="Text"
+                                            Placeholder="{trans:Translate TechnicianPlaceHolder}"
+                                            PlaceholderColor="{DynamicResource grayMedium}"
+                                            Text="{Binding Technician.Value}"
+                                            VerticalOptions="Center" />
+                                        <Yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ValidateTechnicianCommand}" />
+                                        </Yummy:PancakeView.GestureRecognizers>
+                                    </Yummy:PancakeView>
+
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding Technician.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding Technician.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+                                <!--  Job Status  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate JobStatusLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Yummy:PancakeView>
+                                        <control:BorderlessEntry
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                                            FontSize="16"
+                                            InputTransparent="True"
+                                            Keyboard="Text"
+                                            Placeholder="{trans:Translate JobStatusPlaceHolder}"
+                                            PlaceholderColor="{DynamicResource grayMedium}"
+                                            Text="{Binding JobStatus.Value}"
+                                            VerticalOptions="Center" />
+                                        <Yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ValidateJobStatusCommand}" />
+                                        </Yummy:PancakeView.GestureRecognizers>
+                                    </Yummy:PancakeView>
+
+
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding JobStatus.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding JobStatus.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <!--  Ticket Number  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate TicketNumberLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <control:BorderlessEntry
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        Keyboard="Numeric"
+                                        Placeholder="{trans:Translate TicketNumberPlaceHolder}"
+                                        PlaceholderColor="{DynamicResource grayMedium}"
+                                        Text="{Binding TicketNumber.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessEntry.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateTicketNumberCommand}" EventName="TextChanged" />
+                                        </control:BorderlessEntry.Behaviors>
+                                    </control:BorderlessEntry>
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding TicketNumber.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding TicketNumber.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <!--  COD OR WAR NUMBER  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate CODWARLable}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <control:BorderlessEntry
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        Keyboard="Text"
+                                        Placeholder="{trans:Translate CODWARPlaceHolder}"
+                                        PlaceholderColor="{DynamicResource grayMedium}"
+                                        Text="{Binding CodorWarNumber.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessEntry.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateCodorWarNumberCommand}" EventName="TextChanged" />
+                                        </control:BorderlessEntry.Behaviors>
+                                    </control:BorderlessEntry>
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding CodorWarNumber.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding CodorWarNumber.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+                                <!--  Milage  -->
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate MileageLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <control:BorderlessEntry
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        Keyboard="Text"
+                                        Placeholder="{trans:Translate MileagePlaceHolder}"
+                                        PlaceholderColor="{DynamicResource grayMedium}"
+                                        Text="{Binding Mileage.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderlessEntry.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateMileageCommand}" EventName="TextChanged" />
+                                        </control:BorderlessEntry.Behaviors>
+                                    </control:BorderlessEntry>
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding Mileage.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding Mileage.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+
+
+
+                                <!--  Note  -->
+
+                                <StackLayout Margin="10,0,10,0" Spacing="0">
+                                    <Label
+                                        FontFamily="{DynamicResource RobotoCondensedBold}"
+                                        FontSize="14"
+                                        TextColor="{DynamicResource grayDark}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{trans:Translate NoteLabel}" />
+                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <control:BorderLessEditor
+                                        Grid.Column="0"
+                                        AutoSize="TextChanges"
+                                        BackgroundColor="{DynamicResource tabBackground}"
+                                        FontFamily="{StaticResource RobotoCondensedRegular}"
+                                        FontSize="16"
+                                        IsSpellCheckEnabled="True"
+                                        IsTextPredictionEnabled="True"
+                                        Placeholder="{trans:Translate NotePlaceHolder}"
+                                        PlaceholderColor="{DynamicResource grayMedium}"
+                                        Text="{Binding OrderNote.Value}"
+                                        VerticalOptions="Center">
+                                        <control:BorderLessEditor.Behaviors>
+                                            <prism:EventToCommandBehavior Command="{Binding ValidateOrderNoteCommand}" EventName="TextChanged" />
+                                        </control:BorderLessEditor.Behaviors>
+                                    </control:BorderLessEditor>
+                                    <BoxView
+                                        Margin="0"
+                                        HeightRequest="1"
+                                        Color="{DynamicResource grayMedium}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        IsVisible="{Binding OrderNote.Valid}"
+                                        Style="{StaticResource ValidationErrorLabelStyle}"
+                                        Text="{Binding OrderNote.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                        TextColor="{DynamicResource IndianRed}" />
+
+                                </StackLayout>
+                            </StackLayout>
+
+
+                            <ScrollView.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding PositionSelected}"
+                                    TargetType="ScrollView"
+                                    Value="1">
+                                    <Setter Property="IsVisible" Value="true" />
+                                </DataTrigger>
+                            </ScrollView.Triggers>
+                        </ScrollView>
+                        <!--#endregion-->
+                        <!--#region Services Tab Area-->
+                        <ScrollView IsVisible="false">
+                            <StackLayout BindableLayout.ItemsSource="{Binding WorkOrderServices}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Margin="5" Padding="5">
+                                            <StackLayout Margin="10,0,10,0" Spacing="0">
+                                                <Grid ColumnDefinitions="70*,auto,30*" ColumnSpacing="0">
+                                                    <StackLayout Grid.Row="0" Grid.Column="0">
+                                                        <Label Text="{Binding ServiceItem}" VerticalOptions="CenterAndExpand" />
+                                                    </StackLayout>
+                                                    <StackLayout Grid.Column="1">
+                                                        <BoxView
+                                                            Grid.Column="1"
+                                                            Margin="5"
+                                                            WidthRequest="1"
+                                                            Color="{DynamicResource grayMedium}" />
+                                                    </StackLayout>
+
+                                                    <StackLayout
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Margin="0"
+                                                        Padding="0"
+                                                        Spacing="0">
+                                                        <control:BorderlessEntry
+                                                            HorizontalTextAlignment="End"
+                                                            Keyboard="Numeric"
+                                                            Text="{Binding ServiceItemPrice}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                    </StackLayout>
+                                                    <StackLayout Grid.Column="3" Orientation="Horizontal">
+                                                        <Label
+                                                            FontSize="16"
+                                                            Text="$"
+                                                            VerticalOptions="Center" />
+                                                        <BoxView
+                                                            Grid.Column="1"
+                                                            Margin="5"
+                                                            WidthRequest="1"
+                                                            Color="{DynamicResource grayMedium}" />
+                                                    </StackLayout>
+                                                    <!--<StackLayout
+                                                        Grid.Row="0"
+                                                        Grid.Column="4"
+                                                        Margin="0"
+                                                        Padding="0"
+                                                        Spacing="0">
+                                                        <control:BorderLessEditor
+                                                            Keyboard="Text"
+                                                            Text="{Binding ServiceItemDescr}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                    </StackLayout>-->
+                                                </Grid>
+
+                                            </StackLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <ScrollView.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding PositionSelected}"
+                                    TargetType="ScrollView"
+                                    Value="2">
+                                    <Setter Property="IsVisible" Value="true" />
+                                </DataTrigger>
+                            </ScrollView.Triggers>
+                        </ScrollView>
+
+
+                        <!--#endregion-->
+
+                        <!--#region Parts Tab Area-->
+                        <StackLayout IsVisible="false">
+                            <Grid RowDefinitions="Auto,*">
+                                <Yummy:PancakeView
+                                    Grid.Row="0"
+                                    Margin="0,0,10,0"
+                                    Padding="10"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="15"
+                                    HorizontalOptions="End"
+                                    IsClippedToBounds="True">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span
+                                                        FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                                        FontSize="Small"
+                                                        Text="{x:Static Icons:IconFonts.Plus}" />
+                                                    <Span Text="   " />
+                                                    <Span FontFamily="{StaticResource RobotoCondensedBold}" Text="{trans:Translate AddNewButtonLabel}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                    <Yummy:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigatePartDetailPopUpCommand}" />
+                                    </Yummy:PancakeView.GestureRecognizers>
+                                </Yummy:PancakeView>
+
+                                <CollectionView
+                                    Grid.Row="1"
+                                    Margin="15,0,15,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    ItemTemplate="{StaticResource WorkOrderPartTemplate}"
+                                    ItemsSource="{Binding WorkOrderParts}"
+                                    SelectionMode="None"
+                                    VerticalOptions="FillAndExpand">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                </CollectionView>
+                            </Grid>
+                            <StackLayout.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding PositionSelected}"
+                                    TargetType="StackLayout"
+                                    Value="3">
+                                    <Setter Property="IsVisible" Value="true" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <!--#region Remarks Tab Area-->
+                        <StackLayout IsVisible="false">
+                            <StackLayout Margin="10,0,10,0" Spacing="0">
+                                <Label
+                                    FontFamily="{DynamicResource RobotoCondensedBold}"
+                                    FontSize="14"
+                                    TextColor="{DynamicResource grayDark}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{trans:Translate TechRemarksLabel}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <control:BorderLessEditor
+                                    Grid.Column="0"
+                                    AutoSize="TextChanges"
+                                    BackgroundColor="{DynamicResource tabBackground}"
+                                    FontFamily="{StaticResource RobotoCondensedRegular}"
+                                    FontSize="16"
+                                    IsSpellCheckEnabled="True"
+                                    IsTextPredictionEnabled="True"
+                                    Placeholder="{trans:Translate TechRemarksPlaceHolder}"
+                                    PlaceholderColor="{DynamicResource grayMedium}"
+                                    Text="{Binding TechRemarksNote.Value}"
+                                    VerticalOptions="Center">
+                                    <control:BorderLessEditor.Behaviors>
+                                        <prism:EventToCommandBehavior Command="{Binding ValidateTechRemarksNoteCommand}" EventName="TextChanged" />
+                                    </control:BorderLessEditor.Behaviors>
+                                </control:BorderLessEditor>
+                                <BoxView
+                                    Margin="0"
+                                    HeightRequest="1"
+                                    Color="{DynamicResource grayMedium}" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    IsVisible="{Binding TechRemarksNote.Valid}"
+                                    Style="{StaticResource ValidationErrorLabelStyle}"
+                                    Text="{Binding TechRemarksNote.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                    TextColor="{DynamicResource IndianRed}" />
+
+                            </StackLayout>
+                            <StackLayout.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding PositionSelected}"
+                                    TargetType="StackLayout"
+                                    Value="4">
+                                    <Setter Property="IsVisible" Value="true" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                        </StackLayout>
+                        <!--#endregion-->
+                    </StackLayout>
+
+                </ContentView>
+            </Grid>
+
+            <control:ActivityProgressBar IsVisible="{Binding IsBusy}" />
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

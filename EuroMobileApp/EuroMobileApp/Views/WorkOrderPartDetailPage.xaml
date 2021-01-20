@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="EuroMobileApp.Views.WorkOrderPartDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:control="clr-namespace:EuroMobileApp.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    CloseWhenBackgroundIsClicked="False">
+    <!--<pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>-->
+
+    <AbsoluteLayout
+        AbsoluteLayout.LayoutBounds="0,0,1,1"
+        AbsoluteLayout.LayoutFlags="All"
+        BackgroundColor="Transparent">
+        <AbsoluteLayout
+            AbsoluteLayout.LayoutBounds=".5,.5, AutoSize, AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="Transparent">
+
+            <Grid
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="White"
+                HeightRequest="450"
+                RowDefinitions="auto,*,auto"
+                WidthRequest="340">
+                <Grid Grid.Row="0" BackgroundColor="{DynamicResource NavigationPrimary}">
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label
+                            Margin="20,0,0,10"
+                            FontFamily="{StaticResource RobotoCondensedBold}"
+                            FontSize="Medium"
+                            Text="{trans:Translate EuroApplianceServiceLtd}"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="End" />
+                        <StackLayout HorizontalOptions="EndAndExpand">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="50"
+                                HorizontalOptions="EndAndExpand"
+                                Source="whitelogo.png"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+
+
+                    </StackLayout>
+                </Grid>
+                <Grid
+                    Grid.Row="1"
+                    Margin="10,0,10,0"
+                    ColumnDefinitions="*"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,Auto,Auto,Auto">
+                    <StackLayout Spacing="0">
+                        <Label
+                            FontFamily="{DynamicResource RobotoCondensedBold}"
+                            FontSize="14"
+                            TextColor="{DynamicResource grayDark}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{trans:Translate PartNameLabel}" />
+                                    <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <control:BorderlessEntry
+                            Grid.Column="0"
+                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                            FontSize="16"
+                            Keyboard="Text"
+                            Placeholder="{trans:Translate PartNamePlaceHolder}"
+                            PlaceholderColor="{DynamicResource grayMedium}"
+                            Text="{Binding PartName.Value}"
+                            VerticalOptions="Center">
+                            <control:BorderlessEntry.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding ValidatePartNameCommand}" EventName="TextChanged" />
+                            </control:BorderlessEntry.Behaviors>
+                        </control:BorderlessEntry>
+                        <BoxView
+                            Margin="0"
+                            HeightRequest="1"
+                            Color="{DynamicResource grayMedium}" />
+                        <Label
+                            FontAttributes="Bold"
+                            IsVisible="{Binding PartName.Valid}"
+                            Style="{StaticResource ValidationErrorLabelStyle}"
+                            Text="{Binding PartName.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                            TextColor="{DynamicResource IndianRed}" />
+                    </StackLayout>
+                    <Grid Grid.Row="1" ColumnDefinitions="50*,50*">
+                        <StackLayout Grid.Column="0" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{trans:Translate RateLabel}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Placeholder="{trans:Translate RatePlaceHolder}"
+                                PlaceholderColor="{DynamicResource grayMedium}"
+                                Text="{Binding PartRate.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidatePartRateCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding PartRate.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding PartRate.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{trans:Translate QuantityLabel}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Placeholder="{trans:Translate QuantityPalceHolder}"
+                                PlaceholderColor="{DynamicResource grayMedium}"
+                                Text="{Binding PartQuentity.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidatePartQuentityCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding PartQuentity.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding PartQuentity.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+
+
+                    </Grid>
+                    <StackLayout Grid.Row="2" Spacing="0">
+                        <Label
+                            FontFamily="{DynamicResource RobotoCondensedBold}"
+                            FontSize="14"
+                            TextColor="{DynamicResource grayDark}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{trans:Translate TotalAmountLabel}" />
+                                    <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <control:BorderlessEntry
+                            Grid.Column="0"
+                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                            FontSize="16"
+                            IsTextPredictionEnabled="True"
+                            Keyboard="Numeric"
+                            Placeholder="{trans:Translate TotalAmountPlaceHolder}"
+                            PlaceholderColor="{DynamicResource grayMedium}"
+                            Text="{Binding TotalAmount.Value}"
+                            VerticalOptions="Center">
+                            <control:BorderlessEntry.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding ValidateTotalAmountCommand}" EventName="TextChanged" />
+                            </control:BorderlessEntry.Behaviors>
+                        </control:BorderlessEntry>
+                        <BoxView
+                            Margin="0"
+                            HeightRequest="1"
+                            Color="{DynamicResource grayMedium}" />
+                        <Label
+                            FontAttributes="Bold"
+                            IsVisible="{Binding TotalAmount.Valid}"
+                            Style="{StaticResource ValidationErrorLabelStyle}"
+                            Text="{Binding TotalAmount.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                            TextColor="{DynamicResource IndianRed}" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="3" Spacing="0">
+                        <Label
+                            FontFamily="{DynamicResource RobotoCondensedBold}"
+                            FontSize="14"
+                            TextColor="{DynamicResource grayDark}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{trans:Translate PartNoteLabel}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <control:BorderlessEntry
+                            Grid.Column="0"
+                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                            FontSize="16"
+                            Keyboard="Text"
+                            Placeholder="{trans:Translate PartNotePlaceHolder}"
+                            PlaceholderColor="{DynamicResource grayMedium}"
+                            Text="{Binding PartNote}"
+                            VerticalOptions="Center" />
+                        <BoxView
+                            Margin="0"
+                            HeightRequest="1"
+                            Color="{DynamicResource grayMedium}" />
+
+                    </StackLayout>
+
+                </Grid>
+                <Grid Grid.Row="2" ColumnDefinitions="50*,50*">
+                    <Button
+                        Grid.Column="0"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource NavigationPrimary}"
+                        Command="{Binding SaveCommand}"
+                        Text="{trans:Translate OK}" />
+                    <Button
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource LoginButtonColor}"
+                        Command="{prism:GoBack}"
+                        Text="{trans:Translate Cancel}" />
+                </Grid>
+
+            </Grid>
+            <control:ActivityProgressBar IsVisible="{Binding IsBusy}" />
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+
+</pages:PopupPage>

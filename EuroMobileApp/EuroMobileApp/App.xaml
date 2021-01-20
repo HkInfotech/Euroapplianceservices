@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication
+    x:Class="EuroMobileApp.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:converters="clr-namespace:EuroMobileApp.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    mc:Ignorable="d">
+
+    <prism:PrismApplication.Resources>
+        <ResourceDictionary>
+            <!--  Global Styles  -->
+            <Color x:Key="NavigationPrimary">#0955a1</Color>
+            <Color x:Key="FrameColor">#013e7d</Color>
+
+            <Color x:Key="IndianRed">IndianRed</Color>
+            <Color x:Key="LoginButtonColor">#C81F26</Color>
+            <Color x:Key="RedColor">#C81F26</Color>
+            <Color x:Key="WhiteColor">#FFFF</Color>
+            <Color x:Key="tabBorder">#a7a7aa</Color>
+            <Color x:Key="tabBackground">#f6f6f7</Color>
+            <Color x:Key="black">#000</Color>
+            <Color x:Key="blueDark">#003e7d</Color>
+            <Color x:Key="blueLight">#4389a3</Color>
+            <Color x:Key="blueMedium">#015581</Color>
+            <Color x:Key="blueTitle">#11316A</Color>
+            <Color x:Key="grayBase">#ededed</Color>
+            <Color x:Key="grayDark">#555555</Color>
+            <Color x:Key="grayLight">#9f9f9f</Color>
+            <Color x:Key="grayMedium">#ABABAB</Color>
+            <Color x:Key="transparent">Transparent</Color>
+            <Style x:Key="LoginButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource LoginButtonColor}" />
+                <Setter Property="CornerRadius" Value="{OnPlatform Android=30, iOS=20}" />
+                <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />
+            </Style>
+
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+
+            <Style x:Key="ValidationErrorLabelStyle" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#ff5252" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+            <!--  Application resource dictionary  -->
+            <OnPlatform x:Key="FontAwesomeIconLight" x:TypeArguments="x:String">
+                <On Platform="Android" Value="fa-light-pro-300.ttf#Font Awesome regular Light" />
+                <On Platform="iOS" Value="FontAwesome5Pro-Light" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontAwesomeIconRegular" x:TypeArguments="x:String">
+                <On Platform="Android" Value="fa-regular-pro-400.ttf#Font Awesome regular" />
+                <On Platform="iOS" Value="FontAwesome5Pro-Regular" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontAwesomeIconSolid" x:TypeArguments="x:String">
+                <On Platform="Android" Value="fa-solid-pro-900.ttf#Font Awesome 5 Free" />
+                <On Platform="iOS" Value="FontAwesome5Pro-Solid" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="RobotoCondensedBold" x:TypeArguments="x:String">
+                <On Platform="Android" Value="RobotoCondensed-Bold.ttf#Bold" />
+                <On Platform="iOS" Value="Bold" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="RobotoCondensedBoldItalic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="RobotoCondensed-BoldItalic.ttf#BoldItalic" />
+                <On Platform="iOS" Value="BoldItalic" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="RobotoCondensedItalic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="RobotoCondensed-Italic.ttf#Italic" />
+                <On Platform="iOS" Value="Italic" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="RobotoCondensedLight" x:TypeArguments="x:String">
+                <On Platform="Android" Value="RobotoCondensed-Light.ttf#Light" />
+                <On Platform="iOS" Value="Light" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="RobotoCondensedLightItalic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="RobotoCondensed-LightItalic.ttf#LightItalic" />
+                <On Platform="iOS" Value="LightItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="RobotoCondensedRegular" x:TypeArguments="x:String">
+                <On Platform="Android" Value="RobotoCondensed-Regular.ttf#Regular" />
+                <On Platform="iOS" Value="Regularr" />
+            </OnPlatform>
+            <OnPlatform x:Key="RobotoMedium" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Roboto-Medium.ttf#Medium" />
+                <On Platform="iOS" Value="Medium" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="FontsFreeNetKonnect" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontsFree-Net-Konnect3.ttf" />
+                <On Platform="iOS" Value="FontsFree-Net-Konnect3" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="Segoeui" x:TypeArguments="x:String">
+                <On Platform="Android" Value="segoe_ui.ttf" />
+                <On Platform="iOS" Value="segoe ui.ttf" />
+            </OnPlatform>
+
+
+
+            <Style x:Key="SwipeItemBorderStyle" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="{StaticResource blueDark}" />
+                <Setter Property="CornerRadius" Value="0, 12, 0, 12" />
+                <Setter Property="Margin" Value="0, 12, 0, 0" />
+            </Style>
+
+            <Style x:Key="SwipeItemIconStyle" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFit" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="30" />
+            </Style>
+            <Style x:Key="SwipeItemTextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource black}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0, 36, 0, 0" />
+            </Style>
+
+            <Style x:Key="SelectedTabStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{DynamicResource blueDark}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoCondensedBold}" />
+
+            </Style>
+
+            <Style x:Key="UnSelectedTabStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{DynamicResource grayMedium}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoCondensedRegular}" />
+                <Setter Property="FontAttributes" Value="None" />
+            </Style>
+
+            <!--  ********** CONVERTERS **********  -->
+            <converters:BoolInversorConverter x:Key="BoolInversorConverter" />
+            <converters:UtcToLocalDateTimeConverter x:Key="UtcToLocalDateTimeConverter" />
+            <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter" />
+            <converters:ValidationErrorConverter x:Key="ValidationErrorConverter" />
+            <!--<converters:TopItemConverter x:Key="ItemConverter" />-->
+
+            <ControlTemplate x:Key="EuroMasterTemplate">
+                <AbsoluteLayout AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+                    <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="{OnPlatform Android=100, iOS=150}" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentPresenter Grid.Row="0" />
+                        <StackLayout
+                            Grid.Row="1"
+                            IsClippedToBounds="True"
+                            Orientation="Vertical"
+                            VerticalOptions="End">
+                            <Image Aspect="AspectFill" Source="footerinnerbg.png" />
+                        </StackLayout>
+                    </Grid>
+                </AbsoluteLayout>
+            </ControlTemplate>
+            <DataTemplate x:Key="WorkOrderPartTemplate">
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItems Mode="Reveal">
+
+
+                            <SwipeItemView
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource IndianRed}"
+                                Command="{Binding Path=BindingContext.DeletePartCommand, Source={x:Reference Name=workOrderPage}}"
+                                CommandParameter="{Binding .}">
+                                <StackLayout
+                                    BackgroundColor="{DynamicResource IndianRed}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource IndianRed}"
+                                        CornerRadius="5"
+                                        HasShadow="False"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand">
+
+                                        <StackLayout
+                                            Padding="15"
+                                            Spacing="2"
+                                            VerticalOptions="Center">
+                                            <Label TextColor="{DynamicResource WhiteColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                                            FontSize="Small"
+                                                            Text="{x:Static Icons:IconFonts.Trash}" />
+
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </SwipeItemView>
+                            <SwipeItemView
+                                Margin="0"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource blueDark}"
+                                Command="{Binding Path=BindingContext.EditPartCommand, Source={x:Reference Name=workOrderPage}}"
+                                CommandParameter="{Binding .}">
+                                <StackLayout
+                                    BackgroundColor="{DynamicResource transparent}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource blueDark}"
+                                        CornerRadius="5"
+                                        HasShadow="False"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand">
+
+                                        <StackLayout
+                                            Padding="15"
+                                            Spacing="2"
+                                            VerticalOptions="Center">
+                                            <Label TextColor="{DynamicResource WhiteColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                                            FontSize="Small"
+                                                            Text="{x:Static Icons:IconFonts.Edit}" />
+
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </SwipeItemView>
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <SwipeView.Content>
+                        <Yummy:PancakeView
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="StartAndExpand">
+                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <BoxView
+                                    BackgroundColor="{DynamicResource NavigationPrimary}"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="FillAndExpand"
+                                    WidthRequest="3" />
+                                <Grid
+                                    Grid.Column="1"
+                                    ColumnDefinitions="35*,20*,15*,30*"
+                                    RowDefinitions="Auto,Auto">
+
+                                    <StackLayout
+                                        Grid.Column="0"
+                                        AutomationId="ListIdLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate PartNameLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="14"
+                                            Text="{Binding PartName}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        AutomationId="ListIdLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate QuantityLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding Quantity}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Column="2"
+                                        AutomationId="TitleLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate RateLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label FontAttributes="Bold" FontSize="16">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="$" />
+                                                    <Span Text="{Binding Rate}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+
+                                        </Label>
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Column="3"
+                                        AutomationId="ListIdLayout"
+                                        HorizontalOptions="Start"
+                                        Spacing="0">
+                                        <Label
+                                            FontSize="10"
+                                            Text="{trans:Translate TotalAmountLabel}"
+                                            TextColor="{DynamicResource grayDark}" />
+                                        <Label FontAttributes="Bold" FontSize="16">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="$" />
+                                                    <Span Text="{Binding PurchasePrice}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                            <Yummy:PancakeView.Border>
+                                <Yummy:Border Thickness="2" Color="{DynamicResource tabBorder}" />
+                            </Yummy:PancakeView.Border>
+                        </Yummy:PancakeView>
+                    </SwipeView.Content>
+                </SwipeView>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </prism:PrismApplication.Resources>
+
+</prism:PrismApplication>

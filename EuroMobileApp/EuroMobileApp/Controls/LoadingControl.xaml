@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="EuroMobileApp.Controls.LoadingControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="this"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <StackLayout
+            BackgroundColor="{DynamicResource transparent}"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand">
+            <ActivityIndicator
+                HeightRequest="50"
+                IsRunning="True"
+                IsVisible="True"
+                WidthRequest="50"
+                Color="{DynamicResource blueDark}" />
+
+            <Label
+                BindingContext="{x:Reference this}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="{Binding LoadingText}"
+                TextColor="{DynamicResource black}"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center">
+                <Label.Margin>
+                    <OnPlatform
+                        x:TypeArguments="Thickness"
+                        Android="0,15,25,15"
+                        iOS="0,20,20,20" />
+                </Label.Margin>
+            </Label>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
