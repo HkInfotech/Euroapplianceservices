@@ -41,7 +41,7 @@ namespace EuroMobileApp.ViewModels
             if (confirm)
             {
                 _appsettings.ResetDetails();
-                await NavigationServiceExtensions.TryNavigateModallyAsync(NavigationService, $"{PageName.Navigation}/{PageName.LoginPage}", null);
+                await NavigationServiceExtensions.TryNavigateAsync(NavigationService, $"/{PageName.Navigation}/{PageName.LoginPage}", null);
             }
 
         }));

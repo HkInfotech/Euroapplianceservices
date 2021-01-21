@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -210,7 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EuroMobileApp\EuroMobileApp.csproj">
-      <Project>{952E4BAD-02A3-4072-AEC9-CCC840E6F460}</Project>
+      <Project>{E0EC74DD-B20C-485A-97F5-922B3FA7D708}</Project>
       <Name>EuroMobileApp</Name>
     </ProjectReference>
   </ItemGroup>
