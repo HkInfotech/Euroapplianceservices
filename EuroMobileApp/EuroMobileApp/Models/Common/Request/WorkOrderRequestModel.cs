@@ -23,6 +23,7 @@ namespace EuroMobileApp.Models.Common.Request
         public int TechanicianId { get; set; }
         public string TicketNumber { get; set; }
         public string COD_WARN { get; set; }
+        public decimal Mileage { get; set; }
         public string WorkOrderServiceNote { get; set; }
 
         public List<WorkOrderServiceModel> WorkOrderServices { get; set; }

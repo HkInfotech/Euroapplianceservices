@@ -128,6 +128,7 @@ namespace EuroMobileApp.ViewModels
                         request.WorkOrderServiceNote = OrderNote.Value;
                         request.WorkOrderServices = WorkOrderServices.ToList();
                         request.Documents = DocumentItems.ToList();
+                        request.Mileage = string.IsNullOrEmpty(Mileage.Value) ? 0 : Convert.ToDecimal(Mileage.Value);
 
 
 
