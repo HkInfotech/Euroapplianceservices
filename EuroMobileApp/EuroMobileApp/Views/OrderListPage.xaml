@@ -13,32 +13,18 @@
     NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="True">
     <NavigationPage.TitleView>
-        <Grid Padding="0,0,5,5" ColumnDefinitions="15*,80*,15*">
+        <Grid Padding="0,0,5,5" ColumnDefinitions="80*,15*">
 
-            <Image
-                Grid.Column="0"
-                Aspect="AspectFill"
-                HorizontalOptions="Start"
-                VerticalOptions="Center">
-                <Image.Source>
-                    <FontImageSource
-                        FontFamily="{StaticResource FontAwesomeIconLight}"
-                        Glyph="{x:Static Icons:IconFonts.AlignRight}"
-                        Color="{DynamicResource WhiteColor}" />
-                </Image.Source>
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{prism:GoBack}" />
-                </Image.GestureRecognizers>
-            </Image>
+
             <Label
-                Grid.Column="1"
+                Grid.Column="0"
                 FontFamily="{StaticResource RobotoCondensedBold}"
                 FontSize="Medium"
                 Text="{trans:Translate EuroApplianceServiceLtd}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <Image
-                Grid.Column="2"
+                Grid.Column="1"
                 Aspect="AspectFill"
                 HorizontalOptions="End"
                 VerticalOptions="Center">
@@ -185,9 +171,7 @@
                                                                     Text="{Binding Order.WorkOrderId}"
                                                                     TextColor="{DynamicResource blueDark}"
                                                                     TextDecorations="Underline" />
-                                                                <StackLayout.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference thisPage}}" CommandParameter="{Binding .}" />
-                                                                </StackLayout.GestureRecognizers>
+
                                                             </StackLayout>
 
                                                             <StackLayout
@@ -245,7 +229,9 @@
 
                                                 </Grid>
                                             </Frame>
-
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference thisPage}}" CommandParameter="{Binding .}" />
+                                            </StackLayout.GestureRecognizers>
                                         </StackLayout>
 
                                     </DataTemplate>

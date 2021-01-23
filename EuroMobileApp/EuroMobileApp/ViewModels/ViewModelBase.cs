@@ -86,7 +86,8 @@ namespace EuroMobileApp.ViewModels
         {
             NavigationService = navigationService;
             UserDialogsService = UserDialogs.Instance;
-
+            IsConnected = Connectivity.IsConnected;
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
         public ViewModelBase(IAggregatedServices aggregatedServices)
