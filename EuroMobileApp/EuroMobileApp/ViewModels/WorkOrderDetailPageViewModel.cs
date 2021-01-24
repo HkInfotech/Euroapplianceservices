@@ -797,15 +797,37 @@ namespace EuroMobileApp.ViewModels
         #region Methods
         public void ValidateFields()
         {
-            ValidateOrderApplianceCommand.Execute();
-            ValidateOrderManufacturerCommand.Execute();
+            //ValidateOrderApplianceCommand.Execute();
+            //ValidateOrderManufacturerCommand.Execute();
+            if (string.IsNullOrEmpty(_orderAppliance.Value))
+            {
+                _orderAppliance.Value = "";
+            }
+            if (string.IsNullOrEmpty(OrderManufacturer.Value))
+            {
+                _orderManufacturer.Value = "";
+            }
+
             ValidateOrderSerialNumberCommand.Execute();
             ValidateModelNumberCommand.Execute();
             ValidateServiceDateCommand.Execute();
             ValidateServiceTimeCommand.Execute();
-            ValidateJobNatureCommand.Execute();
-            ValidateJobStatusCommand.Execute();
-            ValidateTechnicianCommand.Execute();
+            //ValidateJobNatureCommand.Execute();
+            if (string.IsNullOrEmpty(JobNature.Value))
+            {
+                _jobNature.Value = "";
+            }
+
+            //ValidateJobStatusCommand.Execute();
+            if (string.IsNullOrEmpty(_jobStatus.Value))
+            {
+                _jobStatus.Value = "";
+            }
+            //ValidateTechnicianCommand.Execute();
+            if (string.IsNullOrEmpty(_technician.Value))
+            {
+                _technician.Value = "";
+            }
             ValidateTicketNumberCommand.Execute();
             ValidateCodorWarNumberCommand.Execute();
             ValidateMileageCommand.Execute();
@@ -816,11 +838,11 @@ namespace EuroMobileApp.ViewModels
         {
 
             //Appliance Tab Validation
-            _orderAppliance.Validations.Add(new IsNotNullOrEmptyRule<string>
+            _orderAppliance.Validations.Add(new ActionSheetValidationRule<string>
             {
                 ValidationMessage = StringResources.ApplianceRequired
             });
-            _orderManufacturer.Validations.Add(new IsNotNullOrEmptyRule<string>
+            _orderManufacturer.Validations.Add(new ActionSheetValidationRule<string>
             {
                 ValidationMessage = StringResources.ManufacturerRequired
             });
@@ -833,15 +855,15 @@ namespace EuroMobileApp.ViewModels
                 ValidationMessage = StringResources.ModelNumberRequired
             });
 
-            _jobNature.Validations.Add(new IsNotNullOrEmptyRule<string>
+            _jobNature.Validations.Add(new ActionSheetValidationRule<string>
             {
                 ValidationMessage = StringResources.JobNatureRequired
             });
-            _jobStatus.Validations.Add(new IsNotNullOrEmptyRule<string>
+            _jobStatus.Validations.Add(new ActionSheetValidationRule<string>
             {
                 ValidationMessage = StringResources.JobStatusRequired
             });
-            _technician.Validations.Add(new IsNotNullOrEmptyRule<string>
+            _technician.Validations.Add(new ActionSheetValidationRule<string>
             {
                 ValidationMessage = StringResources.TechnicianRequired
             });

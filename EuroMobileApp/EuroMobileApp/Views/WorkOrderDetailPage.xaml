@@ -1163,20 +1163,10 @@
                                                         <control:BorderlessEntry
                                                             HorizontalTextAlignment="End"
                                                             Keyboard="Numeric"
-                                                            Text="{Binding ServiceItemPrice}"
+                                                            Text="{Binding ServiceItemPrice, StringFormat='{0:C}'}"
                                                             VerticalOptions="CenterAndExpand" />
                                                     </StackLayout>
-                                                    <StackLayout Grid.Column="3" Orientation="Horizontal">
-                                                        <Label
-                                                            FontSize="16"
-                                                            Text="$"
-                                                            VerticalOptions="Center" />
-                                                        <BoxView
-                                                            Grid.Column="1"
-                                                            Margin="5"
-                                                            WidthRequest="1"
-                                                            Color="{DynamicResource grayMedium}" />
-                                                    </StackLayout>
+
                                                     <!--<StackLayout
                                                         Grid.Row="0"
                                                         Grid.Column="4"
