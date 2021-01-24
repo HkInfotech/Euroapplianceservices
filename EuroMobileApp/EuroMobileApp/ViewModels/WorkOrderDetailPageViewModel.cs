@@ -103,6 +103,7 @@ namespace EuroMobileApp.ViewModels
             {
                 if (IsConnected == true)
                 {
+                    ValidateFields();
                     if (OrderAppliance.IsValid && OrderManufacturer.IsValid && OrderSerialNumber.IsValid && ModelNumber.IsValid && ServiceDate.IsValid && ServiceTIme.IsValid && JobNature.IsValid && JobStatus.IsValid && Technician.IsValid && TicketNumber.IsValid && CodorWarNumber.IsValid && Mileage.IsValid && OrderNote.IsValid && TechRemarksNote.IsValid)
                     {
                         IsBusy = true;
