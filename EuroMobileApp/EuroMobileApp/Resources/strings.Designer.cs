@@ -592,7 +592,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to Notes.
         /// </summary>
         internal static string NoteLabel {
             get {
@@ -601,7 +601,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to Notes.
         /// </summary>
         internal static string NotePlaceHolder {
             get {
@@ -610,7 +610,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note required.
+        ///   Looks up a localized string similar to Notes required.
         /// </summary>
         internal static string NoteRequired {
             get {
@@ -646,7 +646,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Part name.
+        ///   Looks up a localized string similar to Part Name.
         /// </summary>
         internal static string PartNameLabel {
             get {
@@ -673,7 +673,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to Notes.
         /// </summary>
         internal static string PartNoteLabel {
             get {
@@ -682,7 +682,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter note.
+        ///   Looks up a localized string similar to Enter notes.
         /// </summary>
         internal static string PartNotePlaceHolder {
             get {
@@ -691,7 +691,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note required.
+        ///   Looks up a localized string similar to Notes required.
         /// </summary>
         internal static string PartNoteRequired {
             get {
@@ -772,7 +772,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quentity required.
+        ///   Looks up a localized string similar to Quantity required.
         /// </summary>
         internal static string QuantityRequired {
             get {
@@ -781,7 +781,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rate.
+        ///   Looks up a localized string similar to Rate ($).
         /// </summary>
         internal static string RateLabel {
             get {
@@ -997,7 +997,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Amount.
+        ///   Looks up a localized string similar to Total Amount ($).
         /// </summary>
         internal static string TotalAmountLabel {
             get {

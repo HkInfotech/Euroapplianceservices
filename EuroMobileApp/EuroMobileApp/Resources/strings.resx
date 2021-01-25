@@ -340,13 +340,13 @@
     <value>Mileage required</value>
   </data>
   <data name="NoteLabel" xml:space="preserve">
-    <value>Note</value>
+    <value>Notes</value>
   </data>
   <data name="NotePlaceHolder" xml:space="preserve">
-    <value>Note</value>
+    <value>Notes</value>
   </data>
   <data name="NoteRequired" xml:space="preserve">
-    <value>Note required</value>
+    <value>Notes required</value>
   </data>
   <data name="ServiceDateLabel" xml:space="preserve">
     <value>Service date</value>
@@ -385,16 +385,16 @@
     <value>Ticket number required</value>
   </data>
   <data name="PartNameLabel" xml:space="preserve">
-    <value>Part name</value>
+    <value>Part Name</value>
   </data>
   <data name="QuantityLabel" xml:space="preserve">
     <value>Quantity</value>
   </data>
   <data name="RateLabel" xml:space="preserve">
-    <value>Rate</value>
+    <value>Rate ($)</value>
   </data>
   <data name="TotalAmountLabel" xml:space="preserve">
-    <value>Total Amount</value>
+    <value>Total Amount ($)</value>
   </data>
   <data name="AddNewButtonLabel" xml:space="preserve">
     <value>Add New</value>
@@ -406,19 +406,19 @@
     <value>Part name required</value>
   </data>
   <data name="PartNoteLabel" xml:space="preserve">
-    <value>Note</value>
+    <value>Notes</value>
   </data>
   <data name="PartNotePlaceHolder" xml:space="preserve">
-    <value>Enter note</value>
+    <value>Enter notes</value>
   </data>
   <data name="PartNoteRequired" xml:space="preserve">
-    <value>Note required</value>
+    <value>Notes required</value>
   </data>
   <data name="QuantityPalceHolder" xml:space="preserve">
     <value>Enter quantity</value>
   </data>
   <data name="QuantityRequired" xml:space="preserve">
-    <value>Quentity required</value>
+    <value>Quantity required</value>
   </data>
   <data name="RatePlaceHolder" xml:space="preserve">
     <value>Enter rate</value>

@@ -113,42 +113,6 @@
                                 TextColor="{DynamicResource grayDark}">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{trans:Translate RateLabel}" />
-                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <control:BorderlessEntry
-                                Grid.Column="0"
-                                FontFamily="{StaticResource RobotoCondensedRegular}"
-                                FontSize="16"
-                                Keyboard="Numeric"
-                                Placeholder="{trans:Translate RatePlaceHolder}"
-                                PlaceholderColor="{DynamicResource grayMedium}"
-                                Text="{Binding PartRate.Value}"
-                                VerticalOptions="Center">
-                                <control:BorderlessEntry.Behaviors>
-                                    <prism:EventToCommandBehavior Command="{Binding ValidatePartRateCommand}" EventName="TextChanged" />
-                                </control:BorderlessEntry.Behaviors>
-                            </control:BorderlessEntry>
-                            <BoxView
-                                Margin="0"
-                                HeightRequest="1"
-                                Color="{DynamicResource grayMedium}" />
-                            <Label
-                                FontAttributes="Bold"
-                                IsVisible="{Binding PartRate.Valid}"
-                                Style="{StaticResource ValidationErrorLabelStyle}"
-                                Text="{Binding PartRate.Errors, Converter={StaticResource ValidationErrorConverter}}"
-                                TextColor="{DynamicResource IndianRed}" />
-                        </StackLayout>
-                        <StackLayout Grid.Column="1" Spacing="0">
-                            <Label
-                                FontFamily="{DynamicResource RobotoCondensedBold}"
-                                FontSize="14"
-                                TextColor="{DynamicResource grayDark}">
-                                <Label.FormattedText>
-                                    <FormattedString>
                                         <Span Text="{trans:Translate QuantityLabel}" />
                                         <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
                                     </FormattedString>
@@ -178,6 +142,43 @@
                                 Text="{Binding PartQuentity.Errors, Converter={StaticResource ValidationErrorConverter}}"
                                 TextColor="{DynamicResource IndianRed}" />
                         </StackLayout>
+                        <StackLayout Grid.Column="1" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{trans:Translate RateLabel}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Placeholder="{trans:Translate RatePlaceHolder}"
+                                PlaceholderColor="{DynamicResource grayMedium}"
+                                Text="{Binding PartRate.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidatePartRateCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding PartRate.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding PartRate.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+
 
 
                     </Grid>
@@ -252,13 +253,15 @@
                         Padding="0"
                         BackgroundColor="{DynamicResource NavigationPrimary}"
                         Command="{Binding SaveCommand}"
-                        Text="{trans:Translate OK}" />
+                        Text="{trans:Translate OK}"
+                        TextColor="{DynamicResource WhiteColor}" />
                     <Button
                         Grid.Column="1"
                         Padding="0"
                         BackgroundColor="{DynamicResource LoginButtonColor}"
                         Command="{prism:GoBack}"
-                        Text="{trans:Translate Cancel}" />
+                        Text="{trans:Translate Cancel}"
+                        TextColor="{DynamicResource WhiteColor}" />
                 </Grid>
 
             </Grid>

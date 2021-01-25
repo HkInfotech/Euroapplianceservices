@@ -77,7 +77,7 @@
                                         Grid.Column="0"
                                         Aspect="Fill"
                                         HeightRequest="60"
-                                        Source="{Binding FileImage}"
+                                        Source="{Binding FileURL}"
                                         WidthRequest="60" />
                                 </Frame>
 

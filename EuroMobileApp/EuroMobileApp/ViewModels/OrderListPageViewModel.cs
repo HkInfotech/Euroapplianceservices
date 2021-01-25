@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace EuroMobileApp.ViewModels
@@ -117,6 +118,13 @@ namespace EuroMobileApp.ViewModels
                 var List = new List<OrderCellViewModel>();
                 IsRefreshing = true;
                 FilterRequest.UserId = Convert.ToInt64(_appsettings.UserId);
+                if (!string.IsNullOrEmpty(FilterRequest.PhoneNumber))
+                {
+                    string RemovePhoneNumberMask = Regex.Replace(FilterRequest.PhoneNumber, @"[^\d]", "");
+                    FilterRequest.PhoneNumber = RemovePhoneNumberMask;
+                }
+               
+               
                 var OrderList = await euroMobileService.GetOrdersByFilter(FilterRequest);
                 if (OrderList?.Count > 0)
                 {

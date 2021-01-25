@@ -104,7 +104,7 @@ namespace EuroMobileApp.ViewModels
                 if (IsConnected == true)
                 {
                     ValidateFields();
-                    if (OrderAppliance.IsValid && OrderManufacturer.IsValid && OrderSerialNumber.IsValid && ModelNumber.IsValid && ServiceDate.IsValid && ServiceTIme.IsValid && JobNature.IsValid && JobStatus.IsValid && Technician.IsValid && TicketNumber.IsValid && CodorWarNumber.IsValid && Mileage.IsValid && OrderNote.IsValid && TechRemarksNote.IsValid)
+                    if (OrderAppliance.IsValid && OrderManufacturer.IsValid && OrderSerialNumber.IsValid && ModelNumber.IsValid && ServiceDate.IsValid && ServiceTIme.IsValid && JobNature.IsValid && JobStatus.IsValid && Technician.IsValid && TicketNumber.IsValid && CodorWarNumber.IsValid && Mileage.IsValid && TechRemarksNote.IsValid)
                     {
                         IsBusy = true;
                         WorkOrderRequestModel request = new WorkOrderRequestModel();
@@ -426,6 +426,7 @@ namespace EuroMobileApp.ViewModels
                 AddNewDocument.Name = photo.FileName;
                 AddNewDocument.FileType = Models.Common.Enum.AttachmentType.Image;
                 AddNewDocument.FileBlob = attachbytes;
+                AddNewDocument.FileURL = PhotoPath;
                 AddNewDocument.ServerDocumentPath = photo.FileName;
                 AddNewDocument.DocumnetOperation = DocumentOperationType.Add;
                 int i;
@@ -758,7 +759,7 @@ namespace EuroMobileApp.ViewModels
                     await _euroMobileService.DeleteWorkOrderPart(parameter);
                     await GetWorkOrderPartsTabInfo();
                     IsBusy = false;
-                    await UserDialogsService.AlertAsync(StringResources.WorkOrderPartDeleteSuccessAlert, null, StringResources.OK);
+                    //await UserDialogsService.AlertAsync(StringResources.WorkOrderPartDeleteSuccessAlert, null, StringResources.OK);
                 }
             }
 
@@ -879,10 +880,10 @@ namespace EuroMobileApp.ViewModels
             {
                 ValidationMessage = StringResources.MileageRequired
             });
-            _orderNote.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = StringResources.NoteRequired
-            });
+            //_orderNote.Validations.Add(new IsNotNullOrEmptyRule<string>
+            //{
+            //    ValidationMessage = StringResources.NoteRequired
+            //});
 
             //_techRemarksNote.Validations.Add(new IsNotNullOrEmptyRule<string>
             //{
@@ -931,19 +932,22 @@ namespace EuroMobileApp.ViewModels
             ImageFile2 = Applianceinfo.ImageFile2;
             ImageFile3 = Applianceinfo.ImageFile3;
             ImageFile4 = Applianceinfo.ImageFile4;
+
+            
             DocumentItems = new ObservableCollection<DocumentModel>();
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile1) ? "" : $"{_appConfiguration.BaseUrl}/{Applianceinfo.ImageFile1}",
+                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile1) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile1}",
                 IsActive = 'N',
                 Id = 1,
                 Name = string.IsNullOrEmpty(Applianceinfo.ImageFile1) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile1),
                 ServerDocumentPath = Applianceinfo.ImageFile1,
+               
 
             });
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile2) ? "" : $"{_appConfiguration.BaseUrl}/{Applianceinfo.ImageFile2}",
+                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile2) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile2}",
                 IsActive = 'N',
                 Id = 2,
                 Name = string.IsNullOrEmpty(Applianceinfo.ImageFile2) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile2),
@@ -951,7 +955,7 @@ namespace EuroMobileApp.ViewModels
             });
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile3) ? "" : $"{_appConfiguration.BaseUrl}/{Applianceinfo.ImageFile3}",
+                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile3) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile3}",
                 IsActive = 'N',
                 Id = 3,
                 Name = string.IsNullOrEmpty(Applianceinfo.ImageFile3) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile3),
@@ -960,7 +964,7 @@ namespace EuroMobileApp.ViewModels
             });
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile4) ? "" : $"{_appConfiguration.BaseUrl}/{Applianceinfo.ImageFile4}",
+                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile4) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile4}",
                 IsActive = 'N',
                 Id = 4,
                 Name = string.IsNullOrEmpty(Applianceinfo.ImageFile4) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile4),
@@ -1144,7 +1148,7 @@ namespace EuroMobileApp.ViewModels
                         {
                             IsBusy = true;
                             await GetWorkOrderPartsTabInfo();
-                            await DisplayAlertAsync(saveWorkOrderPartResponse.Status, null);
+                           // await DisplayAlertAsync(saveWorkOrderPartResponse.Status, null);
                             IsBusy = false;
                         }
                         break;
