@@ -173,7 +173,7 @@ namespace EuroWebApi.Services.Implements
             {
 
                 List<OrdersViewModel> orders = new List<OrdersViewModel>();
-                var result = db.sp_webapi_GetOrdersByUserID(Convert.ToInt64(request.UserId), request.WorkOrderId, request.FirstName,request.LastName,request.PhoneNumber)?.ToList() ?? new List<sp_webapi_GetOrdersByUserID_Result>();
+                var result = db.sp_webapi_GetOrdersByUserID(Convert.ToInt64(request.UserId), request.WorkOrderId, request.FirstName,request.LastName,request.PhoneNumber,request.CustomerAddress)?.ToList() ?? new List<sp_webapi_GetOrdersByUserID_Result>();
                 if (result.Count > 0)
                 {
 

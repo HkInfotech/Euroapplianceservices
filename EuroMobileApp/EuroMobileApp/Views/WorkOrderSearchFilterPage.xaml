@@ -12,7 +12,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
     prism:ViewModelLocator.AutowireViewModel="True"
-    CloseWhenBackgroundIsClicked="False">
+    CloseWhenBackgroundIsClicked="True">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation
             DurationIn="400"
@@ -39,11 +39,12 @@
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
                 BackgroundColor="White"
-                HeightRequest="{OnPlatform Android=400,
-                                           iOS=320}"
+                HeightRequest="{OnPlatform Android=420,
+                                           iOS=340}"
                 RowDefinitions="auto,*,auto"
                 WidthRequest="{OnPlatform Android=340,
                                           iOS=310}">
+
                 <Grid Grid.Row="0" BackgroundColor="{DynamicResource NavigationPrimary}">
                     <StackLayout Orientation="Horizontal">
 
@@ -66,110 +67,136 @@
 
                     </StackLayout>
                 </Grid>
-                <Grid
+                <ScrollView
                     Grid.Row="1"
                     Margin="10,0,10,0"
-                    ColumnDefinitions="*"
-                    HorizontalOptions="FillAndExpand"
-                    RowDefinitions="Auto,Auto,Auto,Auto">
-                    <StackLayout Grid.Row="0" Spacing="0">
-                        <Label
-                            FontFamily="{DynamicResource RobotoCondensedBold}"
-                            FontSize="14"
-                            TextColor="{DynamicResource grayDark}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{trans:Translate WorkOrderFilterWorkOrderId}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <control:BorderlessEntry
-                            Grid.Column="0"
-                            FontFamily="{StaticResource RobotoCondensedRegular}"
-                            FontSize="16"
-                            Keyboard="Text"
-                            Text="{Binding request.OrderId}"
-                            VerticalOptions="Center" />
-                        <BoxView
-                            Margin="0"
-                            HeightRequest="1"
-                            Color="{DynamicResource grayMedium}" />
-                    </StackLayout>
-                    <StackLayout Grid.Row="1" Spacing="0">
-                        <Label
-                            FontFamily="{DynamicResource RobotoCondensedBold}"
-                            FontSize="14"
-                            TextColor="{DynamicResource grayDark}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{trans:Translate WorkOrderFilterFirstName}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <control:BorderlessEntry
-                            Grid.Column="0"
-                            FontFamily="{StaticResource RobotoCondensedRegular}"
-                            FontSize="16"
-                            Keyboard="Text"
-                            Text="{Binding request.FirstName}"
-                            VerticalOptions="Center" />
-                        <BoxView
-                            Margin="0"
-                            HeightRequest="1"
-                            Color="{DynamicResource grayMedium}" />
-                    </StackLayout>
-                    <StackLayout Grid.Row="2" Spacing="0">
-                        <Label
-                            FontFamily="{DynamicResource RobotoCondensedBold}"
-                            FontSize="14"
-                            TextColor="{DynamicResource grayDark}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{trans:Translate WorkOrderFilterLastName}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <control:BorderlessEntry
-                            Grid.Column="0"
-                            FontFamily="{StaticResource RobotoCondensedRegular}"
-                            FontSize="16"
-                            Keyboard="Text"
-                            Text="{Binding request.LastName}"
-                            VerticalOptions="Center" />
-                        <BoxView
-                            Margin="0"
-                            HeightRequest="1"
-                            Color="{DynamicResource grayMedium}" />
-                    </StackLayout>
-                    <StackLayout Grid.Row="3" Spacing="0">
-                        <Label
-                            FontFamily="{DynamicResource RobotoCondensedBold}"
-                            FontSize="14"
-                            TextColor="{DynamicResource grayDark}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{trans:Translate WorkOrderPhoneNumber}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <control:BorderlessEntry
-                            Grid.Column="0"
-                            FontFamily="{StaticResource RobotoCondensedRegular}"
-                            FontSize="16"
-                            Keyboard="Numeric"
-                            Text="{Binding request.PhoneNumber}"
-                            VerticalOptions="Center">
-                            <control:BorderlessEntry.Behaviors>
-                                <behaviors:MaskedBehavior Mask="(XXX) XXX-XXXX" />
-                            </control:BorderlessEntry.Behaviors>
-                        </control:BorderlessEntry>
-                        <BoxView
-                            Margin="0"
-                            HeightRequest="1"
-                            Color="{DynamicResource grayMedium}" />
-                    </StackLayout>
+                    HorizontalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
+                        <StackLayout Grid.Row="0" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{trans:Translate WorkOrderFilterWorkOrderId}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding request.OrderId}"
+                                VerticalOptions="Center" />
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                        </StackLayout>
+                        <Grid Grid.Row="1" ColumnDefinitions="50*,50*">
+                            <StackLayout Grid.Column="0" Spacing="0">
+                                <Label
+                                    FontFamily="{DynamicResource RobotoCondensedBold}"
+                                    FontSize="14"
+                                    TextColor="{DynamicResource grayDark}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{trans:Translate WorkOrderFilterFirstName}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <control:BorderlessEntry
+                                    Grid.Column="0"
+                                    FontFamily="{StaticResource RobotoCondensedRegular}"
+                                    FontSize="16"
+                                    Keyboard="Text"
+                                    Text="{Binding request.FirstName}"
+                                    VerticalOptions="Center" />
+                                <BoxView
+                                    Margin="0"
+                                    HeightRequest="1"
+                                    Color="{DynamicResource grayMedium}" />
+                            </StackLayout>
+                            <StackLayout Grid.Column="1" Spacing="0">
+                                <Label
+                                    FontFamily="{DynamicResource RobotoCondensedBold}"
+                                    FontSize="14"
+                                    TextColor="{DynamicResource grayDark}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{trans:Translate WorkOrderFilterLastName}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <control:BorderlessEntry
+                                    Grid.Column="0"
+                                    FontFamily="{StaticResource RobotoCondensedRegular}"
+                                    FontSize="16"
+                                    Keyboard="Text"
+                                    Text="{Binding request.LastName}"
+                                    VerticalOptions="Center" />
+                                <BoxView
+                                    Margin="0"
+                                    HeightRequest="1"
+                                    Color="{DynamicResource grayMedium}" />
+                            </StackLayout>
+                        </Grid>
 
-                </Grid>
+                        <StackLayout Grid.Row="2" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{trans:Translate WorkOrderPhoneNumber}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Text="{Binding request.PhoneNumber}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <behaviors:MaskedBehavior Mask="(XXX) XXX-XXXX" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{trans:Translate CustomerAddressLabel}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding request.CustomerAddress}"
+                                VerticalOptions="Center" />
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                        </StackLayout>
+                    </Grid>
+                </ScrollView>
+
 
                 <Button
                     Grid.Row="2"

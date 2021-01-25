@@ -12,5 +12,6 @@ namespace EuroWebApi.Models.Common.Request
         public long WorkOrderId { get; set; }
         public long UserId { get; set; }
         public string PhoneNumber { get; set; }
+        public string CustomerAddress { get; set; }
     }
 }

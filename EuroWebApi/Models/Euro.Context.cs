@@ -525,7 +525,7 @@ namespace EuroWebApi.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_GetOrdersByTechnicianID_Result>("sp_webapi_GetOrdersByTechnicianID", userIdParameter);
         }
     
-        public virtual ObjectResult<sp_webapi_GetOrdersByUserID_Result> sp_webapi_GetOrdersByUserID(Nullable<long> userId, Nullable<long> workOrderId, string customerFirstName, string customerLastName, string phoneNo)
+        public virtual ObjectResult<sp_webapi_GetOrdersByUserID_Result> sp_webapi_GetOrdersByUserID(Nullable<long> userId, Nullable<long> workOrderId, string customerFirstName, string customerLastName, string phoneNo, string customerAddress)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("UserId", userId) :
@@ -547,7 +547,11 @@ namespace EuroWebApi.Models
                 new ObjectParameter("PhoneNo", phoneNo) :
                 new ObjectParameter("PhoneNo", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_GetOrdersByUserID_Result>("sp_webapi_GetOrdersByUserID", userIdParameter, workOrderIdParameter, customerFirstNameParameter, customerLastNameParameter, phoneNoParameter);
+            var customerAddressParameter = customerAddress != null ?
+                new ObjectParameter("CustomerAddress", customerAddress) :
+                new ObjectParameter("CustomerAddress", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_GetOrdersByUserID_Result>("sp_webapi_GetOrdersByUserID", userIdParameter, workOrderIdParameter, customerFirstNameParameter, customerLastNameParameter, phoneNoParameter, customerAddressParameter);
         }
     
         public virtual ObjectResult<sp_webapi_getTechniciansList_Result> sp_webapi_getTechniciansList()

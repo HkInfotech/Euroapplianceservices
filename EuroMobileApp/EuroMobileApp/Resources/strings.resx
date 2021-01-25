@@ -474,4 +474,10 @@
   <data name="WorkOrderPhoneNumber" xml:space="preserve">
     <value>Phone Number</value>
   </data>
+  <data name="CustomerAddressLabel" xml:space="preserve">
+    <value>Customer address</value>
+  </data>
+  <data name="CustomerAddressPlaceHolder" xml:space="preserve">
+    <value>Address</value>
+  </data>
 </root>

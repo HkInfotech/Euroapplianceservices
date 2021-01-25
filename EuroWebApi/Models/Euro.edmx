@@ -554,6 +554,7 @@ warning 6002: The table/view 'EURO.dbo.vw_ServiceLocations' does not have a prim
           <Parameter Name="CustomerFirstName" Type="varchar" Mode="In" />
           <Parameter Name="CustomerLastName" Type="varchar" Mode="In" />
           <Parameter Name="PhoneNo" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerAddress" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_webapi_getTechniciansList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_webapi_getTechRemarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1314,11 +1315,12 @@ warning 6002: The table/view 'EURO.dbo.vw_ServiceLocations' does not have a prim
           <Parameter Name="UserId" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_GetOrdersByUserID" ReturnType="Collection(EUROModel.sp_webapi_GetOrdersByUserID_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int64" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
             <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
             <Parameter Name="CustomerFirstName" Mode="In" Type="String" />
             <Parameter Name="CustomerLastName" Mode="In" Type="String" />
             <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="CustomerAddress" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_getTechniciansList" ReturnType="Collection(EUROModel.sp_webapi_getTechniciansList_Result)" />
           <FunctionImport Name="sp_webapi_update_appliance" ReturnType="Collection(EUROModel.sp_webapi_update_appliance_Result)">

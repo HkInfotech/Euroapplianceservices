@@ -12,5 +12,7 @@ namespace EuroMobileApp.Models.Common.Request
         public long  UserId { get; set; }
         public string  PhoneNumber { get; set; }
         public string  OrderId { get; set; }
+        public string CustomerAddress { get; set; }
+
     }
 }

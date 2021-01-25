@@ -268,6 +268,24 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer address.
+        /// </summary>
+        internal static string CustomerAddressLabel {
+            get {
+                return ResourceManager.GetString("CustomerAddressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string CustomerAddressPlaceHolder {
+            get {
+                return ResourceManager.GetString("CustomerAddressPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Name.
         /// </summary>
         internal static string CustomerName {
