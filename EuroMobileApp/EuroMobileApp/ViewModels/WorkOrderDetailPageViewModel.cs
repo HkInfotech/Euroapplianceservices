@@ -897,17 +897,11 @@ namespace EuroMobileApp.ViewModels
         async public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            if (parameters.TryGetValue("OrderModel", out OrderModel orderModel))
-            {
-                SelectedOrderModel = orderModel;
-                IsBusy = true;
-                await GetWorkOrderApplianceTabInfo();
-                await GetWorkOrderDetailTabInfo();
-                await GetWorkOrderServicesTabInfo();
-                await GetWorkOrderPartsTabInfo();
-                await GetWorkOrderTechRemarkTabInfo();
-                IsBusy = false;
-            }
+            
+        }
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
         }
 
         private async Task GetWorkOrderApplianceTabInfo()
@@ -1153,6 +1147,17 @@ namespace EuroMobileApp.ViewModels
                         }
                         break;
                     }
+            }
+            if (parameters.TryGetValue("OrderModel", out OrderModel orderModel))
+            {
+                SelectedOrderModel = orderModel;
+                IsBusy = true;
+                await GetWorkOrderApplianceTabInfo();
+                await GetWorkOrderDetailTabInfo();
+                await GetWorkOrderServicesTabInfo();
+                await GetWorkOrderPartsTabInfo();
+                await GetWorkOrderTechRemarkTabInfo();
+                IsBusy = false;
             }
         }
 
