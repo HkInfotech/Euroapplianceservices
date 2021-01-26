@@ -868,18 +868,19 @@ namespace EuroMobileApp.ViewModels
             {
                 ValidationMessage = StringResources.TechnicianRequired
             });
-            _ticketNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = StringResources.TicketNumberRequired
-            });
-            _codorWarNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = StringResources.CODWARRequired
-            });
-            _mileage.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = StringResources.MileageRequired
-            });
+            
+            //_ticketNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
+            //{
+            //    ValidationMessage = StringResources.TicketNumberRequired
+            //});
+            //_codorWarNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
+            //{
+            //    ValidationMessage = StringResources.CODWARRequired
+            //});
+            //_mileage.Validations.Add(new IsNotNullOrEmptyRule<string>
+            //{
+            //    ValidationMessage = StringResources.MileageRequired
+            //});
             //_orderNote.Validations.Add(new IsNotNullOrEmptyRule<string>
             //{
             //    ValidationMessage = StringResources.NoteRequired

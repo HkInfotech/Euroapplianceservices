@@ -968,7 +968,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{trans:Translate TicketNumberLabel}" />
-                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -1006,7 +1006,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{trans:Translate CODWARLable}" />
-                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -1046,7 +1046,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{trans:Translate MileageLabel}" />
-                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -1055,7 +1055,7 @@
                                         Grid.Column="0"
                                         FontFamily="{StaticResource RobotoCondensedRegular}"
                                         FontSize="16"
-                                        Keyboard="Text"
+                                        Keyboard="Numeric"
                                         Placeholder="{trans:Translate MileagePlaceHolder}"
                                         PlaceholderColor="{DynamicResource grayMedium}"
                                         Text="{Binding Mileage.Value}"
@@ -1089,7 +1089,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{trans:Translate NoteLabel}" />
-                                                <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
