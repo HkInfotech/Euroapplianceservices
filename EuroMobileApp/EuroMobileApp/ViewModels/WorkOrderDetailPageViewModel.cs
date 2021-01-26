@@ -415,7 +415,7 @@ namespace EuroMobileApp.ViewModels
                 //Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
                 if (!Plugin.Media.CrossMedia.Current.IsCameraAvailable || !Plugin.Media.CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    await PageDialogService.DisplayAlertAsync(null, StringResources.PermissionIsNotGrantedToUseMedia, StringResources.OK);
+                    await PageDialogService.DisplayAlertAsync(null, StringResources.Permissiontoaccessthecamera, StringResources.OK);
                     return;
                 }
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
