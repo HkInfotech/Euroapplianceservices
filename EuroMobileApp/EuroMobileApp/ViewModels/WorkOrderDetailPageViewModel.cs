@@ -409,10 +409,47 @@ namespace EuroMobileApp.ViewModels
         {
             try
             {
-                var photo = await MediaPicker.CapturePhotoAsync();
-                await LoadPhotoAsync(photo);
-                UpdateDocuments(photo);
-                Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
+                //var photo = await MediaPicker.CapturePhotoAsync();
+                //await LoadPhotoAsync(photo);
+                //UpdateDocuments(photo);
+                //Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
+                if (!Plugin.Media.CrossMedia.Current.IsCameraAvailable || !Plugin.Media.CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await PageDialogService.DisplayAlertAsync(null, "Sorry, permission is not granted to use the camera.", "OK");
+                    return;
+                }
+                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    Directory = "Test",
+                    SaveToAlbum = true,
+                    CompressionQuality = 75,
+                    CustomPhotoSize = 50,
+                    PhotoSize = PhotoSize.MaxWidthHeight,
+                    MaxWidthHeight = 2000,
+                    DefaultCamera = CameraDevice.Front
+                });
+                if (file == null)
+                    return;
+
+                if (!string.IsNullOrEmpty(file.Path))
+                {
+                    var attachbytes = !string.IsNullOrWhiteSpace(file.Path) && File.Exists(file.Path) ? File.ReadAllBytes(file.Path) : null;
+                    var AddNewDocument = DocumentItems.Where(a => a.Name.Equals("")).FirstOrDefault();
+                    var filename = Path.GetFileName(file.Path);
+                    AddNewDocument.Description = "";
+                    AddNewDocument.LocalPath = file.Path;
+                    AddNewDocument.IsActive = 'Y';
+                    AddNewDocument.Name = filename;
+                    AddNewDocument.FileType = Models.Common.Enum.AttachmentType.Image;
+                    AddNewDocument.FileBlob = attachbytes;
+                    AddNewDocument.FileURL = file.Path;
+                    AddNewDocument.ServerDocumentPath = filename;
+                    AddNewDocument.DocumnetOperation = DocumentOperationType.Add;
+                    int i;
+                    i = DocumentItems.IndexOf(AddNewDocument);
+                    DocumentItems.RemoveAt(i);
+                    DocumentItems.Insert(i, AddNewDocument);
+                }
 
             }
             catch (Exception ex)
@@ -431,20 +468,28 @@ namespace EuroMobileApp.ViewModels
                 //UpdateDocuments(photo);
 
 
-                if (!Plugin.Media.CrossMedia.Current.IsCameraAvailable || !Plugin.Media.CrossMedia.Current.IsTakePhotoSupported)
+                //if (!Plugin.Media.CrossMedia.Current.IsPickPhotoSupported || !Plugin.Media.CrossMedia.Current.IsTakePhotoSupported)
+                //{
+                //    await PageDialogService.DisplayAlertAsync(null, "Sorry, permission is not granted to use the camera.", "OK");
+                //    return;
+                //}
+                //var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                //{
+                //    Directory = "Test",
+                //    SaveToAlbum = true,
+                //    CompressionQuality = 75,
+                //    CustomPhotoSize = 50,
+                //    PhotoSize = PhotoSize.MaxWidthHeight,
+                //    MaxWidthHeight = 2000,
+                //    DefaultCamera = CameraDevice.Front
+                //});
+                var file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
                 {
-                    await PageDialogService.DisplayAlertAsync(null, "Sorry, permission is not granted to use the camera.", "OK");
-                    return;
-                }
-                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-                {
-                    Directory = "Test",
-                    SaveToAlbum = true,
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
                     CompressionQuality = 75,
                     CustomPhotoSize = 50,
-                    PhotoSize = PhotoSize.MaxWidthHeight,
                     MaxWidthHeight = 2000,
-                    DefaultCamera = CameraDevice.Front
+                    ModalPresentationStyle = MediaPickerModalPresentationStyle.FullScreen
                 });
                 if (file == null)
                     return;
