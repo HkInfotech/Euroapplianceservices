@@ -379,7 +379,7 @@
     <value>Ticket Number</value>
   </data>
   <data name="TicketNumberPlaceHolder" xml:space="preserve">
-    <value>1234567</value>
+    <value>ECE90001</value>
   </data>
   <data name="TicketNumberRequired" xml:space="preserve">
     <value>Ticket number required</value>

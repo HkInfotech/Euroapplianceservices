@@ -1015,7 +1015,7 @@
                                         Grid.Column="0"
                                         FontFamily="{StaticResource RobotoCondensedRegular}"
                                         FontSize="16"
-                                        Keyboard="Text"
+                                        Keyboard="Default"
                                         Placeholder="{trans:Translate CODWARPlaceHolder}"
                                         PlaceholderColor="{DynamicResource grayMedium}"
                                         Text="{Binding CodorWarNumber.Value}"

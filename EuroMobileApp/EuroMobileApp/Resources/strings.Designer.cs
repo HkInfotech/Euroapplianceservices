@@ -997,7 +997,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1234567.
+        ///   Looks up a localized string similar to ECE90001.
         /// </summary>
         internal static string TicketNumberPlaceHolder {
             get {
