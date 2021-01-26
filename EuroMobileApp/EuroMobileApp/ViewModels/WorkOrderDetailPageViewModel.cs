@@ -108,28 +108,35 @@ namespace EuroMobileApp.ViewModels
                     {
                         IsBusy = true;
                         WorkOrderRequestModel request = new WorkOrderRequestModel();
-                        request.ApplianceTypeId = string.IsNullOrEmpty(SelectedApplianceType.ApplianceName) ? 0 : Convert.ToInt64(SelectedApplianceType.ApplianceTypeId);
-                        request.COD_WARN = CodorWarNumber.Value;
-                        request.CustomerApplianceId = Applianceinfo.CustomerApplianceId;
-                        request.CustomerId = Applianceinfo.CustomerId;
+                       
+                       
+                        
+                        //Work Order detail info
                         request.ServiceTime = ServiceTIme.Value.ToString();
-                        request.UserId = Convert.ToInt32(_appSettings.UserId);
-                        request.CustomerName = Applianceinfo.CustomerName;
+                        request.ServiceDate = ServiceDate.Value.ToString();
                         request.JobNatureId = string.IsNullOrEmpty(SelectedJobNature.JobNature) ? 0 : Convert.ToInt32(SelectedJobNature.JobNatureId);
                         request.JobStatusId = string.IsNullOrEmpty(SelectedJobStatus.JobStatus) ? 0 : Convert.ToInt32(SelectedJobStatus.JobStatusId);
                         request.TechanicianId = string.IsNullOrEmpty(SelectedTechnician.TechnicanName) ? 0 : Convert.ToInt32(SelectedTechnician.UserId);
-                        request.ManufacturerId = string.IsNullOrEmpty(SelectedManufacturer.ManufacturerName) ? 0 : Convert.ToInt32(SelectedManufacturer.ManufacturerId);
-                        request.ModelNumber = ModelNumber.Value;
-                        request.SerialNumber = OrderSerialNumber.Value;
-                        request.WorkOrderTechRemark = TechRemarksNote.Value;
-                        request.ServiceDate = ServiceDate.Value.ToString();
                         request.TicketNumber = string.IsNullOrEmpty(TicketNumber.Value) ? "" : TicketNumber.Value;
-                        request.WorkOrderId = SelectedOrderModel.WorkOrderId;
-                        request.WorkOrderParts = WorkOrderParts.ToList();
-                        request.WorkOrderServiceNote = OrderNote.Value;
-                        request.WorkOrderServices = WorkOrderServices.ToList();
-                        request.Documents = DocumentItems.ToList();
+                        request.COD_WARN = CodorWarNumber.Value;
                         request.Mileage = string.IsNullOrEmpty(Mileage.Value) ? 0 : Convert.ToDecimal(Mileage.Value);
+                        request.WorkOrderServiceNote = OrderNote.Value;
+
+                        request.ApplianceTypeId = string.IsNullOrEmpty(SelectedApplianceType.ApplianceName) ? 0 : Convert.ToInt64(SelectedApplianceType.ApplianceTypeId);
+                        request.ManufacturerId = string.IsNullOrEmpty(SelectedManufacturer.ManufacturerName) ? 0 : Convert.ToInt32(SelectedManufacturer.ManufacturerId);
+                        request.SerialNumber = OrderSerialNumber.Value;
+                        request.ModelNumber = ModelNumber.Value;
+                        request.Documents = DocumentItems.ToList();
+
+
+                        request.CustomerApplianceId = Applianceinfo.CustomerApplianceId;
+                        request.CustomerId = Applianceinfo.CustomerId;
+                        request.UserId = Convert.ToInt32(_appSettings.UserId);
+                        request.CustomerName = Applianceinfo.CustomerName;
+                        request.WorkOrderParts = WorkOrderParts.ToList();
+                        request.WorkOrderTechRemark = TechRemarksNote.Value;
+                        request.WorkOrderId = SelectedOrderModel.WorkOrderId;                       
+                        request.WorkOrderServices = WorkOrderServices.ToList();
 
 
 
@@ -996,18 +1003,11 @@ namespace EuroMobileApp.ViewModels
                         SelectedTechnician = TechnicianListItems.Where(a => a.UserId == details.UserId)?.FirstOrDefault();
                         Technician.Value = details.UserFullName;
                     }
-                    if (!string.IsNullOrEmpty(details.TicketNumber))
-                    {
-                        TicketNumber.Value = details.TicketNumber;
-                    }
+                    TicketNumber.Value = details.TicketNumber;
+                    CodorWarNumber.Value = details.COD_WARN;
 
                     Mileage.Value = Convert.ToString(details.Mileage);
                     OrderNote.Value = details.Notes;
-                    if (!string.IsNullOrEmpty(details.COD_WARN))
-                    {
-                        CodorWarNumber.Value = details.COD_WARN;
-                    }
-
                     ServiceDate.Value = Convert.ToDateTime(details.ServiceDate);
                     if (!string.IsNullOrWhiteSpace(details.ServiceTime))
                     {

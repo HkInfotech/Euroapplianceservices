@@ -432,6 +432,7 @@ namespace EuroWebApi.Services.Implements
                     var servicesXML = Serialize(request.WorkOrderServices);
                     var SaveWorkOrderService = db.sp_webapi_UpdateWorkOrderServiceItems(request.WorkOrderId, servicesXML);
                     var UpdateWorkOrderAppliances = db.sp_webapi_update_appliance(request.WorkOrderId, Convert.ToInt32(request.CustomerApplianceId), Convert.ToInt32(request.ApplianceTypeId), Convert.ToInt32(request.ManufacturerId), request.SerialNumber, request.ModelNumber, images[0], images[1], images[2], images[3]);
+                    response.ResponseContent = true;
                 };
 
 

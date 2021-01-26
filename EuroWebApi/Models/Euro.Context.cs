@@ -771,5 +771,14 @@ namespace EuroWebApi.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_webapi_UpdateTechRemarks", workOrderIdParameter, techRemarksParameter);
         }
+    
+        public virtual ObjectResult<string> usp_webapi_getTechRemarks(Nullable<long> workOrderId)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_webapi_getTechRemarks", workOrderIdParameter);
+        }
     }
 }

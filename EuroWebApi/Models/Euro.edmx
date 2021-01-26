@@ -304,7 +304,7 @@
           <Property Name="LastUpdatedDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO.dbo.vw_CustomerAppliances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EURO_QA.dbo.vw_CustomerAppliances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_CustomerAppliances">
           <Key>
             <PropertyRef Name="CustomerApplianceId" />
@@ -322,7 +322,7 @@ warning 6002: The table/view 'EURO.dbo.vw_CustomerAppliances' does not have a pr
           <Property Name="CustomerId" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO.dbo.vw_Customers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EURO_QA.dbo.vw_Customers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_Customers">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -347,7 +347,7 @@ warning 6002: The table/view 'EURO.dbo.vw_Customers' does not have a primary key
           <Property Name="Province" Type="varchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO.dbo.vw_ServiceLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_ServiceLocations">
           <Key>
             <PropertyRef Name="ServiceLocationId" />
@@ -631,6 +631,9 @@ warning 6002: The table/view 'EURO.dbo.vw_ServiceLocations' does not have a prim
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
         </Function>
         <Function Name="ufn_getWorkOrder_ServicesAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="usp_webapi_getTechRemarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="EUROModelStoreContainer">
@@ -1383,6 +1386,9 @@ warning 6002: The table/view 'EURO.dbo.vw_ServiceLocations' does not have a prim
           <FunctionImport Name="sp_webapi_UpdateTechRemarks">
             <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
             <Parameter Name="TechRemarks" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_webapi_getTechRemarks" ReturnType="Collection(String)">
+            <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Company_Pricelist_Result">
@@ -2778,6 +2784,7 @@ warning 6002: The table/view 'EURO.dbo.vw_ServiceLocations' does not have a prim
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_webapi_UpdateTechRemarks" FunctionName="EUROModel.Store.sp_webapi_UpdateTechRemarks" />
+          <FunctionImportMapping FunctionImportName="usp_webapi_getTechRemarks" FunctionName="EUROModel.Store.usp_webapi_getTechRemarks" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
