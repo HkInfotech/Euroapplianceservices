@@ -187,6 +187,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C.O.D.
+        /// </summary>
+        internal static string CODValue {
+            get {
+                return ResourceManager.GetString("CODValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to COD/WAR.
         /// </summary>
         internal static string CODWARLable {
@@ -1074,6 +1083,15 @@ namespace EuroMobileApp.Resources {
         internal static string UserPasswordRequired {
             get {
                 return ResourceManager.GetString("UserPasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warranty.
+        /// </summary>
+        internal static string WARValue {
+            get {
+                return ResourceManager.GetString("WARValue", resourceCulture);
             }
         }
         

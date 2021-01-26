@@ -123,11 +123,11 @@ namespace EuroMobileApp.ViewModels
                         request.TechanicianId = string.IsNullOrEmpty(SelectedTechnician.TechnicanName) ? 0 : Convert.ToInt32(SelectedTechnician.UserId);
                         request.TicketNumber = string.IsNullOrEmpty(TicketNumber.Value) ? "" : TicketNumber.Value;
                         //request.COD_WARN = CodorWarNumber.Value;
-                        if (SelectCodWarnty == "C.O.D")
+                        if (SelectCodWarnty == StringResources.CODValue)
                         {
                             request.COD_WARN = "C";
                         }
-                        else if (SelectCodWarnty == "Warranty")
+                        else if (SelectCodWarnty == StringResources.WARValue)
                         {
                             request.COD_WARN = "W";
                         }
@@ -415,7 +415,7 @@ namespace EuroMobileApp.ViewModels
                 //Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
                 if (!Plugin.Media.CrossMedia.Current.IsCameraAvailable || !Plugin.Media.CrossMedia.Current.IsTakePhotoSupported)
                 {
-                    await PageDialogService.DisplayAlertAsync(null, "Sorry, permission is not granted to use the camera.", "OK");
+                    await PageDialogService.DisplayAlertAsync(null, StringResources.PermissionIsNotGrantedToUseMedia, StringResources.OK);
                     return;
                 }
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
@@ -775,15 +775,15 @@ namespace EuroMobileApp.ViewModels
                     _codorWarNumber.Value = string.IsNullOrWhiteSpace(SelectCodWarnty) ? "" : SelectCodWarnty;
                 })
             };
-            buttons.Add(ActionSheetButton.CreateButton("C.O.D", () =>
+            buttons.Add(ActionSheetButton.CreateButton(StringResources.CODValue, () =>
             {
-                SelectCodWarnty = "C.O.D";
-                _codorWarNumber.Value = "C.O.D";
+                SelectCodWarnty = StringResources.CODValue;
+                _codorWarNumber.Value = StringResources.CODValue;
             }));
-            buttons.Add(ActionSheetButton.CreateButton("Warranty", () =>
+            buttons.Add(ActionSheetButton.CreateButton(StringResources.WARValue, () =>
             {
-                SelectCodWarnty = "Warranty";
-                _codorWarNumber.Value = "Warranty";
+                SelectCodWarnty = StringResources.WARValue;
+                _codorWarNumber.Value = StringResources.WARValue;
             }));
             await PageDialogService.DisplayActionSheetAsync(null, buttons.ToArray());
             return _codorWarNumber.Validate();

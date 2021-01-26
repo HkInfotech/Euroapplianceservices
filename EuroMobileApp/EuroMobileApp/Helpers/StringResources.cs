@@ -74,6 +74,8 @@ namespace EuroMobileApp.Helpers
 		public static string LogOutConfirmAlert { get; set; }
 		public static string DeleteWorkOrderPartConfirmAlert { get; set; }
 		public static string WorkOrderPartDeleteSuccessAlert { get; set; }
+		public static string CODValue { get; set; }
+		public static string WARValue { get; set; }
 
 
 

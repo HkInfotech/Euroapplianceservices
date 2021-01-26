@@ -480,4 +480,10 @@
   <data name="CustomerAddressPlaceHolder" xml:space="preserve">
     <value>Address</value>
   </data>
+  <data name="CODValue" xml:space="preserve">
+    <value>C.O.D</value>
+  </data>
+  <data name="WARValue" xml:space="preserve">
+    <value>Warranty</value>
+  </data>
 </root>
