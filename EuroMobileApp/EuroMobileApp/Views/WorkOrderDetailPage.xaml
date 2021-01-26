@@ -1011,7 +1011,7 @@
                                         </Label.FormattedText>
                                     </Label>
 
-                                    <control:BorderlessEntry
+                                    <!--<control:BorderlessEntry
                                         Grid.Column="0"
                                         FontFamily="{StaticResource RobotoCondensedRegular}"
                                         FontSize="16"
@@ -1023,7 +1023,24 @@
                                         <control:BorderlessEntry.Behaviors>
                                             <prism:EventToCommandBehavior Command="{Binding ValidateCodorWarNumberCommand}" EventName="TextChanged" />
                                         </control:BorderlessEntry.Behaviors>
-                                    </control:BorderlessEntry>
+                                    </control:BorderlessEntry>-->
+
+                                    <Yummy:PancakeView>
+                                        <control:BorderlessEntry
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource RobotoCondensedRegular}"
+                                            FontSize="16"
+                                            InputTransparent="True"
+                                            Keyboard="Text"
+                                            Placeholder="{trans:Translate CODWARPlaceHolder}"
+                                            PlaceholderColor="{DynamicResource grayMedium}"
+                                            Text="{Binding CodorWarNumber.Value}"
+                                            VerticalOptions="Center" />
+                                        <Yummy:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ValidateCodorWarNumberCommand}" />
+                                        </Yummy:PancakeView.GestureRecognizers>
+                                    </Yummy:PancakeView>
+
                                     <BoxView
                                         Margin="0"
                                         HeightRequest="1"

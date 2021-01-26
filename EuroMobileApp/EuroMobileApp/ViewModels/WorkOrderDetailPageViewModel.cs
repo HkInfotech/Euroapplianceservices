@@ -31,6 +31,8 @@ namespace EuroMobileApp.ViewModels
 
         public string PositionSelected { get; set; }
 
+        public string SelectCodWarnty { get; set; }
+
         SubscriptionToken HandleSelectedImageToken;
         public ObservableCollection<DocumentModel> DocumentItems { get; set; }
 
@@ -108,9 +110,9 @@ namespace EuroMobileApp.ViewModels
                     {
                         IsBusy = true;
                         WorkOrderRequestModel request = new WorkOrderRequestModel();
-                       
-                       
-                        
+
+
+
                         //Work Order detail info
                         request.ServiceTime = ServiceTIme.Value.ToString();
                         request.ServiceDate = ServiceDate.Value.ToString();
@@ -118,7 +120,20 @@ namespace EuroMobileApp.ViewModels
                         request.JobStatusId = string.IsNullOrEmpty(SelectedJobStatus.JobStatus) ? 0 : Convert.ToInt32(SelectedJobStatus.JobStatusId);
                         request.TechanicianId = string.IsNullOrEmpty(SelectedTechnician.TechnicanName) ? 0 : Convert.ToInt32(SelectedTechnician.UserId);
                         request.TicketNumber = string.IsNullOrEmpty(TicketNumber.Value) ? "" : TicketNumber.Value;
-                        request.COD_WARN = CodorWarNumber.Value;
+                        //request.COD_WARN = CodorWarNumber.Value;
+                        if (SelectCodWarnty == "C.O.D")
+                        {
+                            request.COD_WARN = "C";
+                        }
+                        else if (SelectCodWarnty == "Warranty")
+                        {
+                            request.COD_WARN = "W";
+                        }
+                        else
+                        {
+                            request.COD_WARN = "";
+                        }
+
                         request.Mileage = string.IsNullOrEmpty(Mileage.Value) ? 0 : Convert.ToDecimal(Mileage.Value);
                         request.WorkOrderServiceNote = OrderNote.Value;
 
@@ -135,7 +150,7 @@ namespace EuroMobileApp.ViewModels
                         request.CustomerName = Applianceinfo.CustomerName;
                         request.WorkOrderParts = WorkOrderParts.ToList();
                         request.WorkOrderTechRemark = TechRemarksNote.Value;
-                        request.WorkOrderId = SelectedOrderModel.WorkOrderId;                       
+                        request.WorkOrderId = SelectedOrderModel.WorkOrderId;
                         request.WorkOrderServices = WorkOrderServices.ToList();
 
 
@@ -667,6 +682,25 @@ namespace EuroMobileApp.ViewModels
 
         private async Task<bool> ExecuteValidateCodorWarNumberCommandAsync()
         {
+
+            var buttons = new List<IActionSheetButton>() {
+
+                ActionSheetButton.CreateCancelButton(StringResources.Cancel, () =>
+                {
+                    _codorWarNumber.Value = string.IsNullOrWhiteSpace(SelectCodWarnty) ? "" : SelectCodWarnty;
+                })
+            };
+            buttons.Add(ActionSheetButton.CreateButton("C.O.D", () =>
+            {
+                SelectCodWarnty = "C.O.D";
+                _codorWarNumber.Value = "C.O.D";
+            }));
+            buttons.Add(ActionSheetButton.CreateButton("Warranty", () =>
+            {
+                SelectCodWarnty = "Warranty";
+                _codorWarNumber.Value = "Warranty";
+            }));
+            await PageDialogService.DisplayActionSheetAsync(null, buttons.ToArray());
             return _codorWarNumber.Validate();
         }
 
@@ -837,7 +871,7 @@ namespace EuroMobileApp.ViewModels
                 _technician.Value = "";
             }
             ValidateTicketNumberCommand.Execute();
-            ValidateCodorWarNumberCommand.Execute();
+            //ValidateCodorWarNumberCommand.Execute();
             ValidateMileageCommand.Execute();
             ValidateOrderNoteCommand.Execute();
             //ValidateTechRemarksNoteCommand.Execute();
@@ -875,7 +909,7 @@ namespace EuroMobileApp.ViewModels
             {
                 ValidationMessage = StringResources.TechnicianRequired
             });
-            
+
             //_ticketNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
             //{
             //    ValidationMessage = StringResources.TicketNumberRequired
@@ -905,7 +939,7 @@ namespace EuroMobileApp.ViewModels
         async public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            
+
         }
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -935,7 +969,7 @@ namespace EuroMobileApp.ViewModels
             ImageFile3 = Applianceinfo.ImageFile3;
             ImageFile4 = Applianceinfo.ImageFile4;
 
-            
+
             DocumentItems = new ObservableCollection<DocumentModel>();
             DocumentItems.Add(new DocumentModel()
             {
@@ -944,7 +978,7 @@ namespace EuroMobileApp.ViewModels
                 Id = 1,
                 Name = string.IsNullOrEmpty(Applianceinfo.ImageFile1) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile1),
                 ServerDocumentPath = Applianceinfo.ImageFile1,
-               
+
 
             });
             DocumentItems.Add(new DocumentModel()
@@ -1003,8 +1037,13 @@ namespace EuroMobileApp.ViewModels
                         SelectedTechnician = TechnicianListItems.Where(a => a.UserId == details.UserId)?.FirstOrDefault();
                         Technician.Value = details.UserFullName;
                     }
+                    if (!string.IsNullOrWhiteSpace(details.COD_WARN))
+                    {
+                        CodorWarNumber.Value = details.COD_WARN;
+                        SelectCodWarnty = details.COD_WARN;
+                    }
                     TicketNumber.Value = details.TicketNumber;
-                    CodorWarNumber.Value = details.COD_WARN;
+
 
                     Mileage.Value = Convert.ToString(details.Mileage);
                     OrderNote.Value = details.Notes;
@@ -1143,7 +1182,7 @@ namespace EuroMobileApp.ViewModels
                         {
                             IsBusy = true;
                             await GetWorkOrderPartsTabInfo();
-                           // await DisplayAlertAsync(saveWorkOrderPartResponse.Status, null);
+                            // await DisplayAlertAsync(saveWorkOrderPartResponse.Status, null);
                             IsBusy = false;
                         }
                         break;
