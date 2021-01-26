@@ -7,6 +7,8 @@ using EuroMobileApp.Models.Common.Response;
 using EuroMobileApp.PrismEvents;
 using EuroMobileApp.Services.Interfaces;
 using EuroMobileApp.Validations;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Prism.Commands;
@@ -424,10 +426,48 @@ namespace EuroMobileApp.ViewModels
             try
             {
 
-                var photo = await MediaPicker.PickPhotoAsync();
-                await LoadPhotoAsync(photo);
-                UpdateDocuments(photo);
+                //var photo = await MediaPicker.PickPhotoAsync();
+                //await LoadPhotoAsync(photo);
+                //UpdateDocuments(photo);
 
+
+                if (!Plugin.Media.CrossMedia.Current.IsCameraAvailable || !Plugin.Media.CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await PageDialogService.DisplayAlertAsync(null, "Sorry, permission is not granted to use the camera.", "OK");
+                    return;
+                }
+                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    Directory = "Test",
+                    SaveToAlbum = true,
+                    CompressionQuality = 75,
+                    CustomPhotoSize = 50,
+                    PhotoSize = PhotoSize.MaxWidthHeight,
+                    MaxWidthHeight = 2000,
+                    DefaultCamera = CameraDevice.Front
+                });
+                if (file == null)
+                    return;
+
+                if (!string.IsNullOrEmpty(file.Path))
+                {
+                    var attachbytes = !string.IsNullOrWhiteSpace(file.Path) && File.Exists(file.Path) ? File.ReadAllBytes(file.Path) : null;
+                    var AddNewDocument = DocumentItems.Where(a => a.Name.Equals("")).FirstOrDefault();
+                    var filename = Path.GetFileName(file.Path);
+                    AddNewDocument.Description = "";
+                    AddNewDocument.LocalPath = file.Path;
+                    AddNewDocument.IsActive = 'Y';
+                    AddNewDocument.Name = filename;
+                    AddNewDocument.FileType = Models.Common.Enum.AttachmentType.Image;
+                    AddNewDocument.FileBlob = attachbytes;
+                    AddNewDocument.FileURL = file.Path;
+                    AddNewDocument.ServerDocumentPath = filename;
+                    AddNewDocument.DocumnetOperation = DocumentOperationType.Add;
+                    int i;
+                    i = DocumentItems.IndexOf(AddNewDocument);
+                    DocumentItems.RemoveAt(i);
+                    DocumentItems.Insert(i, AddNewDocument);
+                }
 
             }
             catch (Exception ex)

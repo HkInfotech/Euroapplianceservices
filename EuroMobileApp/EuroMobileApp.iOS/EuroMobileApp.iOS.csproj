@@ -275,6 +275,9 @@
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>2.0.0.9</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>5.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.SecureStorage">
       <Version>1.0.13</Version>
     </PackageReference>
@@ -342,7 +345,7 @@
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionEuroMobileAppiOSHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionEuroMobileAppiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
