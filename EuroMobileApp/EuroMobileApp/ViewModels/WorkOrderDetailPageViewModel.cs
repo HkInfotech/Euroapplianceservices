@@ -420,7 +420,7 @@ namespace EuroMobileApp.ViewModels
                 }
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
-                    Directory = "Test",
+
                     SaveToAlbum = true,
                     CompressionQuality = 75,
                     CustomPhotoSize = 50,
@@ -994,6 +994,10 @@ namespace EuroMobileApp.ViewModels
             {
                 ValidationMessage = StringResources.TechnicianRequired
             });
+            _ticketNumber.Validations.Add(new AlphanumericValidation<string>
+            {
+                ValidationMessage = StringResources.AlphanumericRequired
+            });
 
             //_ticketNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
             //{
@@ -1158,7 +1162,9 @@ namespace EuroMobileApp.ViewModels
         {
             // Services Data
             var services = await _euroMobileService.GetWorkOrderServicesbyId(SelectedOrderModel.WorkOrderId) ?? new List<WorkOrderServiceModel>();
+           
             WorkOrderServices = new ObservableCollection<WorkOrderServiceModel>(services);
+
         }
 
         private async Task GetWorkOrderPartsTabInfo()

@@ -31,6 +31,7 @@ namespace EuroMobileApp.ViewModels
             NavigationService = navigationService;
             IsExpand = false;
             FilterRequest = new WorkOrderFilterRequest();
+            EmptyStateTitle = "";
         }
 
         private DelegateCommand _logOutCommand;
@@ -118,13 +119,13 @@ namespace EuroMobileApp.ViewModels
                 var List = new List<OrderCellViewModel>();
                 IsRefreshing = true;
                 FilterRequest.UserId = Convert.ToInt64(_appsettings.UserId);
-                if (!string.IsNullOrEmpty(FilterRequest.PhoneNumber))
-                {
-                    string RemovePhoneNumberMask = Regex.Replace(FilterRequest.PhoneNumber, @"[^\d]", "");
-                    FilterRequest.PhoneNumber = RemovePhoneNumberMask;
-                }
-               
-               
+                //if (!string.IsNullOrEmpty(FilterRequest.PhoneNumber))
+                //{
+                //    string RemovePhoneNumberMask = Regex.Replace(FilterRequest.PhoneNumber, @"[^\d]", "");
+                //    FilterRequest.PhoneNumber = RemovePhoneNumberMask;
+                //}
+
+
                 var OrderList = await euroMobileService.GetOrdersByFilter(FilterRequest);
                 if (OrderList?.Count > 0)
                 {
@@ -133,6 +134,9 @@ namespace EuroMobileApp.ViewModels
                 ListItems = new ObservableCollection<OrderCellViewModel>(List);
                 IsRefreshing = false;
                 IsEmpty = OrderList?.Count == 0;
+                if (OrderList?.Count == 0)
+                    EmptyStateTitle = _appsettings.UserId == "1" ? StringResources.NoAdminOrder : StringResources.NoUserOrder;
+
             }
             else
             {

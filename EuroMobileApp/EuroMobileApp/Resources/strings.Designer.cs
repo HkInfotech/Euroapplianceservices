@@ -106,6 +106,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ticket number should bee alpha numeric.
+        /// </summary>
+        internal static string AlphanumericRequired {
+            get {
+                return ResourceManager.GetString("AlphanumericRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App Date/Time.
         /// </summary>
         internal static string AppDateTime {
@@ -358,7 +367,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EURO APPLIANCE SERVICE LTD.
+        ///   Looks up a localized string similar to EURO APPLIANCES SERVICE LTD.
         /// </summary>
         internal static string EuroApplianceServiceLtd {
             get {
@@ -597,6 +606,15 @@ namespace EuroMobileApp.Resources {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please search work order.
+        /// </summary>
+        internal static string NoAdminOrder {
+            get {
+                return ResourceManager.GetString("NoAdminOrder", resourceCulture);
             }
         }
         

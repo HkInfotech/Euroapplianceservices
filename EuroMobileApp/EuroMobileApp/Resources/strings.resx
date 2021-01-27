@@ -139,7 +139,7 @@
     <value>Enter The Password</value>
   </data>
   <data name="EuroApplianceServiceLtd" xml:space="preserve">
-    <value>EURO APPLIANCE SERVICE LTD</value>
+    <value>EURO APPLIANCES SERVICE LTD</value>
   </data>
   <data name="ManufacturerPlaceHolder" xml:space="preserve">
     <value>FC AMD</value>
@@ -485,5 +485,11 @@
   </data>
   <data name="WARValue" xml:space="preserve">
     <value>Warranty</value>
+  </data>
+  <data name="NoAdminOrder" xml:space="preserve">
+    <value>Please search work order</value>
+  </data>
+  <data name="AlphanumericRequired" xml:space="preserve">
+    <value>Ticket number should bee alpha numeric</value>
   </data>
 </root>

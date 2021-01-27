@@ -152,6 +152,7 @@
             <converters:BoolInversorConverter x:Key="BoolInversorConverter" />
             <converters:UtcToLocalDateTimeConverter x:Key="UtcToLocalDateTimeConverter" />
             <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter" />
+
             <converters:ValidationErrorConverter x:Key="ValidationErrorConverter" />
             <!--<converters:TopItemConverter x:Key="ItemConverter" />-->
 

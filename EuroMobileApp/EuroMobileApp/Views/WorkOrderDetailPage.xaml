@@ -975,7 +975,7 @@
                                     <control:BorderlessEntry
                                         FontFamily="{StaticResource RobotoCondensedRegular}"
                                         FontSize="16"
-                                        Keyboard="Numeric"
+                                        Keyboard="Text"
                                         Placeholder="{trans:Translate TicketNumberPlaceHolder}"
                                         PlaceholderColor="{DynamicResource grayMedium}"
                                         Text="{Binding TicketNumber.Value}"
@@ -1159,7 +1159,7 @@
                                     <DataTemplate>
                                         <Frame Margin="5" Padding="5">
                                             <StackLayout Margin="10,0,10,0" Spacing="0">
-                                                <Grid ColumnDefinitions="70*,auto,30*" ColumnSpacing="0">
+                                                <Grid ColumnDefinitions="70*,auto,30*,auto" ColumnSpacing="0">
                                                     <StackLayout Grid.Row="0" Grid.Column="0">
                                                         <Label Text="{Binding ServiceItem}" VerticalOptions="CenterAndExpand" />
                                                     </StackLayout>
@@ -1170,7 +1170,12 @@
                                                             WidthRequest="1"
                                                             Color="{DynamicResource grayMedium}" />
                                                     </StackLayout>
-
+                                                    <Label
+                                                        Grid.Column="3"
+                                                        FontAttributes="Bold"
+                                                        FontSize="Medium"
+                                                        Text="$"
+                                                        VerticalOptions="CenterAndExpand" />
                                                     <StackLayout
                                                         Grid.Row="0"
                                                         Grid.Column="2"
@@ -1178,10 +1183,12 @@
                                                         Padding="0"
                                                         Spacing="0">
                                                         <control:BorderlessEntry
+                                                            FontSize="Medium"
                                                             HorizontalTextAlignment="End"
                                                             Keyboard="Numeric"
-                                                            Text="{Binding ServiceItemPrice, StringFormat='{0:C}'}"
+                                                            Text="{Binding ServiceItemPrice, StringFormat='{0:0.00}'}"
                                                             VerticalOptions="CenterAndExpand" />
+
                                                     </StackLayout>
 
                                                     <!--<StackLayout

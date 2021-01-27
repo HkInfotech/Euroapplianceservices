@@ -120,7 +120,7 @@
 
                             <CollectionView
                                 x:Name="UserOrders"
-                                EmptyView="{trans:Translate NoUserOrder}"
+                                EmptyView="{Binding EmptyStateTitle}"
                                 ItemsSource="{Binding ListItems}"
                                 SelectionMode="None">
 
