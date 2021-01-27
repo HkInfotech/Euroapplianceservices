@@ -55,18 +55,18 @@ namespace EuroMobileApp
             //    //await navigationService.NavigateAsync($"{PageName.Navigation}/{ PageName.OrderListPage}");
             //}
 
-            if (appSettings.IsLogin)
-            {
-                await NavigationService.NavigateAsync($"{PageName.Navigation}/{ PageName.OrderListPage}");
+            //if (appSettings.IsLogin)
+            //{
+            //    await NavigationService.NavigateAsync($"{PageName.Navigation}/{ PageName.OrderListPage}");
 
-            }
-            else
-            {
-                await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.LoginPage}");
+            //}
+            //else
+            //{
+            //    await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.LoginPage}");
 
-            }
+            //}
 
-            //await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.WorkOrderDetailPage}");
+            await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.SideMenuPage}");
 
         }
         public static Action StringResourceAction { get; set; }
@@ -85,6 +85,7 @@ namespace EuroMobileApp
             containerRegistry.RegisterForNavigation<WorkOrderPartDetailPage, WorkOrderPartDetailPageViewModel>(PageName.WorkOrderPartDetailPage);
             containerRegistry.RegisterForNavigation<ViewImagePage, ViewImagePageViewModel>(PageName.ViewImagePage);
             containerRegistry.RegisterForNavigation<WorkOrderSearchFilterPage, WorkOrderSearchFilterPageViewModel>(PageName.WorkOrderSearchFilterPage);
+            containerRegistry.RegisterForNavigation<SideMenuPage, SideMenuPageViewModel>(PageName.SideMenuPage);
 
             // Instances
             containerRegistry.RegisterInstance(typeof(IUserDialogs), UserDialogs.Instance);

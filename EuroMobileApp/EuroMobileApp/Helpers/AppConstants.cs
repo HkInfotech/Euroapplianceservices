@@ -15,6 +15,7 @@ namespace EuroMobileApp.Helpers
         internal static string WorkOrderPartDetailPage = "WorkOrderPartDetailPage";
         internal static string ViewImagePage = "ViewImagePage";
         internal static string WorkOrderSearchFilterPage = "WorkOrderSearchFilterPage";
+        internal static string SideMenuPage = "SideMenuPage";
     }
     //public static class AlertMessages
     //{

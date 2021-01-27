@@ -492,4 +492,7 @@
   <data name="AlphanumericRequired" xml:space="preserve">
     <value>Ticket number should bee alpha numeric</value>
   </data>
+  <data name="UserNameTitleLabel" xml:space="preserve">
+    <value>User Name</value>
+  </data>
 </root>

@@ -43,37 +43,94 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
-            <Yummy:PancakeView
+            <Grid
                 Grid.Row="0"
+                Padding="5"
                 BackgroundColor="{DynamicResource blueDark}"
-                HeightRequest="60">
-                <Grid ColumnDefinitions="90*,10*">
-                    <Label
-                        Grid.Column="0"
-                        FontFamily="{StaticResource FontsFreeNetKonnect}"
-                        FontSize="Small"
-                        HorizontalOptions="Center"
-                        Text="{trans:Translate MyOrders}"
-                        TextColor="{DynamicResource WhiteColor}"
-                        VerticalOptions="Center" />
-                    <Image
-                        Grid.Column="1"
-                        Aspect="AspectFill"
-                        HorizontalOptions="End"
-                        VerticalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource
-                                FontFamily="{StaticResource FontAwesomeIconLight}"
-                                Glyph="{x:Static Icons:IconFonts.Search}"
-                                Color="{DynamicResource WhiteColor}" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateToWorkOrderFilterCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                </Grid>
+                ColumnDefinitions="40*,50*,10*"
+                RowDefinitions="Auto,Auto"
+                RowSpacing="0">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontFamily="{StaticResource FontsFreeNetKonnect}"
+                    FontSize="Small"
+                    HorizontalOptions="Start"
+                    TextColor="{DynamicResource grayLight}"
+                    VerticalOptions="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate UserNameTitleLabel}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontFamily="{StaticResource RobotoCondensedBold}"
+                    FontSize="Medium"
+                    HorizontalOptions="Start"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
 
-            </Yummy:PancakeView>
+                            <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding UserName}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    FontFamily="{StaticResource FontsFreeNetKonnect}"
+                    FontSize="Small"
+                    HorizontalOptions="Start"
+                    Text="{trans:Translate MyOrders}"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="Center" />
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Aspect="AspectFill"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource FontAwesomeIconLight}"
+                            Glyph="{x:Static Icons:IconFonts.Search}"
+                            Color="{DynamicResource WhiteColor}" />
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToWorkOrderFilterCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <!--
+                <Label
+                    Grid.Column="1"
+                    FontFamily="{StaticResource FontsFreeNetKonnect}"
+                    FontSize="Small"
+                    HorizontalOptions="Start"
+                    Text="{trans:Translate MyOrders}"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="Center" />
+                <Image
+                    Grid.Column="2"
+                    Aspect="AspectFill"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource FontAwesomeIconLight}"
+                            Glyph="{x:Static Icons:IconFonts.Search}"
+                            Color="{DynamicResource WhiteColor}" />
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToWorkOrderFilterCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>-->
+            </Grid>
             <ContentView
                 x:Name="contentView"
                 Grid.Row="1"

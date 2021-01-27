@@ -1096,6 +1096,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User Name.
+        /// </summary>
+        internal static string UserNameTitleLabel {
+            get {
+                return ResourceManager.GetString("UserNameTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User password required.
         /// </summary>
         internal static string UserPasswordRequired {

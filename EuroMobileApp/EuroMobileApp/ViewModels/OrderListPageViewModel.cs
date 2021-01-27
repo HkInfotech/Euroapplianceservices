@@ -32,8 +32,9 @@ namespace EuroMobileApp.ViewModels
             IsExpand = false;
             FilterRequest = new WorkOrderFilterRequest();
             EmptyStateTitle = "";
+            UserName = _appsettings.Username;
         }
-
+        public string UserName { get; set; }
         private DelegateCommand _logOutCommand;
 
         public DelegateCommand LogOutCommand => _logOutCommand ?? (_logOutCommand = new DelegateCommand(async () =>
