@@ -15,7 +15,7 @@ namespace EuroMobileApp.Validations
             {
                 return true;
             }
-            const string emailRegex = @"^[a-zA-Z0-9]*$";
+            const string emailRegex = @"^[a-zA-Z0-9_-]*$";
             var str = value as string;
             Regex regex = new Regex(emailRegex);
             Match match = regex.Match(str.Trim());
