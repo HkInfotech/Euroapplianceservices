@@ -55,18 +55,18 @@ namespace EuroMobileApp
             //    //await navigationService.NavigateAsync($"{PageName.Navigation}/{ PageName.OrderListPage}");
             //}
 
-            //if (appSettings.IsLogin)
-            //{
-            //    await NavigationService.NavigateAsync($"{PageName.Navigation}/{ PageName.OrderListPage}");
+            if (appSettings.IsLogin)
+            {
+                await NavigationService.NavigateAsync($"{PageName.Navigation}/{ PageName.OrderListPage}");
 
-            //}
-            //else
-            //{
-            //    await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.LoginPage}");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.LoginPage}");
 
-            //}
+            }
 
-            await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.SideMenuPage}");
+           // await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.SideMenuPage}");
 
         }
         public static Action StringResourceAction { get; set; }

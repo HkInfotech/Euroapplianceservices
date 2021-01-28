@@ -9,8 +9,8 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="False">
+    prism:ViewModelLocator.AutowireViewModel="True">
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseMenuButtonStyle" TargetType="Button">
@@ -44,7 +44,7 @@
                 <ImageButton.Source>
                     <FontImageSource
                         FontFamily="{StaticResource FontAwesomeIconLight}"
-                        Glyph="{x:Static Icons:IconFonts.AlignRight}"
+                        Glyph="{x:Static Icons:IconFonts.Bars}"
                         Color="{DynamicResource NavigationPrimary}" />
                 </ImageButton.Source>
 
@@ -56,14 +56,20 @@
         <Grid
             xct:SideMenuView.MenuWidthPercentage=".8"
             xct:SideMenuView.Position="LeftMenu"
-            BackgroundColor="{DynamicResource WhiteColor}"
             RowDefinitions="25*,75*">
             <StackLayout
                 Grid.Row="0"
                 Padding="10"
                 BackgroundColor="{DynamicResource NavigationPrimary}">
-                <Image Source="logo.png" VerticalOptions="FillAndExpand" />
-
+                <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="Medium"
+                        Text="{trans:Translate EuroApplianceServiceLtd}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Center" />
+                </StackLayout>
             </StackLayout>
             <Grid Grid.Row="1" Margin="3">
                 <Grid.RowDefinitions>
@@ -74,21 +80,9 @@
                     <ColumnDefinition Width="30*" />
                     <ColumnDefinition Width="70*" />
                 </Grid.ColumnDefinitions>
-                <Yummy:PancakeView
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Padding="3"
-                    VerticalOptions="Start" />
 
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    FontSize="Small"
-                    HorizontalOptions="Start"
-                    Text="{Binding Title}"
-                    TextColor="{DynamicResource mainLabel}"
-                    VerticalOptions="Center" />
+
+
 
             </Grid>
         </Grid>
