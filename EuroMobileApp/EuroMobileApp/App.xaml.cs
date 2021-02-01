@@ -86,13 +86,14 @@ namespace EuroMobileApp
             containerRegistry.RegisterForNavigation<ViewImagePage, ViewImagePageViewModel>(PageName.ViewImagePage);
             containerRegistry.RegisterForNavigation<WorkOrderSearchFilterPage, WorkOrderSearchFilterPageViewModel>(PageName.WorkOrderSearchFilterPage);
             containerRegistry.RegisterForNavigation<SideMenuPage, SideMenuPageViewModel>(PageName.SideMenuPage);
+            containerRegistry.RegisterForNavigation<CustomerDetailPage, CustomerDetailPageViewModel>(PageName.CustomerDetailPage);
 
             // Instances
             containerRegistry.RegisterInstance(typeof(IUserDialogs), UserDialogs.Instance);
             containerRegistry.RegisterInstance(typeof(Plugin.Connectivity.Abstractions.IConnectivity), CrossConnectivity.Current);
             containerRegistry.RegisterInstance(typeof(ISettings), CrossSettings.Current);
             containerRegistry.RegisterInstance<IAppSettings>(new AppSettings());
-            containerRegistry.RegisterInstance<IAppConfiguration>(new ProductionConfiguration());
+            containerRegistry.RegisterInstance<IAppConfiguration>(new DevConfiguration());
 
             StringResourceAction = () =>
             {

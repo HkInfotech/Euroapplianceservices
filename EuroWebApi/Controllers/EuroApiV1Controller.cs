@@ -375,5 +375,123 @@ namespace EuroWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("SaveSignature")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> SaveSignature(SaveSignatureRequest request)
+        {
+            Response<bool> response = new Response<bool>();
+            try
+            {
+                response = _euroService.SaveSignature(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("GetInvoiceText")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetInvoiceText(string textType)
+        {
+            Response<string> response = new Response<string>();
+            try
+            {
+                response = _euroService.GetInvoiceText(textType);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Route("GetInvoiceTotal")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetInvoiceTotal(MobileRequest request)
+        {
+            Response<InvoiceTotalViewModel> response = new Response<InvoiceTotalViewModel>();
+            try
+            {
+                response = _euroService.GetInvoiceTotal(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("UpdateCustomerInfo")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateCustomerInfo(CustomerInfoRequest request)
+        {
+            Response<CustomerInfoViewModel> response = new Response<CustomerInfoViewModel>();
+            try
+            {
+                response = _euroService.UpdateCustomerInfo(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Route("GetCustomerInfo")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCustomerInfo(MobileRequest request)
+        {
+            Response<CustomerInfoViewModel> response = new Response<CustomerInfoViewModel>();
+            try
+            {
+                response = _euroService.GetCustomerInfo(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

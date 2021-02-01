@@ -112,6 +112,7 @@ namespace EuroMobileApp.ViewModels
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
             CancellationToken = new CancellationTokenSource();
         }
+
         public ViewModelBase() : base()
         {
             UserDialogsService = UserDialogs.Instance;
@@ -198,5 +199,31 @@ namespace EuroMobileApp.ViewModels
         }
 
         #endregion
+
+        //#region Services
+
+        //#endregion
+
+        //#region Properties
+
+        //#endregion
+
+        //#region Variable
+
+        //#endregion
+
+        //#region Command
+
+
+        //#endregion
+
+        //#region Constructor
+
+        //#endregion
+
+        //#region Methods
+
+        //#endregion
+
     }
 }

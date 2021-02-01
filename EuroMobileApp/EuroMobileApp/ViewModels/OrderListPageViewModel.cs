@@ -57,6 +57,20 @@ namespace EuroMobileApp.ViewModels
             await NavigationServiceExtensions.TryNavigateAsync(NavigationService, PageName.WorkOrderSearchFilterPage, navigationParameters);
 
         }));
+
+        private DelegateCommand _navigateToCustomerDetailPageCommand;
+
+        public DelegateCommand NavigateToCustomerDetailPageCommand => _navigateToCustomerDetailPageCommand ?? (_navigateToCustomerDetailPageCommand = new DelegateCommand(async () =>
+        {
+            NavigationParameters navigationParameters = new NavigationParameters();
+            CustomerModel model = new CustomerModel()
+            {
+                CustomerId = 1
+            };
+            navigationParameters.Add("CustomerModel", model);
+            await NavigationServiceExtensions.TryNavigateAsync(NavigationService, PageName.CustomerDetailPage, navigationParameters);
+
+        }));
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);

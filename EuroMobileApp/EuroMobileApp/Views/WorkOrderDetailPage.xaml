@@ -127,7 +127,7 @@
                     </SwipeView.RightItems>
                     <SwipeView.Content>
                         <Yummy:PancakeView
-                            BackgroundColor="White"
+                            BackgroundColor="{DynamicResource WhiteColor}"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="StartAndExpand">
                             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">

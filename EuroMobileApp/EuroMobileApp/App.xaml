@@ -154,6 +154,7 @@
             <converters:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter" />
 
             <converters:ValidationErrorConverter x:Key="ValidationErrorConverter" />
+            <converters:BoolenToStringConverter x:Key="BoolenToStringConverter" />
             <!--<converters:TopItemConverter x:Key="ItemConverter" />-->
 
             <ControlTemplate x:Key="EuroMasterTemplate">

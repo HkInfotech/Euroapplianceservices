@@ -27,6 +27,7 @@ namespace EuroWebApi.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AppConfig> AppConfig { get; set; }
         public virtual DbSet<AppliancesImages> AppliancesImages { get; set; }
         public virtual DbSet<ApplianceTypes> ApplianceTypes { get; set; }
         public virtual DbSet<BillingAddress> BillingAddress { get; set; }
@@ -51,9 +52,6 @@ namespace EuroWebApi.Models
         public virtual DbSet<WorkOrder_ServiceItems> WorkOrder_ServiceItems { get; set; }
         public virtual DbSet<WorkOrder_ServiceLocation> WorkOrder_ServiceLocation { get; set; }
         public virtual DbSet<WorkOrder_Services> WorkOrder_Services { get; set; }
-        public virtual DbSet<vw_CustomerAppliances> vw_CustomerAppliances { get; set; }
-        public virtual DbSet<vw_Customers> vw_Customers { get; set; }
-        public virtual DbSet<vw_ServiceLocations> vw_ServiceLocations { get; set; }
     
         [DbFunction("EURODbContext", "Split")]
         public virtual IQueryable<Split_Result> Split(string input, string character)
@@ -779,6 +777,121 @@ namespace EuroWebApi.Models
                 new ObjectParameter("WorkOrderId", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_webapi_getTechRemarks", workOrderIdParameter);
+        }
+    
+        public virtual ObjectResult<string> sp_webapi_getCOVIDTab()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("sp_webapi_getCOVIDTab");
+        }
+    
+        public virtual ObjectResult<sp_webapi_getCustomerInfo_Result> sp_webapi_getCustomerInfo(Nullable<long> customerId)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_getCustomerInfo_Result>("sp_webapi_getCustomerInfo", customerIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_webapi_getInvoiceText_Result> sp_webapi_getInvoiceText(string textType)
+        {
+            var textTypeParameter = textType != null ?
+                new ObjectParameter("TextType", textType) :
+                new ObjectParameter("TextType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_getInvoiceText_Result>("sp_webapi_getInvoiceText", textTypeParameter);
+        }
+    
+        public virtual ObjectResult<sp_webapi_getInvoiceTotals_Result> sp_webapi_getInvoiceTotals(Nullable<long> workOrderId)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_getInvoiceTotals_Result>("sp_webapi_getInvoiceTotals", workOrderIdParameter);
+        }
+    
+        public virtual int sp_webapi_saveSignatures(Nullable<long> workOrderId, string invoiceSigned, string covid_answer_1, string covid_answer_2, string covid_answer_3)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            var invoiceSignedParameter = invoiceSigned != null ?
+                new ObjectParameter("InvoiceSigned", invoiceSigned) :
+                new ObjectParameter("InvoiceSigned", typeof(string));
+    
+            var covid_answer_1Parameter = covid_answer_1 != null ?
+                new ObjectParameter("Covid_answer_1", covid_answer_1) :
+                new ObjectParameter("Covid_answer_1", typeof(string));
+    
+            var covid_answer_2Parameter = covid_answer_2 != null ?
+                new ObjectParameter("Covid_answer_2", covid_answer_2) :
+                new ObjectParameter("Covid_answer_2", typeof(string));
+    
+            var covid_answer_3Parameter = covid_answer_3 != null ?
+                new ObjectParameter("Covid_answer_3", covid_answer_3) :
+                new ObjectParameter("Covid_answer_3", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_webapi_saveSignatures", workOrderIdParameter, invoiceSignedParameter, covid_answer_1Parameter, covid_answer_2Parameter, covid_answer_3Parameter);
+        }
+    
+        public virtual int sp_webapi_UpdateCustomerInfo(Nullable<long> customerId, string customerFirstName, string customerLastName, string addressLine, string nearestSection, string cIty, string postalCode, string phoneNumber, string cellNumber, string email)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(long));
+    
+            var customerFirstNameParameter = customerFirstName != null ?
+                new ObjectParameter("CustomerFirstName", customerFirstName) :
+                new ObjectParameter("CustomerFirstName", typeof(string));
+    
+            var customerLastNameParameter = customerLastName != null ?
+                new ObjectParameter("CustomerLastName", customerLastName) :
+                new ObjectParameter("CustomerLastName", typeof(string));
+    
+            var addressLineParameter = addressLine != null ?
+                new ObjectParameter("AddressLine", addressLine) :
+                new ObjectParameter("AddressLine", typeof(string));
+    
+            var nearestSectionParameter = nearestSection != null ?
+                new ObjectParameter("NearestSection", nearestSection) :
+                new ObjectParameter("NearestSection", typeof(string));
+    
+            var cItyParameter = cIty != null ?
+                new ObjectParameter("CIty", cIty) :
+                new ObjectParameter("CIty", typeof(string));
+    
+            var postalCodeParameter = postalCode != null ?
+                new ObjectParameter("PostalCode", postalCode) :
+                new ObjectParameter("PostalCode", typeof(string));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("PhoneNumber", phoneNumber) :
+                new ObjectParameter("PhoneNumber", typeof(string));
+    
+            var cellNumberParameter = cellNumber != null ?
+                new ObjectParameter("CellNumber", cellNumber) :
+                new ObjectParameter("CellNumber", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_webapi_UpdateCustomerInfo", customerIdParameter, customerFirstNameParameter, customerLastNameParameter, addressLineParameter, nearestSectionParameter, cItyParameter, postalCodeParameter, phoneNumberParameter, cellNumberParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<sp_webapi_UpdateWorkOrderServiceItems_v2_Result> sp_webapi_UpdateWorkOrderServiceItems_v2(Nullable<long> workOrderId, string serviceXML)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            var serviceXMLParameter = serviceXML != null ?
+                new ObjectParameter("ServiceXML", serviceXML) :
+                new ObjectParameter("ServiceXML", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_UpdateWorkOrderServiceItems_v2_Result>("sp_webapi_UpdateWorkOrderServiceItems_v2", workOrderIdParameter, serviceXMLParameter);
         }
     }
 }

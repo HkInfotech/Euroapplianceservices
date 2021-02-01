@@ -286,6 +286,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string CustomerAddress {
+            get {
+                return ResourceManager.GetString("CustomerAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer address.
         /// </summary>
         internal static string CustomerAddressLabel {
@@ -304,11 +313,155 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address required.
+        /// </summary>
+        internal static string CustomerAddressRequired {
+            get {
+                return ResourceManager.GetString("CustomerAddressRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cell Number.
+        /// </summary>
+        internal static string CustomerCellNumber {
+            get {
+                return ResourceManager.GetString("CustomerCellNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cell Number required.
+        /// </summary>
+        internal static string CustomerCellNumberRequired {
+            get {
+                return ResourceManager.GetString("CustomerCellNumberRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string CustomerCity {
+            get {
+                return ResourceManager.GetString("CustomerCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City required.
+        /// </summary>
+        internal static string CustomerCityRequired {
+            get {
+                return ResourceManager.GetString("CustomerCityRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string CustomerEmail {
+            get {
+                return ResourceManager.GetString("CustomerEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email required.
+        /// </summary>
+        internal static string CustomerEmailRequired {
+            get {
+                return ResourceManager.GetString("CustomerEmailRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter valid customer.
+        /// </summary>
+        internal static string CustomerEnterValidEmailAddress {
+            get {
+                return ResourceManager.GetString("CustomerEnterValidEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        internal static string CustomerFirstName {
+            get {
+                return ResourceManager.GetString("CustomerFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name required.
+        /// </summary>
+        internal static string CustomerFirstNameRequired {
+            get {
+                return ResourceManager.GetString("CustomerFirstNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        internal static string CustomerLastName {
+            get {
+                return ResourceManager.GetString("CustomerLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name required.
+        /// </summary>
+        internal static string CustomerLastNameRequired {
+            get {
+                return ResourceManager.GetString("CustomerLastNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Name.
         /// </summary>
         internal static string CustomerName {
             get {
                 return ResourceManager.GetString("CustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nearest Intersection.
+        /// </summary>
+        internal static string CustomerNearestIntersection {
+            get {
+                return ResourceManager.GetString("CustomerNearestIntersection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        internal static string CustomerPhoneNumber {
+            get {
+                return ResourceManager.GetString("CustomerPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number required.
+        /// </summary>
+        internal static string CustomerPhoneNumberRequired {
+            get {
+                return ResourceManager.GetString("CustomerPhoneNumberRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        internal static string CustomerPostalCode {
+            get {
+                return ResourceManager.GetString("CustomerPostalCode", resourceCulture);
             }
         }
         
@@ -367,7 +520,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EURO APPLIANCES SERVICE LTD.
+        ///   Looks up a localized string similar to EURO Appliance Services Ltd..
         /// </summary>
         internal static string EuroApplianceServiceLtd {
             get {
@@ -799,7 +952,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quantity.
+        ///   Looks up a localized string similar to Qty.
         /// </summary>
         internal static string QuantityLabel {
             get {
@@ -826,7 +979,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rate ($).
+        ///   Looks up a localized string similar to Rate($).
         /// </summary>
         internal static string RateLabel {
             get {
@@ -1042,7 +1195,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Amount ($).
+        ///   Looks up a localized string similar to Total Amount($).
         /// </summary>
         internal static string TotalAmountLabel {
             get {

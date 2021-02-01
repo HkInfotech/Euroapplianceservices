@@ -139,7 +139,7 @@
     <value>Enter The Password</value>
   </data>
   <data name="EuroApplianceServiceLtd" xml:space="preserve">
-    <value>EURO APPLIANCES SERVICE LTD</value>
+    <value>EURO Appliance Services Ltd.</value>
   </data>
   <data name="ManufacturerPlaceHolder" xml:space="preserve">
     <value>FC AMD</value>
@@ -388,13 +388,13 @@
     <value>Part Name</value>
   </data>
   <data name="QuantityLabel" xml:space="preserve">
-    <value>Quantity</value>
+    <value>Qty</value>
   </data>
   <data name="RateLabel" xml:space="preserve">
-    <value>Rate ($)</value>
+    <value>Rate($)</value>
   </data>
   <data name="TotalAmountLabel" xml:space="preserve">
-    <value>Total Amount ($)</value>
+    <value>Total Amount($)</value>
   </data>
   <data name="AddNewButtonLabel" xml:space="preserve">
     <value>Add New</value>
@@ -494,5 +494,56 @@
   </data>
   <data name="UserNameTitleLabel" xml:space="preserve">
     <value>User Name</value>
+  </data>
+  <data name="CustomerAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="CustomerAddressRequired" xml:space="preserve">
+    <value>Address required</value>
+  </data>
+  <data name="CustomerCellNumber" xml:space="preserve">
+    <value>Cell Number</value>
+  </data>
+  <data name="CustomerCellNumberRequired" xml:space="preserve">
+    <value>Cell Number required</value>
+  </data>
+  <data name="CustomerCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="CustomerCityRequired" xml:space="preserve">
+    <value>City required</value>
+  </data>
+  <data name="CustomerEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CustomerEmailRequired" xml:space="preserve">
+    <value>Email required</value>
+  </data>
+  <data name="CustomerFirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="CustomerFirstNameRequired" xml:space="preserve">
+    <value>First name required</value>
+  </data>
+  <data name="CustomerLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="CustomerLastNameRequired" xml:space="preserve">
+    <value>Last name required</value>
+  </data>
+  <data name="CustomerNearestIntersection" xml:space="preserve">
+    <value>Nearest Intersection</value>
+  </data>
+  <data name="CustomerPhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="CustomerPhoneNumberRequired" xml:space="preserve">
+    <value>Phone number required</value>
+  </data>
+  <data name="CustomerPostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+  </data>
+  <data name="CustomerEnterValidEmailAddress" xml:space="preserve">
+    <value>Enter valid customer</value>
   </data>
 </root>

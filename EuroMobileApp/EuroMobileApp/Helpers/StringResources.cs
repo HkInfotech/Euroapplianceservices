@@ -78,10 +78,22 @@ namespace EuroMobileApp.Helpers
         public static string WARValue { get; set; }
         public static string NoAdminOrder { get; set; }
         public static string AlphanumericRequired { get; set; }
-
-
-
-
-
+        public static string CustomerFirstName { get; set; }
+        public static string CustomerFirstNameRequired { get; set; }
+        public static string CustomerLastName { get; set; }
+        public static string CustomerLastNameRequired { get; set; }
+        public static string CustomerAddress { get; set; }
+        public static string CustomerAddressRequired { get; set; }
+        public static string CustomerCity { get; set; }
+        public static string CustomerCityRequired { get; set; }
+        public static string CustomerPostalCode { get; set; }
+        public static string CustomerNearestIntersection { get; set; }
+        public static string CustomerPhoneNumber { get; set; }
+        public static string CustomerPhoneNumberRequired { get; set; }
+        public static string CustomerCellNumber { get; set; }
+        public static string CustomerCellNumberRequired { get; set; }
+        public static string CustomerEmail { get; set; }
+        public static string CustomerEmailRequired { get; set; }
+        public static string CustomerEnterValidEmailAddress { get; set; }
     }
 }

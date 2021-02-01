@@ -32,6 +32,7 @@
                     <FontImageSource
                         FontFamily="{StaticResource FontAwesomeIconLight}"
                         Glyph="{x:Static Icons:IconFonts.SignOut}"
+                        Size="Large"
                         Color="{DynamicResource WhiteColor}" />
                 </Image.Source>
                 <Image.GestureRecognizers>
@@ -228,7 +229,9 @@
                                                                     Text="{Binding Order.WorkOrderId}"
                                                                     TextColor="{DynamicResource blueDark}"
                                                                     TextDecorations="Underline" />
-
+                                                                <StackLayout.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference thisPage}}" CommandParameter="{Binding .}" />
+                                                                </StackLayout.GestureRecognizers>
                                                             </StackLayout>
 
                                                             <StackLayout
@@ -244,7 +247,12 @@
                                                                     FontAttributes="Bold"
                                                                     FontSize="16"
                                                                     LineBreakMode="TailTruncation"
-                                                                    Text="{Binding Order.CustomerName}" />
+                                                                    Text="{Binding Order.CustomerName}"
+                                                                    TextColor="{DynamicResource blueDark}"
+                                                                    TextDecorations="Underline" />
+                                                                <StackLayout.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding BindingContext.NavigateToCustomerDetailPageCommand, Source={Reference thisPage}}" />
+                                                                </StackLayout.GestureRecognizers>
                                                             </StackLayout>
                                                         </Grid>
                                                         <Grid ColumnSpacing="10">
@@ -286,9 +294,7 @@
 
                                                 </Grid>
                                             </Frame>
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding BindingContext.ItemSelectedCommand, Source={Reference thisPage}}" CommandParameter="{Binding .}" />
-                                            </StackLayout.GestureRecognizers>
+
                                         </StackLayout>
 
                                     </DataTemplate>

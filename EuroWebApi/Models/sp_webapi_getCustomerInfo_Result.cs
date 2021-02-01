@@ -10,27 +10,18 @@
 namespace EuroWebApi.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class vw_Customers
+    public partial class sp_webapi_getCustomerInfo_Result
     {
         public long CustomerId { get; set; }
-        public Nullable<int> CompanyId { get; set; }
-        public string ReferenceBy { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address_Line_1 { get; set; }
-        public string Address_Line_2 { get; set; }
+        public string CustomerFirstName { get; set; }
+        public string CustomerLastName { get; set; }
+        public string AddressLine { get; set; }
         public string City { get; set; }
-        public Nullable<int> ProvinceId { get; set; }
         public string PostalCode { get; set; }
+        public string NearestIntersection { get; set; }
         public string PhoneNumber { get; set; }
         public string CellPhone { get; set; }
         public string Email { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<System.DateTime> LastUpdatedDate { get; set; }
-        public Nullable<bool> Inactive { get; set; }
-        public Nullable<bool> CustomerStatus { get; set; }
-        public string Province { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace EuroWebApi.Models.Common.Request
         public string UserId { get; set; }
         public string Username { get; set; }
         public int Id { get; set; }
+        public long WorkOrderId { get; set; }
         public List<int> Ids { get; set; }
         //public DateTime LastSyncDateTime { get; set; }
     }

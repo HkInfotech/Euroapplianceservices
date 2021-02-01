@@ -170,8 +170,12 @@
     <Compile Include="Controllers\EuroApiController.cs" />
     <Compile Include="Controllers\EuroApiV1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extension\CommonExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppConfig.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AppliancesImages.cs">
       <DependentUpon>Euro.tt</DependentUpon>
@@ -184,7 +188,9 @@
     </Compile>
     <Compile Include="Models\clsLogin.cs" />
     <Compile Include="Models\Common\Enums\APIEnums.cs" />
+    <Compile Include="Models\Common\Request\CustomerInfoRequest.cs" />
     <Compile Include="Models\Common\Request\MobileRequest.cs" />
+    <Compile Include="Models\Common\Request\SaveSignatureRequest.cs" />
     <Compile Include="Models\Common\Request\WorkOrderFilterRequest.cs" />
     <Compile Include="Models\Common\Request\WorkOrderRequestModel.cs" />
     <Compile Include="Models\Common\Response.cs" />
@@ -216,14 +222,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Euro.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\Request\LoginRequest.cs" />
+    <Compile Include="Models\Common\Response\LoginResponse.cs" />
     <Compile Include="Models\JobNature.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JobStatus.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Common\Request\LoginRequest.cs" />
-    <Compile Include="Models\Common\Response\LoginResponse.cs" />
     <Compile Include="Models\Manufacturers.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -321,6 +327,15 @@
     <Compile Include="Models\SP_webapi_GetCustomerAppliances_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_webapi_getCustomerInfo_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_webapi_getInvoiceText_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_webapi_getInvoiceTotals_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_webapi_getJobNatureList_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -354,6 +369,9 @@
     <Compile Include="Models\sp_webapi_UpdateWorkOrderServiceItems_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_webapi_UpdateWorkOrderServiceItems_v2_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_webapi_update_appliance_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -370,15 +388,6 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserTypes.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_CustomerAppliances.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_Customers.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_ServiceLocations.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WorkOrder_Header.cs">
@@ -414,7 +423,9 @@
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="ViewModels\ApplianceTypeViewModel.cs" />
     <Compile Include="ViewModels\ApplianceViewModel.cs" />
+    <Compile Include="ViewModels\CustomerInfoViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceTotalViewModel.cs" />
     <Compile Include="ViewModels\JobNatureViewModel.cs" />
     <Compile Include="ViewModels\JobStatusViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

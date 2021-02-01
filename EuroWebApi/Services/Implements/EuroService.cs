@@ -1,4 +1,5 @@
-﻿using EuroWebApi.Models;
+﻿using EuroWebApi.Extension;
+using EuroWebApi.Models;
 using EuroWebApi.Models.Common;
 using EuroWebApi.Models.Common.Request;
 using EuroWebApi.Models.Common.Response;
@@ -173,7 +174,7 @@ namespace EuroWebApi.Services.Implements
             {
 
                 List<OrdersViewModel> orders = new List<OrdersViewModel>();
-                var result = db.sp_webapi_GetOrdersByUserID(Convert.ToInt64(request.UserId), request.WorkOrderId, request.FirstName,request.LastName,request.PhoneNumber,request.CustomerAddress)?.ToList() ?? new List<sp_webapi_GetOrdersByUserID_Result>();
+                var result = db.sp_webapi_GetOrdersByUserID(Convert.ToInt64(request.UserId), request.WorkOrderId, request.FirstName, request.LastName, request.PhoneNumber, request.CustomerAddress)?.ToList() ?? new List<sp_webapi_GetOrdersByUserID_Result>();
                 if (result.Count > 0)
                 {
 
@@ -429,7 +430,7 @@ namespace EuroWebApi.Services.Implements
                         }
                     }
 
-                    var servicesXML = Serialize(request.WorkOrderServices);
+                    var servicesXML = CommonExtension.Serialize(request.WorkOrderServices);
                     var SaveWorkOrderService = db.sp_webapi_UpdateWorkOrderServiceItems(request.WorkOrderId, servicesXML);
                     var UpdateWorkOrderAppliances = db.sp_webapi_update_appliance(request.WorkOrderId, Convert.ToInt32(request.CustomerApplianceId), Convert.ToInt32(request.ApplianceTypeId), Convert.ToInt32(request.ManufacturerId), request.SerialNumber, request.ModelNumber, images[0], images[1], images[2], images[3]);
                     response.ResponseContent = true;
@@ -496,19 +497,116 @@ namespace EuroWebApi.Services.Implements
             return response;
         }
 
-        private string Serialize<T>(T dataToSerialize)
+        public Response<CustomerInfoViewModel> GetCustomerInfo(MobileRequest mobileRequest)
         {
+            var response = new Response<CustomerInfoViewModel>() { Success = true };
             try
             {
-                var stringwriter = new System.IO.StringWriter();
-                var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(stringwriter, dataToSerialize);
-                return stringwriter.ToString().Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+
+                var result = db.sp_webapi_getCustomerInfo(Convert.ToInt64(mobileRequest.Id))?.FirstOrDefault() ?? new sp_webapi_getCustomerInfo_Result();
+                if (result.CustomerId != 0)
+                {
+                    CustomerInfoViewModel item = new CustomerInfoViewModel()
+                    {
+                        AddressLine = result.AddressLine,
+                        CustomerId = result.CustomerId,
+                        CellPhone = result.CellPhone,
+                        City = result.City,
+                        CustomerFirstName = result.CustomerFirstName,
+                        CustomerLastName = result.CustomerLastName,
+                        Email = result.Email,
+                        NearestIntersection = result.NearestIntersection,
+                        PhoneNumber = result.PhoneNumber,
+                        PostalCode = result.PostalCode
+                    };
+                    response.ResponseContent = item;
+                }
+                response.ResponseContent = null;
+
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                response.Fail(ex.Message);
             }
+
+            return response;
+
+        }
+
+        public Response<CustomerInfoViewModel> UpdateCustomerInfo(CustomerInfoRequest customerRequest)
+        {
+            var response = new Response<CustomerInfoViewModel>() { Success = true };
+
+            try
+            {
+                var result = db.sp_webapi_UpdateCustomerInfo(customerRequest.CustomerId, customerRequest.CustomerFirstName, customerRequest.CustomerLastName, customerRequest.AddressLine, customerRequest.NearestIntersection, customerRequest.City, customerRequest.PostalCode, customerRequest.PhoneNumber, customerRequest.CellPhone, customerRequest.Email);
+                response = GetCustomerInfo(new MobileRequest() { Id = Convert.ToInt32(customerRequest.CustomerId) });
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
+        }
+
+        public Response<InvoiceTotalViewModel> GetInvoiceTotal(MobileRequest request)
+        {
+            var response = new Response<InvoiceTotalViewModel>() { Success = true };
+
+            try
+            {
+                var result = db.sp_webapi_getInvoiceTotals(request.WorkOrderId)?.FirstOrDefault<sp_webapi_getInvoiceTotals_Result>();
+                if (result != null)
+                {
+                    InvoiceTotalViewModel item = new InvoiceTotalViewModel()
+                    {
+                        AmountPaid = result.AmountPaid,
+                        HST = result.HST,
+                        Total = result.Total,
+                        TotalAmount = result.TotalAmount,
+                        TotalAmountDue = result.TotalAmountDue
+                    };
+                    response.ResponseContent = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
+        }
+        public Response<string> GetInvoiceText(string textType)
+        {
+            var response = new Response<string>() { Success = true };
+
+            try
+            {
+                var result = db.sp_webapi_getInvoiceText(textType)?.FirstOrDefault() ?? new sp_webapi_getInvoiceText_Result();
+                response.ResponseContent = result.ConsentText;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
+        }
+
+        public Response<bool> SaveSignature(SaveSignatureRequest request)
+        {
+            var response = new Response<bool>() { Success = true };
+
+            try
+            {
+                var result = db.sp_webapi_saveSignatures(request.WorkOrderId, request.InvoiceSigned, request.covidanswer1, request.covidanswer2, request.covidanswer3);
+                response.ResponseContent = true;
+
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
         }
     }
 }

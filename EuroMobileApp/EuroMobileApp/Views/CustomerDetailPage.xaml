@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="EuroMobileApp.Views.CustomerDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:control="clr-namespace:EuroMobileApp.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    CloseWhenBackgroundIsClicked="True">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <AbsoluteLayout
+        AbsoluteLayout.LayoutBounds="0,0,1,1"
+        AbsoluteLayout.LayoutFlags="All"
+        BackgroundColor="Transparent"
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand">
+        <AbsoluteLayout
+            AbsoluteLayout.LayoutBounds=".5,.5, AutoSize, AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="Transparent">
+
+            <Grid
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="White"
+                HeightRequest="{OnPlatform Android=500,
+                                           iOS=350}"
+                RowDefinitions="auto,*,auto"
+                WidthRequest="{OnPlatform Android=350,
+                                          iOS=320}">
+
+                <Grid Grid.Row="0" BackgroundColor="{DynamicResource NavigationPrimary}">
+                    <StackLayout Padding="2" Orientation="Horizontal">
+                        <Label
+                            Margin="20,0,0,10"
+                            FontFamily="{StaticResource RobotoCondensedBold}"
+                            FontSize="Medium"
+                            Text="{trans:Translate EuroApplianceServiceLtd}"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="End" />
+                        <StackLayout HorizontalOptions="EndAndExpand">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="50"
+                                HorizontalOptions="EndAndExpand"
+                                Source="whitelogo.png"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+                <ScrollView
+                    Grid.Row="1"
+                    Margin="10,0,10,0"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
+                        <StackLayout Grid.Row="0" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerFirstName.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding CustomerFirstName.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerFirstNameCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerFirstName.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerFirstName.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerLastName.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding CustomerLastName.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerLastNameCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerLastName.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerLastName.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerAddress.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderLessEditor
+                                Grid.Column="0"
+                                AutoSize="TextChanges"
+                                BackgroundColor="{DynamicResource tabBackground}"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                IsSpellCheckEnabled="True"
+                                IsTextPredictionEnabled="True"
+                                Text="{Binding CustomerAddress.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderLessEditor.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerAddressCommand}" EventName="TextChanged" />
+                                </control:BorderLessEditor.Behaviors>
+                            </control:BorderLessEditor>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerAddress.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerAddress.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerCity.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding CustomerCity.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerCityCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerCity.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerCity.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="4" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerPostalCode.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding CustomerPostalCode.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerPostalCodeCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerPostalCode.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerPostalCode.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="5" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerNearestIntersection.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Text"
+                                Text="{Binding CustomerNearestIntersection.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerNearestIntersectionCommand}" EventName="TextChanged" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerNearestIntersection.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerNearestIntersection.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="6" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerPhoneNumber.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Text="{Binding CustomerPhoneNumber.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerPhoneNumberCommand}" EventName="TextChanged" />
+                                    <behaviors:MaskedBehavior Mask="(XXX) XXX-XXXX" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerPhoneNumber.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerPhoneNumber.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="7" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerCellNumber.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Numeric"
+                                Text="{Binding CustomerCellNumber.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerCellNumberCommand}" EventName="TextChanged" />
+                                    <behaviors:MaskedBehavior Mask="(XXX) XXX-XXXX" />
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{DynamicResource grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerCellNumber.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerCellNumber.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="8" Spacing="0">
+                            <Label
+                                FontFamily="{DynamicResource RobotoCondensedBold}"
+                                FontSize="14"
+                                TextColor="{DynamicResource grayDark}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding CustomerEmail.Title}" />
+                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <control:BorderlessEntry
+                                Grid.Column="0"
+                                FontFamily="{StaticResource RobotoCondensedRegular}"
+                                FontSize="16"
+                                Keyboard="Email"
+                                Text="{Binding CustomerEmail.Value}"
+                                VerticalOptions="Center">
+                                <control:BorderlessEntry.Behaviors>
+                                    <prism:EventToCommandBehavior Command="{Binding ValidateCustomerEmailCommand}" EventName="TextChanged" />
+
+                                </control:BorderlessEntry.Behaviors>
+                            </control:BorderlessEntry>
+                            <BoxView
+                                Margin="0"
+                                HeightRequest="1"
+                                Color="{Binding grayMedium}" />
+                            <Label
+                                FontAttributes="Bold"
+                                IsVisible="{Binding CustomerEmail.Valid}"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding CustomerEmail.Errors, Converter={StaticResource ValidationErrorConverter}}"
+                                TextColor="{DynamicResource IndianRed}" />
+                        </StackLayout>
+                    </Grid>
+                </ScrollView>
+                <Button
+                    Grid.Row="2"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource NavigationPrimary}"
+                    Command="{Binding}"
+                    Text="{trans:Translate OK}"
+                    TextColor="{DynamicResource WhiteColor}" />
+
+            </Grid>
+            <control:ActivityProgressBar IsVisible="{Binding IsBusy}" />
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+
+</pages:PopupPage>

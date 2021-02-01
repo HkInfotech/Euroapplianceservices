@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="EUROModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppConfig">
+          <Key>
+            <PropertyRef Name="AppConfigId" />
+          </Key>
+          <Property Name="AppConfigId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentKey" Type="varchar" MaxLength="100" />
+          <Property Name="ChildKEy" Type="varchar" MaxLength="100" />
+          <Property Name="ConfigValue" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="AppliancesImages">
           <Key>
             <PropertyRef Name="SrNo" />
@@ -303,73 +312,6 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastUpdatedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO_QA.dbo.vw_CustomerAppliances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_CustomerAppliances">
-          <Key>
-            <PropertyRef Name="CustomerApplianceId" />
-          </Key>
-          <Property Name="ApplianceTypeId" Type="bigint" />
-          <Property Name="ManufacturerId" Type="bigint" />
-          <Property Name="ModelNumber" Type="varchar" MaxLength="200" />
-          <Property Name="SerialNumber" Type="varchar" MaxLength="200" />
-          <Property Name="PurchaseDate" Type="date" />
-          <Property Name="PNS" Type="varchar" MaxLength="50" />
-          <Property Name="Dealername" Type="varchar" MaxLength="50" />
-          <Property Name="ApplianceType" Type="varchar" MaxLength="200" />
-          <Property Name="Manufacturer" Type="varchar" MaxLength="300" />
-          <Property Name="CustomerApplianceId" Type="bigint" Nullable="false" />
-          <Property Name="CustomerId" Type="bigint" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO_QA.dbo.vw_Customers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_Customers">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="CustomerId" Type="bigint" Nullable="false" />
-          <Property Name="CompanyId" Type="int" />
-          <Property Name="ReferenceBy" Type="varchar" MaxLength="200" />
-          <Property Name="FirstName" Type="varchar" MaxLength="100" />
-          <Property Name="LastName" Type="varchar" MaxLength="100" />
-          <Property Name="Address_Line_1" Type="varchar" MaxLength="200" />
-          <Property Name="Address_Line_2" Type="varchar" MaxLength="200" />
-          <Property Name="City" Type="varchar" MaxLength="100" />
-          <Property Name="ProvinceId" Type="int" />
-          <Property Name="PostalCode" Type="varchar" MaxLength="50" />
-          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
-          <Property Name="CellPhone" Type="varchar" MaxLength="20" />
-          <Property Name="Email" Type="varchar" MaxLength="200" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="LastUpdatedDate" Type="datetime" />
-          <Property Name="Inactive" Type="bit" />
-          <Property Name="CustomerStatus" Type="bit" />
-          <Property Name="Province" Type="varchar" MaxLength="20" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_ServiceLocations">
-          <Key>
-            <PropertyRef Name="ServiceLocationId" />
-            <PropertyRef Name="WorkOrderId" />
-          </Key>
-          <Property Name="ServiceLocationId" Type="bigint" Nullable="false" />
-          <Property Name="WorkOrderId" Type="bigint" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
-          <Property Name="Address_Line_1" Type="varchar" MaxLength="100" />
-          <Property Name="Address_Line_2" Type="varchar" MaxLength="100" />
-          <Property Name="City" Type="varchar" MaxLength="100" />
-          <Property Name="ProvinceId" Type="int" />
-          <Property Name="PostalCode" Type="varchar" MaxLength="50" />
-          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
-          <Property Name="CellNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="50" />
-          <Property Name="InersectionName" Type="varchar" MaxLength="150" />
-          <Property Name="ServiceLocaton_Province" Type="int" />
-          <Property Name="ContactName" Type="varchar" MaxLength="100" />
-          <Property Name="Province" Type="varchar" MaxLength="20" />
-        </EntityType>
         <Association Name="FK_ServiceItems_ServiceItems">
           <End Role="ServiceItems" Type="Self.ServiceItems" Multiplicity="1" />
           <End Role="ServiceItems1" Type="Self.ServiceItems" Multiplicity="0..1" />
@@ -534,8 +476,18 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_webapi_GetApplianceTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_webapi_getCOVIDTab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_webapi_GetCustomerAppliances" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WOrkOrderId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_webapi_getCustomerInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustomerId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_webapi_getInvoiceText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TextType" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_webapi_getInvoiceTotals" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
         </Function>
         <Function Name="sp_webapi_GetJobNature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_webapi_getJobNatureList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -563,6 +515,13 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
         <Function Name="sp_webapi_GetWorkOrderServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="sp_webapi_saveSignatures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+          <Parameter Name="InvoiceSigned" Type="char" Mode="In" />
+          <Parameter Name="Covid_answer_1" Type="char" Mode="In" />
+          <Parameter Name="Covid_answer_2" Type="char" Mode="In" />
+          <Parameter Name="Covid_answer_3" Type="char" Mode="In" />
+        </Function>
         <Function Name="sp_webapi_update_appliance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkorderId" Type="int" Mode="In" />
           <Parameter Name="CustomerApplianceId" Type="int" Mode="In" />
@@ -574,6 +533,18 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Parameter Name="ImageNum2" Type="varchar" Mode="In" />
           <Parameter Name="ImageNum3" Type="varchar" Mode="In" />
           <Parameter Name="ImageNum4" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_webapi_UpdateCustomerInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustomerId" Type="bigint" Mode="In" />
+          <Parameter Name="CustomerFirstName" Type="varchar" Mode="In" />
+          <Parameter Name="CustomerLastName" Type="varchar" Mode="In" />
+          <Parameter Name="AddressLine" Type="varchar" Mode="In" />
+          <Parameter Name="NearestSection" Type="varchar" Mode="In" />
+          <Parameter Name="CIty" Type="varchar" Mode="In" />
+          <Parameter Name="PostalCode" Type="varchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="CellNumber" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_webapi_UpdateOrderDetailsByWorkOrderId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="int" Mode="In" />
@@ -593,6 +564,10 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Parameter Name="TechRemarks" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_webapi_UpdateWorkOrderServiceItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+          <Parameter Name="ServiceXML" Type="xml" Mode="In" />
+        </Function>
+        <Function Name="sp_webapi_UpdateWorkOrderServiceItems_v2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
           <Parameter Name="ServiceXML" Type="xml" Mode="In" />
         </Function>
@@ -637,6 +612,7 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="EUROModelStoreContainer">
+          <EntitySet Name="AppConfig" EntityType="Self.AppConfig" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppliancesImages" EntityType="Self.AppliancesImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApplianceTypes" EntityType="Self.ApplianceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
@@ -661,63 +637,6 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <EntitySet Name="WorkOrder_ServiceItems" EntityType="Self.WorkOrder_ServiceItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkOrder_ServiceLocation" EntityType="Self.WorkOrder_ServiceLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkOrder_Services" EntityType="Self.WorkOrder_Services" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="vw_CustomerAppliances" EntityType="Self.vw_CustomerAppliances" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_CustomerAppliances].[ApplianceTypeId] AS [ApplianceTypeId], 
-    [vw_CustomerAppliances].[ManufacturerId] AS [ManufacturerId], 
-    [vw_CustomerAppliances].[ModelNumber] AS [ModelNumber], 
-    [vw_CustomerAppliances].[SerialNumber] AS [SerialNumber], 
-    [vw_CustomerAppliances].[PurchaseDate] AS [PurchaseDate], 
-    [vw_CustomerAppliances].[PNS] AS [PNS], 
-    [vw_CustomerAppliances].[Dealername] AS [Dealername], 
-    [vw_CustomerAppliances].[ApplianceType] AS [ApplianceType], 
-    [vw_CustomerAppliances].[Manufacturer] AS [Manufacturer], 
-    [vw_CustomerAppliances].[CustomerApplianceId] AS [CustomerApplianceId], 
-    [vw_CustomerAppliances].[CustomerId] AS [CustomerId]
-    FROM [dbo].[vw_CustomerAppliances] AS [vw_CustomerAppliances]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_Customers" EntityType="Self.vw_Customers" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_Customers].[CustomerId] AS [CustomerId], 
-    [vw_Customers].[CompanyId] AS [CompanyId], 
-    [vw_Customers].[ReferenceBy] AS [ReferenceBy], 
-    [vw_Customers].[FirstName] AS [FirstName], 
-    [vw_Customers].[LastName] AS [LastName], 
-    [vw_Customers].[Address_Line_1] AS [Address_Line_1], 
-    [vw_Customers].[Address_Line_2] AS [Address_Line_2], 
-    [vw_Customers].[City] AS [City], 
-    [vw_Customers].[ProvinceId] AS [ProvinceId], 
-    [vw_Customers].[PostalCode] AS [PostalCode], 
-    [vw_Customers].[PhoneNumber] AS [PhoneNumber], 
-    [vw_Customers].[CellPhone] AS [CellPhone], 
-    [vw_Customers].[Email] AS [Email], 
-    [vw_Customers].[CreatedDate] AS [CreatedDate], 
-    [vw_Customers].[LastUpdatedDate] AS [LastUpdatedDate], 
-    [vw_Customers].[Inactive] AS [Inactive], 
-    [vw_Customers].[CustomerStatus] AS [CustomerStatus], 
-    [vw_Customers].[Province] AS [Province]
-    FROM [dbo].[vw_Customers] AS [vw_Customers]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_ServiceLocations" EntityType="Self.vw_ServiceLocations" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_ServiceLocations].[ServiceLocationId] AS [ServiceLocationId], 
-    [vw_ServiceLocations].[WorkOrderId] AS [WorkOrderId], 
-    [vw_ServiceLocations].[FirstName] AS [FirstName], 
-    [vw_ServiceLocations].[LastName] AS [LastName], 
-    [vw_ServiceLocations].[Address_Line_1] AS [Address_Line_1], 
-    [vw_ServiceLocations].[Address_Line_2] AS [Address_Line_2], 
-    [vw_ServiceLocations].[City] AS [City], 
-    [vw_ServiceLocations].[ProvinceId] AS [ProvinceId], 
-    [vw_ServiceLocations].[PostalCode] AS [PostalCode], 
-    [vw_ServiceLocations].[PhoneNumber] AS [PhoneNumber], 
-    [vw_ServiceLocations].[CellNumber] AS [CellNumber], 
-    [vw_ServiceLocations].[Email] AS [Email], 
-    [vw_ServiceLocations].[InersectionName] AS [InersectionName], 
-    [vw_ServiceLocations].[ServiceLocaton_Province] AS [ServiceLocaton_Province], 
-    [vw_ServiceLocations].[ContactName] AS [ContactName], 
-    [vw_ServiceLocations].[Province] AS [Province]
-    FROM [dbo].[vw_ServiceLocations] AS [vw_ServiceLocations]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_ServiceItems_ServiceItems" Association="Self.FK_ServiceItems_ServiceItems">
             <End Role="ServiceItems" EntitySet="ServiceItems" />
             <End Role="ServiceItems1" EntitySet="ServiceItems" />
@@ -738,447 +657,7 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
         <ComplexType Name="Split_Result">
           <Property Name="Item" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </ComplexType>
-        <EntityType Name="AppliancesImages">
-          <Key>
-            <PropertyRef Name="SrNo" />
-          </Key>
-          <Property Name="SrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ApplianceTypeId" Type="Int64" />
-          <Property Name="ImageFile1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ImageFile2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ImageFile3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ImageFile4" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ApplianceTypes">
-          <Key>
-            <PropertyRef Name="ApplianceTypeId" />
-          </Key>
-          <Property Name="ApplianceTypeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ApplianceType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Inactive" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="BillingAddress">
-          <Key>
-            <PropertyRef Name="BillingAddressId" />
-          </Key>
-          <Property Name="BillingAddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ContactName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProvinceId" Type="Int32" />
-          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CellPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="InActive" Type="Boolean" />
-          <Property Name="LabourCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OtherCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ServiceCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ShippingAndHandling" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="InActive" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="CompanyServiceCharges">
-          <Key>
-            <PropertyRef Name="CompanyChargesID" />
-          </Key>
-          <Property Name="CompanyChargesID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BillingAddressId" Type="Int64" />
-          <Property Name="ServiceItemID" Type="Int64" />
-          <Property Name="ServiceCharges" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="CustomerAppliances">
-          <Key>
-            <PropertyRef Name="CustomerApplianceId" />
-          </Key>
-          <Property Name="CustomerApplianceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerId" Type="Int64" />
-          <Property Name="ApplianceTypeId" Type="Int64" />
-          <Property Name="ManufacturerId" Type="Int64" />
-          <Property Name="ModelNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="SerialNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PurchaseDate" Type="DateTime" Precision="0" />
-          <Property Name="Notes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="PNS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DealerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModelImage" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Customers">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="CustomerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyId" Type="Int32" />
-          <Property Name="ReferenceBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProvinceId" Type="Int32" />
-          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CellPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Inactive" Type="Boolean" />
-          <Property Name="CustomerStatus" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="JobNature">
-          <Key>
-            <PropertyRef Name="JobNatureId" />
-          </Key>
-          <Property Name="JobNatureId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobNature1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Inactive" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="JobStatus">
-          <Key>
-            <PropertyRef Name="JobStatusId" />
-          </Key>
-          <Property Name="JobStatusId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobStatus1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Manufacturers">
-          <Key>
-            <PropertyRef Name="ManufacturerId" />
-          </Key>
-          <Property Name="ManufacturerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Manufacturer" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Inactive" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="PaymentModes">
-          <Key>
-            <PropertyRef Name="PaymentModeId" />
-          </Key>
-          <Property Name="PaymentModeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Provinces">
-          <Key>
-            <PropertyRef Name="ProvinceId" />
-          </Key>
-          <Property Name="ProvinceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ServiceItems">
-          <Key>
-            <PropertyRef Name="ServiceItemID" />
-          </Key>
-          <Property Name="ServiceItemID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ServiceItem" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceItemDescr" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ServicePrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="IsTaxable" Type="Boolean" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="ServiceItems1" Relationship="Self.FK_ServiceItems_ServiceItems" FromRole="ServiceItems" ToRole="ServiceItems1" />
-          <NavigationProperty Name="ServiceItems2" Relationship="Self.FK_ServiceItems_ServiceItems" FromRole="ServiceItems1" ToRole="ServiceItems" />
-          <NavigationProperty Name="WorkOrder_ServiceItems" Relationship="Self.FK_WorkOrder_ServiceItems_ServiceItems" FromRole="ServiceItems" ToRole="WorkOrder_ServiceItems" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserFullName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UserTypeId" Type="Int32" />
-          <Property Name="Inactive" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="UserTypes">
-          <Key>
-            <PropertyRef Name="UserTypeId" />
-          </Key>
-          <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="WorkOrder_Header">
-          <Key>
-            <PropertyRef Name="WorkOrderId" />
-          </Key>
-          <Property Name="WorkOrderId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderDate" Type="DateTime" Precision="0" />
-          <Property Name="CustomerId" Type="Int64" />
-          <Property Name="CustomerApplianceId" Type="Int64" />
-          <Property Name="ServiceDate" Type="DateTime" Precision="0" />
-          <Property Name="ServiceTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="ServiceDateTime" Type="DateTime" Precision="3" />
-          <Property Name="TechicianId" Type="Int32" />
-          <Property Name="JobNatureId" Type="Int32" />
-          <Property Name="ChargeTax" Type="Boolean" />
-          <Property Name="JobStatusId" Type="Int32" />
-          <Property Name="WorkOrderNotes" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="JobCompletion" Type="DateTime" Precision="3" />
-          <Property Name="WorkOrderCancelled" Type="Boolean" />
-          <Property Name="TechRemarks" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <Property Name="RecallWorkOrderId" Type="Int64" />
-          <Property Name="TicketNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="COD_WARN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Mileage" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
-        <EntityType Name="Workorder_Images">
-          <Key>
-            <PropertyRef Name="WorkOrderImageId" />
-          </Key>
-          <Property Name="WorkOrderImageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" />
-          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DateUploaded" Type="DateTime" Precision="3" />
-          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="WorkOrder_Notes">
-          <Key>
-            <PropertyRef Name="WorkOrderNoteId" />
-          </Key>
-          <Property Name="WorkOrderNoteId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" />
-          <Property Name="NotesDateTime" Type="DateTime" Precision="3" />
-          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="EnteredUserId" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="WorkOrder_Parts">
-          <Key>
-            <PropertyRef Name="WorkOrderPartId" />
-          </Key>
-          <Property Name="WorkOrderPartId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" />
-          <Property Name="PartName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PartDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PurchasePrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="InvoicePrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
-          <Property Name="InStock" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Notes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="WorkOrder_Payments">
-          <Key>
-            <PropertyRef Name="PaymentId" />
-          </Key>
-          <Property Name="PaymentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" />
-          <Property Name="WorkOrderLineId" Type="Int64" />
-          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PaymentDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PaymentModeId" Type="Int32" />
-          <Property Name="LineType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="WorkOrder_Schedule">
-          <Key>
-            <PropertyRef Name="WorkOrderScheduleId" />
-          </Key>
-          <Property Name="WorkOrderScheduleId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" Nullable="false" />
-          <Property Name="ServiceDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ServiceTime" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="WorkOrder_ServiceItems">
-          <Key>
-            <PropertyRef Name="WOServiceItems" />
-          </Key>
-          <Property Name="WOServiceItems" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" />
-          <Property Name="ServiceItemID" Type="Int64" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ServiceNotes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ServiceItems" Relationship="Self.FK_WorkOrder_ServiceItems_ServiceItems" FromRole="WorkOrder_ServiceItems" ToRole="ServiceItems" />
-          <NavigationProperty Name="WorkOrder_ServiceItems1" Relationship="Self.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" FromRole="WorkOrder_ServiceItems" ToRole="WorkOrder_ServiceItems1" />
-          <NavigationProperty Name="WorkOrder_ServiceItems2" Relationship="Self.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" FromRole="WorkOrder_ServiceItems1" ToRole="WorkOrder_ServiceItems" />
-        </EntityType>
-        <EntityType Name="WorkOrder_ServiceLocation">
-          <Key>
-            <PropertyRef Name="ServiceLocationId" />
-          </Key>
-          <Property Name="ServiceLocationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProvinceId" Type="Int32" />
-          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IntersectionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="BillingAddressId" Type="Int32" />
-          <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="WorkOrder_Services">
-          <Key>
-            <PropertyRef Name="WorkOrderServId" />
-          </Key>
-          <Property Name="WorkOrderServId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkOrderId" Type="Int64" />
-          <Property Name="ServiceName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OtherCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="LabourCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SHCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ServiceNotes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="vw_CustomerAppliances">
-          <Key>
-            <PropertyRef Name="CustomerApplianceId" />
-          </Key>
-          <Property Name="ApplianceTypeId" Type="Int64" />
-          <Property Name="ManufacturerId" Type="Int64" />
-          <Property Name="ModelNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="SerialNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PurchaseDate" Type="DateTime" Precision="0" />
-          <Property Name="PNS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Dealername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ApplianceType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Manufacturer" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerApplianceId" Type="Int64" Nullable="false" />
-          <Property Name="CustomerId" Type="Int64" />
-        </EntityType>
-        <EntityType Name="vw_Customers">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="CustomerId" Type="Int64" Nullable="false" />
-          <Property Name="CompanyId" Type="Int32" />
-          <Property Name="ReferenceBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProvinceId" Type="Int32" />
-          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CellPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Inactive" Type="Boolean" />
-          <Property Name="CustomerStatus" Type="Boolean" />
-          <Property Name="Province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="vw_ServiceLocations">
-          <Key>
-            <PropertyRef Name="ServiceLocationId" />
-            <PropertyRef Name="WorkOrderId" />
-          </Key>
-          <Property Name="ServiceLocationId" Type="Int64" Nullable="false" />
-          <Property Name="WorkOrderId" Type="Int64" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProvinceId" Type="Int32" />
-          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="InersectionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceLocaton_Province" Type="Int32" />
-          <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_ServiceItems_ServiceItems">
-          <End Role="ServiceItems" Type="Self.ServiceItems" Multiplicity="1" />
-          <End Role="ServiceItems1" Type="Self.ServiceItems" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceItems">
-              <PropertyRef Name="ServiceItemID" />
-            </Principal>
-            <Dependent Role="ServiceItems1">
-              <PropertyRef Name="ServiceItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkOrder_ServiceItems_ServiceItems">
-          <End Role="ServiceItems" Type="Self.ServiceItems" Multiplicity="0..1" />
-          <End Role="WorkOrder_ServiceItems" Type="Self.WorkOrder_ServiceItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceItems">
-              <PropertyRef Name="ServiceItemID" />
-            </Principal>
-            <Dependent Role="WorkOrder_ServiceItems">
-              <PropertyRef Name="ServiceItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems">
-          <End Role="WorkOrder_ServiceItems" Type="Self.WorkOrder_ServiceItems" Multiplicity="1" />
-          <End Role="WorkOrder_ServiceItems1" Type="Self.WorkOrder_ServiceItems" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="WorkOrder_ServiceItems">
-              <PropertyRef Name="WOServiceItems" />
-            </Principal>
-            <Dependent Role="WorkOrder_ServiceItems1">
-              <PropertyRef Name="WOServiceItems" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="EURODbContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppliancesImages" EntityType="Self.AppliancesImages" />
-          <EntitySet Name="ApplianceTypes" EntityType="Self.ApplianceTypes" />
-          <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" />
-          <EntitySet Name="Company" EntityType="Self.Company" />
-          <EntitySet Name="CompanyServiceCharges" EntityType="Self.CompanyServiceCharges" />
-          <EntitySet Name="CustomerAppliances" EntityType="Self.CustomerAppliances" />
-          <EntitySet Name="Customers" EntityType="Self.Customers" />
-          <EntitySet Name="JobNature" EntityType="Self.JobNature" />
-          <EntitySet Name="JobStatus" EntityType="Self.JobStatus" />
-          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" />
-          <EntitySet Name="PaymentModes" EntityType="Self.PaymentModes" />
-          <EntitySet Name="Provinces" EntityType="Self.Provinces" />
-          <EntitySet Name="ServiceItems" EntityType="Self.ServiceItems" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <EntitySet Name="UserTypes" EntityType="Self.UserTypes" />
-          <EntitySet Name="WorkOrder_Header" EntityType="Self.WorkOrder_Header" />
-          <EntitySet Name="Workorder_Images" EntityType="Self.Workorder_Images" />
-          <EntitySet Name="WorkOrder_Notes" EntityType="Self.WorkOrder_Notes" />
-          <EntitySet Name="WorkOrder_Parts" EntityType="Self.WorkOrder_Parts" />
-          <EntitySet Name="WorkOrder_Payments" EntityType="Self.WorkOrder_Payments" />
-          <EntitySet Name="WorkOrder_Schedule" EntityType="Self.WorkOrder_Schedule" />
-          <EntitySet Name="WorkOrder_ServiceItems" EntityType="Self.WorkOrder_ServiceItems" />
-          <EntitySet Name="WorkOrder_ServiceLocation" EntityType="Self.WorkOrder_ServiceLocation" />
-          <EntitySet Name="WorkOrder_Services" EntityType="Self.WorkOrder_Services" />
-          <EntitySet Name="vw_CustomerAppliances" EntityType="Self.vw_CustomerAppliances" />
-          <EntitySet Name="vw_Customers" EntityType="Self.vw_Customers" />
-          <EntitySet Name="vw_ServiceLocations" EntityType="Self.vw_ServiceLocations" />
-          <AssociationSet Name="FK_ServiceItems_ServiceItems" Association="Self.FK_ServiceItems_ServiceItems">
-            <End Role="ServiceItems" EntitySet="ServiceItems" />
-            <End Role="ServiceItems1" EntitySet="ServiceItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkOrder_ServiceItems_ServiceItems" Association="Self.FK_WorkOrder_ServiceItems_ServiceItems">
-            <End Role="ServiceItems" EntitySet="ServiceItems" />
-            <End Role="WorkOrder_ServiceItems" EntitySet="WorkOrder_ServiceItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" Association="Self.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems">
-            <End Role="WorkOrder_ServiceItems" EntitySet="WorkOrder_ServiceItems" />
-            <End Role="WorkOrder_ServiceItems1" EntitySet="WorkOrder_ServiceItems" />
-          </AssociationSet>
           <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(EUROModel.Split_Result)">
             <Parameter Name="Input" Mode="In" Type="String" />
             <Parameter Name="Character" Mode="In" Type="String" />
@@ -1388,7 +867,77 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
             <Parameter Name="TechRemarks" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_webapi_getTechRemarks" ReturnType="Collection(String)">
+          <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <EntitySet Name="AppConfig" EntityType="EUROModel.AppConfig" />
+          <EntitySet Name="AppliancesImages" EntityType="EUROModel.AppliancesImages" />
+          <EntitySet Name="ApplianceTypes" EntityType="EUROModel.ApplianceTypes" />
+          <EntitySet Name="BillingAddress" EntityType="EUROModel.BillingAddress" />
+          <EntitySet Name="Company" EntityType="EUROModel.Company" />
+          <EntitySet Name="CompanyServiceCharges" EntityType="EUROModel.CompanyServiceCharges" />
+          <EntitySet Name="CustomerAppliances" EntityType="EUROModel.CustomerAppliances" />
+          <EntitySet Name="Customers" EntityType="EUROModel.Customers" />
+          <EntitySet Name="JobNature" EntityType="EUROModel.JobNature" />
+          <EntitySet Name="JobStatus" EntityType="EUROModel.JobStatus" />
+          <EntitySet Name="Manufacturers" EntityType="EUROModel.Manufacturers" />
+          <EntitySet Name="PaymentModes" EntityType="EUROModel.PaymentModes" />
+          <EntitySet Name="Provinces" EntityType="EUROModel.Provinces" />
+          <EntitySet Name="ServiceItems" EntityType="EUROModel.ServiceItems" />
+          <EntitySet Name="Users" EntityType="EUROModel.Users" />
+          <EntitySet Name="UserTypes" EntityType="EUROModel.UserTypes" />
+          <EntitySet Name="WorkOrder_Header" EntityType="EUROModel.WorkOrder_Header" />
+          <EntitySet Name="Workorder_Images" EntityType="EUROModel.Workorder_Images" />
+          <EntitySet Name="WorkOrder_Notes" EntityType="EUROModel.WorkOrder_Notes" />
+          <EntitySet Name="WorkOrder_Parts" EntityType="EUROModel.WorkOrder_Parts" />
+          <EntitySet Name="WorkOrder_Payments" EntityType="EUROModel.WorkOrder_Payments" />
+          <EntitySet Name="WorkOrder_Schedule" EntityType="EUROModel.WorkOrder_Schedule" />
+          <EntitySet Name="WorkOrder_ServiceItems" EntityType="EUROModel.WorkOrder_ServiceItems" />
+          <EntitySet Name="WorkOrder_ServiceLocation" EntityType="EUROModel.WorkOrder_ServiceLocation" />
+          <EntitySet Name="WorkOrder_Services" EntityType="EUROModel.WorkOrder_Services" />
+          <AssociationSet Name="FK_ServiceItems_ServiceItems" Association="EUROModel.FK_ServiceItems_ServiceItems">
+            <End Role="ServiceItems" EntitySet="ServiceItems" />
+            <End Role="ServiceItems1" EntitySet="ServiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkOrder_ServiceItems_ServiceItems" Association="EUROModel.FK_WorkOrder_ServiceItems_ServiceItems">
+            <End Role="ServiceItems" EntitySet="ServiceItems" />
+            <End Role="WorkOrder_ServiceItems" EntitySet="WorkOrder_ServiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" Association="EUROModel.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems">
+            <End Role="WorkOrder_ServiceItems" EntitySet="WorkOrder_ServiceItems" />
+            <End Role="WorkOrder_ServiceItems1" EntitySet="WorkOrder_ServiceItems" />
+          </AssociationSet>
+          <FunctionImport Name="sp_webapi_getCOVIDTab" ReturnType="Collection(String)" />
+          <FunctionImport Name="sp_webapi_getCustomerInfo" ReturnType="Collection(EUROModel.sp_webapi_getCustomerInfo_Result)">
+          <Parameter Name="CustomerId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_webapi_getInvoiceText" ReturnType="Collection(EUROModel.sp_webapi_getInvoiceText_Result)">
+          <Parameter Name="TextType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_webapi_getInvoiceTotals" ReturnType="Collection(EUROModel.sp_webapi_getInvoiceTotals_Result)">
+          <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_webapi_saveSignatures">
             <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+            <Parameter Name="InvoiceSigned" Mode="In" Type="String" />
+            <Parameter Name="Covid_answer_1" Mode="In" Type="String" />
+            <Parameter Name="Covid_answer_2" Mode="In" Type="String" />
+            <Parameter Name="Covid_answer_3" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_webapi_UpdateCustomerInfo">
+            <Parameter Name="CustomerId" Mode="In" Type="Int64" />
+            <Parameter Name="CustomerFirstName" Mode="In" Type="String" />
+            <Parameter Name="CustomerLastName" Mode="In" Type="String" />
+            <Parameter Name="AddressLine" Mode="In" Type="String" />
+            <Parameter Name="NearestSection" Mode="In" Type="String" />
+            <Parameter Name="CIty" Mode="In" Type="String" />
+            <Parameter Name="PostalCode" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="CellNumber" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_webapi_UpdateWorkOrderServiceItems_v2" ReturnType="Collection(EUROModel.sp_webapi_UpdateWorkOrderServiceItems_v2_Result)">
+            <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+            <Parameter Name="ServiceXML" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Company_Pricelist_Result">
@@ -1800,397 +1349,387 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Property Type="String" Name="ImageFile3" Nullable="true" MaxLength="300" />
           <Property Type="String" Name="ImageFile4" Nullable="true" MaxLength="300" />
         </ComplexType>
+        <EntityType Name="AppConfig">
+          <Key>
+            <PropertyRef Name="AppConfigId" />
+          </Key>
+          <Property Name="AppConfigId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentKey" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ChildKEy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ConfigValue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AppliancesImages">
+          <Key>
+            <PropertyRef Name="SrNo" />
+          </Key>
+          <Property Name="SrNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplianceTypeId" Type="Int64" />
+          <Property Name="ImageFile1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ImageFile2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ImageFile3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ImageFile4" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ApplianceTypes">
+          <Key>
+            <PropertyRef Name="ApplianceTypeId" />
+          </Key>
+          <Property Name="ApplianceTypeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplianceType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Inactive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BillingAddress">
+          <Key>
+            <PropertyRef Name="BillingAddressId" />
+          </Key>
+          <Property Name="BillingAddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="InActive" Type="Boolean" />
+          <Property Name="LabourCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OtherCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ServiceCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ShippingAndHandling" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="InActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CompanyServiceCharges">
+          <Key>
+            <PropertyRef Name="CompanyChargesID" />
+          </Key>
+          <Property Name="CompanyChargesID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillingAddressId" Type="Int64" />
+          <Property Name="ServiceItemID" Type="Int64" />
+          <Property Name="ServiceCharges" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="CustomerAppliances">
+          <Key>
+            <PropertyRef Name="CustomerApplianceId" />
+          </Key>
+          <Property Name="CustomerApplianceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int64" />
+          <Property Name="ApplianceTypeId" Type="Int64" />
+          <Property Name="ManufacturerId" Type="Int64" />
+          <Property Name="ModelNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="0" />
+          <Property Name="Notes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="PNS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DealerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModelImage" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="ReferenceBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="CustomerStatus" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="JobNature">
+          <Key>
+            <PropertyRef Name="JobNatureId" />
+          </Key>
+          <Property Name="JobNatureId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobNature1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Inactive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="JobStatus">
+          <Key>
+            <PropertyRef Name="JobStatusId" />
+          </Key>
+          <Property Name="JobStatusId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobStatus1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Manufacturers">
+          <Key>
+            <PropertyRef Name="ManufacturerId" />
+          </Key>
+          <Property Name="ManufacturerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manufacturer" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Inactive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PaymentModes">
+          <Key>
+            <PropertyRef Name="PaymentModeId" />
+          </Key>
+          <Property Name="PaymentModeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Provinces">
+          <Key>
+            <PropertyRef Name="ProvinceId" />
+          </Key>
+          <Property Name="ProvinceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ServiceItems">
+          <Key>
+            <PropertyRef Name="ServiceItemID" />
+          </Key>
+          <Property Name="ServiceItemID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceItem" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceItemDescr" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ServicePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsTaxable" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ServiceItems1" Relationship="EUROModel.FK_ServiceItems_ServiceItems" FromRole="ServiceItems" ToRole="ServiceItems1" />
+          <NavigationProperty Name="ServiceItems2" Relationship="EUROModel.FK_ServiceItems_ServiceItems" FromRole="ServiceItems1" ToRole="ServiceItems" />
+          <NavigationProperty Name="WorkOrder_ServiceItems" Relationship="EUROModel.FK_WorkOrder_ServiceItems_ServiceItems" FromRole="ServiceItems" ToRole="WorkOrder_ServiceItems" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserFullName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserTypeId" Type="Int32" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserTypes">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder_Header">
+          <Key>
+            <PropertyRef Name="WorkOrderId" />
+          </Key>
+          <Property Name="WorkOrderId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderDate" Type="DateTime" Precision="0" />
+          <Property Name="CustomerId" Type="Int64" />
+          <Property Name="CustomerApplianceId" Type="Int64" />
+          <Property Name="ServiceDate" Type="DateTime" Precision="0" />
+          <Property Name="ServiceTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ServiceDateTime" Type="DateTime" Precision="3" />
+          <Property Name="TechicianId" Type="Int32" />
+          <Property Name="JobNatureId" Type="Int32" />
+          <Property Name="ChargeTax" Type="Boolean" />
+          <Property Name="JobStatusId" Type="Int32" />
+          <Property Name="WorkOrderNotes" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="JobCompletion" Type="DateTime" Precision="3" />
+          <Property Name="WorkOrderCancelled" Type="Boolean" />
+          <Property Name="TechRemarks" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="RecallWorkOrderId" Type="Int64" />
+          <Property Name="TicketNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COD_WARN" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Mileage" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Workorder_Images">
+          <Key>
+            <PropertyRef Name="WorkOrderImageId" />
+          </Key>
+          <Property Name="WorkOrderImageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DateUploaded" Type="DateTime" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder_Notes">
+          <Key>
+            <PropertyRef Name="WorkOrderNoteId" />
+          </Key>
+          <Property Name="WorkOrderNoteId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="NotesDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="EnteredUserId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WorkOrder_Parts">
+          <Key>
+            <PropertyRef Name="WorkOrderPartId" />
+          </Key>
+          <Property Name="WorkOrderPartId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="PartName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PartDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="InvoicePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+          <Property Name="InStock" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="WorkOrder_Payments">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="WorkOrderLineId" Type="Int64" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaymentDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentModeId" Type="Int32" />
+          <Property Name="LineType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder_Schedule">
+          <Key>
+            <PropertyRef Name="WorkOrderScheduleId" />
+          </Key>
+          <Property Name="WorkOrderScheduleId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" Nullable="false" />
+          <Property Name="ServiceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ServiceTime" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder_ServiceItems">
+          <Key>
+            <PropertyRef Name="WOServiceItems" />
+          </Key>
+          <Property Name="WOServiceItems" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="ServiceItemID" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ServiceNotes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ServiceItems" Relationship="EUROModel.FK_WorkOrder_ServiceItems_ServiceItems" FromRole="WorkOrder_ServiceItems" ToRole="ServiceItems" />
+          <NavigationProperty Name="WorkOrder_ServiceItems1" Relationship="EUROModel.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" FromRole="WorkOrder_ServiceItems" ToRole="WorkOrder_ServiceItems1" />
+          <NavigationProperty Name="WorkOrder_ServiceItems2" Relationship="EUROModel.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" FromRole="WorkOrder_ServiceItems1" ToRole="WorkOrder_ServiceItems" />
+        </EntityType>
+        <EntityType Name="WorkOrder_ServiceLocation">
+          <Key>
+            <PropertyRef Name="ServiceLocationId" />
+          </Key>
+          <Property Name="ServiceLocationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IntersectionName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="BillingAddressId" Type="Int32" />
+          <Property Name="ContactName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder_Services">
+          <Key>
+            <PropertyRef Name="WorkOrderServId" />
+          </Key>
+          <Property Name="WorkOrderServId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="ServiceName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OtherCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LabourCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SHCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ServiceNotes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_ServiceItems_ServiceItems">
+          <End Type="EUROModel.ServiceItems" Role="ServiceItems" Multiplicity="1" />
+          <End Type="EUROModel.ServiceItems" Role="ServiceItems1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceItems">
+              <PropertyRef Name="ServiceItemID" />
+            </Principal>
+            <Dependent Role="ServiceItems1">
+              <PropertyRef Name="ServiceItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkOrder_ServiceItems_ServiceItems">
+          <End Type="EUROModel.ServiceItems" Role="ServiceItems" Multiplicity="0..1" />
+          <End Type="EUROModel.WorkOrder_ServiceItems" Role="WorkOrder_ServiceItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceItems">
+              <PropertyRef Name="ServiceItemID" />
+            </Principal>
+            <Dependent Role="WorkOrder_ServiceItems">
+              <PropertyRef Name="ServiceItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems">
+          <End Type="EUROModel.WorkOrder_ServiceItems" Role="WorkOrder_ServiceItems" Multiplicity="1" />
+          <End Type="EUROModel.WorkOrder_ServiceItems" Role="WorkOrder_ServiceItems1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WorkOrder_ServiceItems">
+              <PropertyRef Name="WOServiceItems" />
+            </Principal>
+            <Dependent Role="WorkOrder_ServiceItems1">
+              <PropertyRef Name="WOServiceItems" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_webapi_getCustomerInfo_Result">
+          <Property Type="Int64" Name="CustomerId" Nullable="false" />
+          <Property Type="String" Name="CustomerFirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CustomerLastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="AddressLine" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NearestIntersection" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_webapi_getInvoiceTotals_Result">
+          <Property Type="String" Name="Total" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="HST" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="TotalAmount" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="AmountPaid" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="TotalAmountDue" Nullable="true" MaxLength="13" />
+        </ComplexType>
+        <ComplexType Name="sp_webapi_UpdateWorkOrderServiceItems_v2_Result">
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="20" />
+          <Property Type="Int64" Name="WorkOrderId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_webapi_getInvoiceText_Result">
+          <Property Type="String" Name="ConsentText" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EUROModelStoreContainer" CdmEntityContainer="EURODbContext">
-          <EntitySetMapping Name="AppliancesImages">
-            <EntityTypeMapping TypeName="EUROModel.AppliancesImages">
-              <MappingFragment StoreEntitySet="AppliancesImages">
-                <ScalarProperty Name="SrNo" ColumnName="SrNo" />
-                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
-                <ScalarProperty Name="ImageFile1" ColumnName="ImageFile1" />
-                <ScalarProperty Name="ImageFile2" ColumnName="ImageFile2" />
-                <ScalarProperty Name="ImageFile3" ColumnName="ImageFile3" />
-                <ScalarProperty Name="ImageFile4" ColumnName="ImageFile4" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ApplianceTypes">
-            <EntityTypeMapping TypeName="EUROModel.ApplianceTypes">
-              <MappingFragment StoreEntitySet="ApplianceTypes">
-                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
-                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
-                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BillingAddress">
-            <EntityTypeMapping TypeName="EUROModel.BillingAddress">
-              <MappingFragment StoreEntitySet="BillingAddress">
-                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
-                <ScalarProperty Name="LabourCharges" ColumnName="LabourCharges" />
-                <ScalarProperty Name="OtherCharges" ColumnName="OtherCharges" />
-                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
-                <ScalarProperty Name="ShippingAndHandling" ColumnName="ShippingAndHandling" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Company">
-            <EntityTypeMapping TypeName="EUROModel.Company">
-              <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="InActive" ColumnName="InActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CompanyServiceCharges">
-            <EntityTypeMapping TypeName="EUROModel.CompanyServiceCharges">
-              <MappingFragment StoreEntitySet="CompanyServiceCharges">
-                <ScalarProperty Name="CompanyChargesID" ColumnName="CompanyChargesID" />
-                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
-                <ScalarProperty Name="ServiceItemID" ColumnName="ServiceItemID" />
-                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerAppliances">
-            <EntityTypeMapping TypeName="EUROModel.CustomerAppliances">
-              <MappingFragment StoreEntitySet="CustomerAppliances">
-                <ScalarProperty Name="CustomerApplianceId" ColumnName="CustomerApplianceId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
-                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
-                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="PNS" ColumnName="PNS" />
-                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
-                <ScalarProperty Name="ModelImage" ColumnName="ModelImage" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="EUROModel.Customers">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="ReferenceBy" ColumnName="ReferenceBy" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
-                <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobNature">
-            <EntityTypeMapping TypeName="EUROModel.JobNature">
-              <MappingFragment StoreEntitySet="JobNature">
-                <ScalarProperty Name="JobNatureId" ColumnName="JobNatureId" />
-                <ScalarProperty Name="JobNature1" ColumnName="JobNature" />
-                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobStatus">
-            <EntityTypeMapping TypeName="EUROModel.JobStatus">
-              <MappingFragment StoreEntitySet="JobStatus">
-                <ScalarProperty Name="JobStatusId" ColumnName="JobStatusId" />
-                <ScalarProperty Name="JobStatus1" ColumnName="JobStatus" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Manufacturers">
-            <EntityTypeMapping TypeName="EUROModel.Manufacturers">
-              <MappingFragment StoreEntitySet="Manufacturers">
-                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentModes">
-            <EntityTypeMapping TypeName="EUROModel.PaymentModes">
-              <MappingFragment StoreEntitySet="PaymentModes">
-                <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />
-                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Provinces">
-            <EntityTypeMapping TypeName="EUROModel.Provinces">
-              <MappingFragment StoreEntitySet="Provinces">
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceItems">
-            <EntityTypeMapping TypeName="EUROModel.ServiceItems">
-              <MappingFragment StoreEntitySet="ServiceItems">
-                <ScalarProperty Name="ServiceItemID" ColumnName="ServiceItemID" />
-                <ScalarProperty Name="ServiceItem" ColumnName="ServiceItem" />
-                <ScalarProperty Name="ServiceItemDescr" ColumnName="ServiceItemDescr" />
-                <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
-                <ScalarProperty Name="IsTaxable" ColumnName="IsTaxable" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="EUROModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
-                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
-                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserTypes">
-            <EntityTypeMapping TypeName="EUROModel.UserTypes">
-              <MappingFragment StoreEntitySet="UserTypes">
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_Header">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Header">
-              <MappingFragment StoreEntitySet="WorkOrder_Header">
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="WorkOrderDate" ColumnName="WorkOrderDate" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CustomerApplianceId" ColumnName="CustomerApplianceId" />
-                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
-                <ScalarProperty Name="ServiceTime" ColumnName="ServiceTime" />
-                <ScalarProperty Name="ServiceDateTime" ColumnName="ServiceDateTime" />
-                <ScalarProperty Name="TechicianId" ColumnName="TechicianId" />
-                <ScalarProperty Name="JobNatureId" ColumnName="JobNatureId" />
-                <ScalarProperty Name="ChargeTax" ColumnName="ChargeTax" />
-                <ScalarProperty Name="JobStatusId" ColumnName="JobStatusId" />
-                <ScalarProperty Name="WorkOrderNotes" ColumnName="WorkOrderNotes" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="JobCompletion" ColumnName="JobCompletion" />
-                <ScalarProperty Name="WorkOrderCancelled" ColumnName="WorkOrderCancelled" />
-                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
-                <ScalarProperty Name="RecallWorkOrderId" ColumnName="RecallWorkOrderId" />
-                <ScalarProperty Name="TicketNumber" ColumnName="TicketNumber" />
-                <ScalarProperty Name="COD_WARN" ColumnName="COD_WARN" />
-                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Workorder_Images">
-            <EntityTypeMapping TypeName="EUROModel.Workorder_Images">
-              <MappingFragment StoreEntitySet="Workorder_Images">
-                <ScalarProperty Name="WorkOrderImageId" ColumnName="WorkOrderImageId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="DateUploaded" ColumnName="DateUploaded" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_Notes">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Notes">
-              <MappingFragment StoreEntitySet="WorkOrder_Notes">
-                <ScalarProperty Name="WorkOrderNoteId" ColumnName="WorkOrderNoteId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="NotesDateTime" ColumnName="NotesDateTime" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="EnteredUserId" ColumnName="EnteredUserId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_Parts">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Parts">
-              <MappingFragment StoreEntitySet="WorkOrder_Parts">
-                <ScalarProperty Name="WorkOrderPartId" ColumnName="WorkOrderPartId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="PartName" ColumnName="PartName" />
-                <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
-                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
-                <ScalarProperty Name="InvoicePrice" ColumnName="InvoicePrice" />
-                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-                <ScalarProperty Name="InStock" ColumnName="InStock" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_Payments">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Payments">
-              <MappingFragment StoreEntitySet="WorkOrder_Payments">
-                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="WorkOrderLineId" ColumnName="WorkOrderLineId" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="PaymentDescription" ColumnName="PaymentDescription" />
-                <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />
-                <ScalarProperty Name="LineType" ColumnName="LineType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_Schedule">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Schedule">
-              <MappingFragment StoreEntitySet="WorkOrder_Schedule">
-                <ScalarProperty Name="WorkOrderScheduleId" ColumnName="WorkOrderScheduleId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
-                <ScalarProperty Name="ServiceTime" ColumnName="ServiceTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_ServiceItems">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_ServiceItems">
-              <MappingFragment StoreEntitySet="WorkOrder_ServiceItems">
-                <ScalarProperty Name="WOServiceItems" ColumnName="WOServiceItems" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="ServiceItemID" ColumnName="ServiceItemID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="ServiceNotes" ColumnName="ServiceNotes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_ServiceLocation">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_ServiceLocation">
-              <MappingFragment StoreEntitySet="WorkOrder_ServiceLocation">
-                <ScalarProperty Name="ServiceLocationId" ColumnName="ServiceLocationId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IntersectionName" ColumnName="IntersectionName" />
-                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkOrder_Services">
-            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Services">
-              <MappingFragment StoreEntitySet="WorkOrder_Services">
-                <ScalarProperty Name="WorkOrderServId" ColumnName="WorkOrderServId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
-                <ScalarProperty Name="ServiceDescription" ColumnName="ServiceDescription" />
-                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
-                <ScalarProperty Name="OtherCharges" ColumnName="OtherCharges" />
-                <ScalarProperty Name="LabourCharges" ColumnName="LabourCharges" />
-                <ScalarProperty Name="SHCharges" ColumnName="SHCharges" />
-                <ScalarProperty Name="ServiceNotes" ColumnName="ServiceNotes" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_CustomerAppliances">
-            <EntityTypeMapping TypeName="EUROModel.vw_CustomerAppliances">
-              <MappingFragment StoreEntitySet="vw_CustomerAppliances">
-                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
-                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
-                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="PNS" ColumnName="PNS" />
-                <ScalarProperty Name="Dealername" ColumnName="Dealername" />
-                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="CustomerApplianceId" ColumnName="CustomerApplianceId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_Customers">
-            <EntityTypeMapping TypeName="EUROModel.vw_Customers">
-              <MappingFragment StoreEntitySet="vw_Customers">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="ReferenceBy" ColumnName="ReferenceBy" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
-                <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_ServiceLocations">
-            <EntityTypeMapping TypeName="EUROModel.vw_ServiceLocations">
-              <MappingFragment StoreEntitySet="vw_ServiceLocations">
-                <ScalarProperty Name="ServiceLocationId" ColumnName="ServiceLocationId" />
-                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="InersectionName" ColumnName="InersectionName" />
-                <ScalarProperty Name="ServiceLocaton_Province" ColumnName="ServiceLocaton_Province" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionName="EUROModel.Store.Split" FunctionImportName="Split">
             <ResultMapping>
               <ComplexTypeMapping TypeName="EUROModel.Split_Result">
@@ -2785,6 +2324,383 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_webapi_UpdateTechRemarks" FunctionName="EUROModel.Store.sp_webapi_UpdateTechRemarks" />
           <FunctionImportMapping FunctionImportName="usp_webapi_getTechRemarks" FunctionName="EUROModel.Store.usp_webapi_getTechRemarks" />
+          <EntitySetMapping Name="AppConfig">
+            <EntityTypeMapping TypeName="EUROModel.AppConfig">
+              <MappingFragment StoreEntitySet="AppConfig">
+                <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
+                <ScalarProperty Name="ChildKEy" ColumnName="ChildKEy" />
+                <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+                <ScalarProperty Name="AppConfigId" ColumnName="AppConfigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppliancesImages">
+            <EntityTypeMapping TypeName="EUROModel.AppliancesImages">
+              <MappingFragment StoreEntitySet="AppliancesImages">
+                <ScalarProperty Name="ImageFile4" ColumnName="ImageFile4" />
+                <ScalarProperty Name="ImageFile3" ColumnName="ImageFile3" />
+                <ScalarProperty Name="ImageFile2" ColumnName="ImageFile2" />
+                <ScalarProperty Name="ImageFile1" ColumnName="ImageFile1" />
+                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
+                <ScalarProperty Name="SrNo" ColumnName="SrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplianceTypes">
+            <EntityTypeMapping TypeName="EUROModel.ApplianceTypes">
+              <MappingFragment StoreEntitySet="ApplianceTypes">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
+                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingAddress">
+            <EntityTypeMapping TypeName="EUROModel.BillingAddress">
+              <MappingFragment StoreEntitySet="BillingAddress">
+                <ScalarProperty Name="ShippingAndHandling" ColumnName="ShippingAndHandling" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="OtherCharges" ColumnName="OtherCharges" />
+                <ScalarProperty Name="LabourCharges" ColumnName="LabourCharges" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="EUROModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyServiceCharges">
+            <EntityTypeMapping TypeName="EUROModel.CompanyServiceCharges">
+              <MappingFragment StoreEntitySet="CompanyServiceCharges">
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="ServiceItemID" ColumnName="ServiceItemID" />
+                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
+                <ScalarProperty Name="CompanyChargesID" ColumnName="CompanyChargesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAppliances">
+            <EntityTypeMapping TypeName="EUROModel.CustomerAppliances">
+              <MappingFragment StoreEntitySet="CustomerAppliances">
+                <ScalarProperty Name="ModelImage" ColumnName="ModelImage" />
+                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
+                <ScalarProperty Name="PNS" ColumnName="PNS" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
+                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
+                <ScalarProperty Name="ApplianceTypeId" ColumnName="ApplianceTypeId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerApplianceId" ColumnName="CustomerApplianceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="EUROModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ReferenceBy" ColumnName="ReferenceBy" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobNature">
+            <EntityTypeMapping TypeName="EUROModel.JobNature">
+              <MappingFragment StoreEntitySet="JobNature">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="JobNature1" ColumnName="JobNature" />
+                <ScalarProperty Name="JobNatureId" ColumnName="JobNatureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobStatus">
+            <EntityTypeMapping TypeName="EUROModel.JobStatus">
+              <MappingFragment StoreEntitySet="JobStatus">
+                <ScalarProperty Name="JobStatus1" ColumnName="JobStatus" />
+                <ScalarProperty Name="JobStatusId" ColumnName="JobStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="EUROModel.Manufacturers">
+              <MappingFragment StoreEntitySet="Manufacturers">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentModes">
+            <EntityTypeMapping TypeName="EUROModel.PaymentModes">
+              <MappingFragment StoreEntitySet="PaymentModes">
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="EUROModel.Provinces">
+              <MappingFragment StoreEntitySet="Provinces">
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceItems">
+            <EntityTypeMapping TypeName="EUROModel.ServiceItems">
+              <MappingFragment StoreEntitySet="ServiceItems">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsTaxable" ColumnName="IsTaxable" />
+                <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+                <ScalarProperty Name="ServiceItemDescr" ColumnName="ServiceItemDescr" />
+                <ScalarProperty Name="ServiceItem" ColumnName="ServiceItem" />
+                <ScalarProperty Name="ServiceItemID" ColumnName="ServiceItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EUROModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="EUROModel.UserTypes">
+              <MappingFragment StoreEntitySet="UserTypes">
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_Header">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Header">
+              <MappingFragment StoreEntitySet="WorkOrder_Header">
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="COD_WARN" ColumnName="COD_WARN" />
+                <ScalarProperty Name="TicketNumber" ColumnName="TicketNumber" />
+                <ScalarProperty Name="RecallWorkOrderId" ColumnName="RecallWorkOrderId" />
+                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
+                <ScalarProperty Name="WorkOrderCancelled" ColumnName="WorkOrderCancelled" />
+                <ScalarProperty Name="JobCompletion" ColumnName="JobCompletion" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="WorkOrderNotes" ColumnName="WorkOrderNotes" />
+                <ScalarProperty Name="JobStatusId" ColumnName="JobStatusId" />
+                <ScalarProperty Name="ChargeTax" ColumnName="ChargeTax" />
+                <ScalarProperty Name="JobNatureId" ColumnName="JobNatureId" />
+                <ScalarProperty Name="TechicianId" ColumnName="TechicianId" />
+                <ScalarProperty Name="ServiceDateTime" ColumnName="ServiceDateTime" />
+                <ScalarProperty Name="ServiceTime" ColumnName="ServiceTime" />
+                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+                <ScalarProperty Name="CustomerApplianceId" ColumnName="CustomerApplianceId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="WorkOrderDate" ColumnName="WorkOrderDate" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workorder_Images">
+            <EntityTypeMapping TypeName="EUROModel.Workorder_Images">
+              <MappingFragment StoreEntitySet="Workorder_Images">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DateUploaded" ColumnName="DateUploaded" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="WorkOrderImageId" ColumnName="WorkOrderImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_Notes">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Notes">
+              <MappingFragment StoreEntitySet="WorkOrder_Notes">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EnteredUserId" ColumnName="EnteredUserId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="NotesDateTime" ColumnName="NotesDateTime" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="WorkOrderNoteId" ColumnName="WorkOrderNoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_Parts">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Parts">
+              <MappingFragment StoreEntitySet="WorkOrder_Parts">
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="InStock" ColumnName="InStock" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="InvoicePrice" ColumnName="InvoicePrice" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="WorkOrderPartId" ColumnName="WorkOrderPartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_Payments">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Payments">
+              <MappingFragment StoreEntitySet="WorkOrder_Payments">
+                <ScalarProperty Name="LineType" ColumnName="LineType" />
+                <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />
+                <ScalarProperty Name="PaymentDescription" ColumnName="PaymentDescription" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="WorkOrderLineId" ColumnName="WorkOrderLineId" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_Schedule">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Schedule">
+              <MappingFragment StoreEntitySet="WorkOrder_Schedule">
+                <ScalarProperty Name="ServiceTime" ColumnName="ServiceTime" />
+                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="WorkOrderScheduleId" ColumnName="WorkOrderScheduleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_ServiceItems">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_ServiceItems">
+              <MappingFragment StoreEntitySet="WorkOrder_ServiceItems">
+                <ScalarProperty Name="ServiceNotes" ColumnName="ServiceNotes" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ServiceItemID" ColumnName="ServiceItemID" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="WOServiceItems" ColumnName="WOServiceItems" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_ServiceLocation">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_ServiceLocation">
+              <MappingFragment StoreEntitySet="WorkOrder_ServiceLocation">
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
+                <ScalarProperty Name="IntersectionName" ColumnName="IntersectionName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="ServiceLocationId" ColumnName="ServiceLocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrder_Services">
+            <EntityTypeMapping TypeName="EUROModel.WorkOrder_Services">
+              <MappingFragment StoreEntitySet="WorkOrder_Services">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ServiceNotes" ColumnName="ServiceNotes" />
+                <ScalarProperty Name="SHCharges" ColumnName="SHCharges" />
+                <ScalarProperty Name="LabourCharges" ColumnName="LabourCharges" />
+                <ScalarProperty Name="OtherCharges" ColumnName="OtherCharges" />
+                <ScalarProperty Name="ServiceCharges" ColumnName="ServiceCharges" />
+                <ScalarProperty Name="ServiceDescription" ColumnName="ServiceDescription" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="WorkOrderServId" ColumnName="WorkOrderServId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_webapi_getCOVIDTab" FunctionName="EUROModel.Store.sp_webapi_getCOVIDTab" />
+          <FunctionImportMapping FunctionImportName="sp_webapi_getCustomerInfo" FunctionName="EUROModel.Store.sp_webapi_getCustomerInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.sp_webapi_getCustomerInfo_Result">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
+                <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="NearestIntersection" ColumnName="NearestIntersection" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_webapi_getInvoiceText" FunctionName="EUROModel.Store.sp_webapi_getInvoiceText" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.sp_webapi_getInvoiceText_Result">
+                <ScalarProperty Name="ConsentText" ColumnName="ConsentText" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_webapi_getInvoiceTotals" FunctionName="EUROModel.Store.sp_webapi_getInvoiceTotals">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.sp_webapi_getInvoiceTotals_Result">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="HST" ColumnName="HST" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="TotalAmountDue" ColumnName="TotalAmountDue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_webapi_saveSignatures" FunctionName="EUROModel.Store.sp_webapi_saveSignatures" />
+          <FunctionImportMapping FunctionImportName="sp_webapi_UpdateCustomerInfo" FunctionName="EUROModel.Store.sp_webapi_UpdateCustomerInfo" />
+          <FunctionImportMapping FunctionImportName="sp_webapi_UpdateWorkOrderServiceItems_v2" FunctionName="EUROModel.Store.sp_webapi_UpdateWorkOrderServiceItems_v2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.sp_webapi_UpdateWorkOrderServiceItems_v2_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
