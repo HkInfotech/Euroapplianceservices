@@ -251,7 +251,7 @@
                                                                     TextColor="{DynamicResource blueDark}"
                                                                     TextDecorations="Underline" />
                                                                 <StackLayout.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding BindingContext.NavigateToCustomerDetailPageCommand, Source={Reference thisPage}}" />
+                                                                    <TapGestureRecognizer Command="{Binding BindingContext.CustomerTapLinkCommand, Source={Reference thisPage}}" CommandParameter="{Binding .}" />
                                                                 </StackLayout.GestureRecognizers>
                                                             </StackLayout>
                                                         </Grid>

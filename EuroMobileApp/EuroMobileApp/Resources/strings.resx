@@ -546,4 +546,7 @@
   <data name="CustomerEnterValidEmailAddress" xml:space="preserve">
     <value>Enter valid customer</value>
   </data>
+  <data name="CustomerDetailSaveSuccessAlert" xml:space="preserve">
+    <value>Customer detail update successfully. Thank you</value>
+  </data>
 </root>

@@ -142,7 +142,7 @@
                                     WidthRequest="3" />
                                 <Grid
                                     Grid.Column="1"
-                                    ColumnDefinitions="40*,15*,15*,30*"
+                                    ColumnDefinitions="35*,10*,25*,30*"
                                     RowDefinitions="Auto,Auto">
 
                                     <StackLayout
@@ -163,35 +163,41 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         AutomationId="ListIdLayout"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="EndAndExpand"
                                         Spacing="0">
                                         <Label
                                             FontSize="10"
+                                            HorizontalTextAlignment="End"
                                             Text="{trans:Translate QuantityLabel}"
                                             TextColor="{DynamicResource grayDark}" />
                                         <Label
                                             FontAttributes="Bold"
-                                            FontSize="16"
+                                            FontSize="14"
+                                            HorizontalTextAlignment="End"
                                             LineBreakMode="TailTruncation"
                                             Text="{Binding Quantity}" />
                                     </StackLayout>
                                     <StackLayout
                                         Grid.Column="2"
                                         AutomationId="TitleLayout"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="EndAndExpand"
                                         Spacing="0">
                                         <Label
                                             FontSize="10"
+                                            HorizontalTextAlignment="End"
                                             Text="{trans:Translate RateLabel}"
                                             TextColor="{DynamicResource grayDark}" />
                                         <Label
                                             FontAttributes="Bold"
-                                            FontSize="16"
-                                            LineBreakMode="TailTruncation">
+                                            FontSize="14"
+                                            HorizontalTextAlignment="End"
+                                            LineBreakMode="WordWrap"
+                                            TextColor="{DynamicResource blueDark}"
+                                            TextDecorations="Underline">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="$" />
-                                                    <Span Text="{Binding Rate}" />
+                                                    <Span Text="{Binding Rate, StringFormat='{0:0.00}'}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -200,20 +206,22 @@
                                     <StackLayout
                                         Grid.Column="3"
                                         AutomationId="ListIdLayout"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="EndAndExpand"
                                         Spacing="0">
                                         <Label
                                             FontSize="10"
+                                            HorizontalTextAlignment="End"
                                             Text="{trans:Translate TotalAmountLabel}"
                                             TextColor="{DynamicResource grayDark}" />
                                         <Label
                                             FontAttributes="Bold"
-                                            FontSize="16"
+                                            FontSize="14"
+                                            HorizontalTextAlignment="End"
                                             LineBreakMode="TailTruncation">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="$" />
-                                                    <Span Text="{Binding PurchasePrice}" />
+                                                    <Span Text="{Binding PurchasePrice, StringFormat='{0:0.00}'}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

@@ -95,5 +95,6 @@ namespace EuroMobileApp.Helpers
         public static string CustomerEmail { get; set; }
         public static string CustomerEmailRequired { get; set; }
         public static string CustomerEnterValidEmailAddress { get; set; }
+        public static string CustomerDetailSaveSuccessAlert { get; set; }
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EuroMobileApp.Models
+namespace EuroMobileApp.Models.Common.Request
 {
-    public class CustomerModel
+    public class CustomerInfoRequest
     {
         public long CustomerId { get; set; }
         public string CustomerFirstName { get; set; }

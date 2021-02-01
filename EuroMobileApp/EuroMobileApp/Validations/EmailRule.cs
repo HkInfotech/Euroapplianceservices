@@ -10,7 +10,7 @@ namespace EuroMobileApp.Validations
         {
             if (value == null)
             {
-                return false;
+                return true;
             }
             const string emailRegex = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
             var str = value as string;

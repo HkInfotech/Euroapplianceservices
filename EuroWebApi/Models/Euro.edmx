@@ -1256,6 +1256,7 @@
           <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="203" />
           <Property Type="String" Name="ApplianceType" Nullable="true" MaxLength="201" />
           <Property Type="String" Name="JobStatus" Nullable="true" MaxLength="101" />
+          <Property Type="Int64" Name="CustomerId" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_webapi_getTechniciansList_Result">
           <Property Type="Int64" Name="UserId" Nullable="false" />
@@ -2178,6 +2179,7 @@
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
                 <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

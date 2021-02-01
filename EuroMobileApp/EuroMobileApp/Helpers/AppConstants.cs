@@ -52,5 +52,10 @@ namespace EuroMobileApp.Helpers
         public const string SaveWorkOrder = "/api/EuroApiV1/SaveWorkOrder";
         public const string SaveWorkOrderPart = "/api/EuroApiV1/SaveWorkOrderPart";
         public const string DeleteWorkOrderPart = "/api/EuroApiV1/DeleteWorkOrderPart";
+        public const string SaveSignature = "/api/EuroApiV1/SaveSignature";
+        public const string GetInvoiceText = "/api/EuroApiV1/GetInvoiceText";
+        public const string UpdateCustomerInfo = "/api/EuroApiV1/UpdateCustomerInfo";
+        public const string GetCustomerInfo = "/api/EuroApiV1/GetCustomerInfo";
+        public const string GetInvoiceTotal = "/api/EuroApiV1/GetInvoiceTotal";
     }
 }

@@ -322,7 +322,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="{Binding CustomerCellNumber.Title}" />
-                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -357,7 +357,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="{Binding CustomerEmail.Title}" />
-                                        <Span Text=" *" TextColor="{DynamicResource IndianRed}" />
+
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -376,7 +376,7 @@
                             <BoxView
                                 Margin="0"
                                 HeightRequest="1"
-                                Color="{Binding grayMedium}" />
+                                Color="{DynamicResource grayMedium}" />
                             <Label
                                 FontAttributes="Bold"
                                 IsVisible="{Binding CustomerEmail.Valid}"
@@ -386,14 +386,23 @@
                         </StackLayout>
                     </Grid>
                 </ScrollView>
-                <Button
-                    Grid.Row="2"
-                    Padding="0"
-                    BackgroundColor="{DynamicResource NavigationPrimary}"
-                    Command="{Binding}"
-                    Text="{trans:Translate OK}"
-                    TextColor="{DynamicResource WhiteColor}" />
 
+                <Grid Grid.Row="2" ColumnDefinitions="50*,50*">
+                    <Button
+                        Grid.Column="0"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource NavigationPrimary}"
+                        Command="{Binding UpdateCustomerInfoCommand}"
+                        Text="{trans:Translate OK}"
+                        TextColor="{DynamicResource WhiteColor}" />
+                    <Button
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource LoginButtonColor}"
+                        Command="{prism:GoBack}"
+                        Text="{trans:Translate Cancel}"
+                        TextColor="{DynamicResource WhiteColor}" />
+                </Grid>
             </Grid>
             <control:ActivityProgressBar IsVisible="{Binding IsBusy}" />
         </AbsoluteLayout>

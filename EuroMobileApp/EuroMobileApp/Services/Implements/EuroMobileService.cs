@@ -210,5 +210,89 @@ namespace EuroMobileApp.Services.Implements
                 return new SaveWorkOrderPartResponse();
             }
         }
+
+        public async Task<CustomerModel> GetCustomerInfo(int customerId)
+        {
+            try
+            {
+                MobileRequest mobileRequest = new MobileRequest();
+                mobileRequest.UserId = _setting.UserId;
+                mobileRequest.Username = _setting.Username;
+                mobileRequest.Id = customerId;
+                var json = JsonConvert.SerializeObject(mobileRequest);
+                var response = await _restClient.PostAsync<CustomerModel>(Endpoint.GetCustomerInfo, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return new CustomerModel();
+            }
+        }
+
+        public async Task<bool> SaveSignature(SaveSignatureRequest request)
+        {
+            try
+            {
+               
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<bool>(Endpoint.SaveSignature, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<string> GetInvoiceText(string textType)
+        {
+            try
+            {
+
+                var response = await _restClient.PostAsync<string>(Endpoint.GetInvoiceText, textType, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        public async Task<CustomerModel> UpdateCustomerInfo(CustomerInfoRequest request)
+        {
+            try
+            {
+
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<CustomerModel>(Endpoint.UpdateCustomerInfo, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return new CustomerModel();
+            }
+        }
+
+       
+
+        public async Task<InvoiceTotalModel> GetInvoiceTotal(MobileRequest request)
+        {
+            try
+            {
+
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<InvoiceTotalModel>(Endpoint.GetInvoiceTotal, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return new InvoiceTotalModel();
+            }
+        }
     }
 }

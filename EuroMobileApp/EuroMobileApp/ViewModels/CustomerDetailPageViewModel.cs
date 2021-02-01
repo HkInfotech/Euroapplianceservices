@@ -1,4 +1,7 @@
 ﻿using EuroMobileApp.Helpers;
+using EuroMobileApp.Models;
+using EuroMobileApp.Models.Common.Request;
+using EuroMobileApp.Services.Interfaces;
 using EuroMobileApp.Validations;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -14,7 +17,7 @@ namespace EuroMobileApp.ViewModels
     {
 
         #region Services
-
+        private readonly IEuroMobileService _euroService;
         #endregion
 
         #region Properties
@@ -22,11 +25,42 @@ namespace EuroMobileApp.ViewModels
         #endregion
 
         #region Variable
-
+        private CustomerModel UpdateCustomerModel { get; set; }
         #endregion
 
         #region Command
 
+        private DelegateCommand _updateCustomerInfoCommand;
+
+        public DelegateCommand UpdateCustomerInfoCommand =>
+            _updateCustomerInfoCommand ?? (_updateCustomerInfoCommand = new DelegateCommand(async () => await ExecuteUpdateCustomerInfoCommand()));
+
+        private async Task ExecuteUpdateCustomerInfoCommand()
+        {
+            if (IsConnected)
+            {
+                if (CustomerFirstName.IsValid && CustomerLastName.IsValid && CustomerAddress.IsValid && CustomerCity.IsValid && CustomerPostalCode.IsValid && CustomerNearestIntersection.IsValid && CustomerPhoneNumber.IsValid && CustomerCellNumber.IsValid && CustomerEmail.IsValid)
+                {
+                    IsBusy = true;
+                    CustomerInfoRequest request = new CustomerInfoRequest();
+                    request.CustomerFirstName = CustomerFirstName.Value;
+                    request.CustomerLastName = CustomerLastName.Value;
+                    request.AddressLine = CustomerAddress.Value;
+                    request.City = CustomerCity.Value;
+                    request.PostalCode = CustomerPostalCode.Value;
+                    request.NearestIntersection = CustomerNearestIntersection.Value;
+                    request.PhoneNumber = CustomerPhoneNumber.Value;
+                    request.CellPhone = CustomerCellNumber.Value;
+                    request.Email = CustomerEmail.Value;
+                    request.CustomerId = UpdateCustomerModel.CustomerId;
+                    var result = await _euroService.UpdateCustomerInfo(request);
+                    IsBusy = false;
+                    await UserDialogsService.AlertAsync(StringResources.CustomerDetailSaveSuccessAlert, null, StringResources.OK, null);
+           
+
+                }
+            }
+        }
 
         #endregion
 
@@ -244,16 +278,16 @@ namespace EuroMobileApp.ViewModels
         #endregion
 
         #region Constructor
-        public CustomerDetailPageViewModel(INavigationService navigationService) : base(navigationService)
+        public CustomerDetailPageViewModel(INavigationService navigationService, IEuroMobileService _euroService) : base(navigationService)
         {
             AddValidations();
+            this._euroService = _euroService;
         }
         #endregion
 
         #region Methods
         private void AddValidations()
         {
-
             //Appliance Tab Validation
             _customerFirstName.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
@@ -276,20 +310,54 @@ namespace EuroMobileApp.ViewModels
             {
                 ValidationMessage = StringResources.CustomerPhoneNumberRequired
             });
-
-            _customerCellNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = StringResources.CustomerCellNumberRequired
-            });
-
-            _customerEmail.Validations.Add(new IsNotNullOrEmptyRule<string>
-            {
-                ValidationMessage = StringResources.CustomerCellNumberRequired
-            });
-             _customerEmail.Validations.Add(new EmailRule<string>
+            _customerEmail.Validations.Add(new EmailRule<string>
             {
                 ValidationMessage = StringResources.CustomerEnterValidEmailAddress
-             });
+            });
+
+        }
+
+        private void ValidateFields()
+        {
+            ValidateCustomerFirstNameCommand.Execute();
+            ValidateCustomerLastNameCommand.Execute();
+            ValidateCustomerAddressCommand.Execute();
+            ValidateCustomerCityCommand.Execute();
+            ValidateCustomerPhoneNumberCommand.Execute();
+            ValidateCustomerEmailCommand.Execute();
+        }
+
+        public async override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            try
+            {
+                if (parameters.TryGetValue("CustomerModel", out CustomerModel model))
+                {
+                    IsBusy = true;
+                    if (IsConnected)
+                    {
+                        var CustomerInfo = await _euroService.GetCustomerInfo(Convert.ToInt32(model.CustomerId));
+                        CustomerFirstName.Value = CustomerInfo.CustomerFirstName;
+                        CustomerLastName.Value = CustomerInfo.CustomerLastName;
+                        CustomerAddress.Value = CustomerInfo.AddressLine;
+                        CustomerCity.Value = CustomerInfo.City;
+                        CustomerPostalCode.Value = CustomerInfo.PostalCode;
+                        CustomerNearestIntersection.Value = CustomerInfo.AddressLine;
+                        CustomerPhoneNumber.Value = CustomerInfo.PhoneNumber;
+                        CustomerCellNumber.Value = CustomerInfo.CellPhone;
+                        CustomerEmail.Value = CustomerInfo.Email;
+                        IsBusy = false;
+                        UpdateCustomerModel = model;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                IsBusy = false;
+
+            }
 
         }
         #endregion

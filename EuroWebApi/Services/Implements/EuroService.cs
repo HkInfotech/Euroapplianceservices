@@ -178,7 +178,7 @@ namespace EuroWebApi.Services.Implements
                 if (result.Count > 0)
                 {
 
-                    orders = result.Select(a => new OrdersViewModel() { ApplianceType = a.ApplianceType, CustomerName = a.CustomerName, JobStatus = a.JobStatus, message = "", UserId = a.UserId ?? Convert.ToInt64(request.UserId), WorkOrderDate = Convert.ToDateTime(a.WorkOrderDate), WorkOrderId = a.WorkOrderId }).ToList();
+                    orders = result.Select(a => new OrdersViewModel() { ApplianceType = a.ApplianceType, CustomerName = a.CustomerName, JobStatus = a.JobStatus, message = "", UserId = a.UserId ?? Convert.ToInt64(request.UserId), WorkOrderDate = Convert.ToDateTime(a.WorkOrderDate), WorkOrderId = a.WorkOrderId, CustomerId = a.CustomerId ?? 0 }).ToList();
                     response.ResponseContent = orders;
                 }
                 else

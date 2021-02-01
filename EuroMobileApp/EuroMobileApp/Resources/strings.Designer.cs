@@ -358,6 +358,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer detail update successfully. Thank you.
+        /// </summary>
+        internal static string CustomerDetailSaveSuccessAlert {
+            get {
+                return ResourceManager.GetString("CustomerDetailSaveSuccessAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string CustomerEmail {

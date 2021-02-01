@@ -19,5 +19,6 @@ namespace EuroWebApi.Models
         public string CustomerName { get; set; }
         public string ApplianceType { get; set; }
         public string JobStatus { get; set; }
+        public Nullable<long> CustomerId { get; set; }
     }
 }

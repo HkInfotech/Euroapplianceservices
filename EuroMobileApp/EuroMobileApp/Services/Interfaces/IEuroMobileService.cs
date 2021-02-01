@@ -25,5 +25,10 @@ namespace EuroMobileApp.Services.Interfaces
         Task<bool> SaveWorkOrder(WorkOrderRequestModel workOrderRequest);
         Task<SaveWorkOrderPartResponse> SaveWorkOrderPart(WorkOrderPartModel workOrderPart);
         Task<SaveWorkOrderPartResponse> DeleteWorkOrderPart(WorkOrderPartModel workOrderPart);
+        Task<CustomerModel> GetCustomerInfo(int customerId);
+        Task<bool> SaveSignature(SaveSignatureRequest request);
+        Task<string> GetInvoiceText(string textType);
+        Task<CustomerModel> UpdateCustomerInfo(CustomerInfoRequest request);
+        Task<InvoiceTotalModel> GetInvoiceTotal(MobileRequest request);
     }
 }

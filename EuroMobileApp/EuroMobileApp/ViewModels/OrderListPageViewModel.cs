@@ -20,21 +20,25 @@ namespace EuroMobileApp.ViewModels
 {
     public class OrderListPageViewModel : CollectionViewModelBase<OrderCellViewModel>
     {
+
+        #region Services
+
+        #endregion
+
+        #region Properties
         public bool IsExpand { get; set; }
         public WorkOrderFilterRequest FilterRequest { get; set; }
         private readonly IAppSettings _appsettings;
         private List<CollectionViewModelBase<OrderCellViewModel>> OrderList;
-        public OrderListPageViewModel(IAggregatedServices aggregatedServices, INavigationService navigationService, IAppSettings settings) : base(aggregatedServices)
-        {
-            OrderList = new List<CollectionViewModelBase<OrderCellViewModel>>();
-            _appsettings = settings;
-            NavigationService = navigationService;
-            IsExpand = false;
-            FilterRequest = new WorkOrderFilterRequest();
-            EmptyStateTitle = "";
-            UserName = _appsettings.Username;
-        }
         public string UserName { get; set; }
+        #endregion
+
+        #region Variable
+
+        #endregion
+
+        #region Command
+
         private DelegateCommand _logOutCommand;
 
         public DelegateCommand LogOutCommand => _logOutCommand ?? (_logOutCommand = new DelegateCommand(async () =>
@@ -58,19 +62,51 @@ namespace EuroMobileApp.ViewModels
 
         }));
 
-        private DelegateCommand _navigateToCustomerDetailPageCommand;
+        //private DelegateCommand _navigateToCustomerDetailPageCommand;
 
-        public DelegateCommand NavigateToCustomerDetailPageCommand => _navigateToCustomerDetailPageCommand ?? (_navigateToCustomerDetailPageCommand = new DelegateCommand(async () =>
+        //public DelegateCommand NavigateToCustomerDetailPageCommand => _navigateToCustomerDetailPageCommand ?? (_navigateToCustomerDetailPageCommand = new DelegateCommand(async () =>
+        //{
+        //    NavigationParameters navigationParameters = new NavigationParameters();
+        //    CustomerModel model = new CustomerModel()
+        //    {
+        //        CustomerId = 1
+        //    };
+        //    navigationParameters.Add("CustomerModel", model);
+        //    await NavigationServiceExtensions.TryNavigateAsync(NavigationService, PageName.CustomerDetailPage, navigationParameters);
+
+        //}));
+
+        private DelegateCommand<OrderCellViewModel> _customerTapLinkCommand;
+        public DelegateCommand<OrderCellViewModel> CustomerTapLinkCommand =>
+            _customerTapLinkCommand ?? (_customerTapLinkCommand = new DelegateCommand<OrderCellViewModel>(async (a) => await ExecuteCustomerTapLinkCommand(a)));
+
+        private async Task ExecuteCustomerTapLinkCommand(OrderCellViewModel a)
         {
             NavigationParameters navigationParameters = new NavigationParameters();
             CustomerModel model = new CustomerModel()
             {
-                CustomerId = 1
+                CustomerId = a.Order.CustomerId
             };
             navigationParameters.Add("CustomerModel", model);
             await NavigationServiceExtensions.TryNavigateAsync(NavigationService, PageName.CustomerDetailPage, navigationParameters);
+        }
 
-        }));
+        #endregion
+
+        #region Constructor
+        public OrderListPageViewModel(IAggregatedServices aggregatedServices, INavigationService navigationService, IAppSettings settings) : base(aggregatedServices)
+        {
+            OrderList = new List<CollectionViewModelBase<OrderCellViewModel>>();
+            _appsettings = settings;
+            NavigationService = navigationService;
+            IsExpand = false;
+            FilterRequest = new WorkOrderFilterRequest();
+            EmptyStateTitle = "";
+            UserName = _appsettings.Username;
+        }
+        #endregion
+
+        #region Methods
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -170,6 +206,12 @@ namespace EuroMobileApp.ViewModels
             await GetUserOrderByFilter();
             IsRefreshing = false;
         }
+        #endregion
+
+
+
+
+
 
     }
 }
