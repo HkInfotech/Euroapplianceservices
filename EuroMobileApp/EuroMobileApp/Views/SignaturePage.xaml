@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EuroMobileApp.Views.SignaturePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Icons="clr-namespace:FontAwesome"
+    xmlns:SignatureView="clr-namespace:EuroMobileApp.Views.SignaturePageContentView"
+    xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:control="clr-namespace:EuroMobileApp.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
+    x:Name="signaturePage"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasBackButton="False"
+    NavigationPage.HasNavigationBar="True">
+    <NavigationPage.TitleView>
+        <Grid Padding="0,0,5,5" ColumnDefinitions="15*,80*,15*">
+            <Image
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="Start"
+                VerticalOptions="Center">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource FontAwesomeIconLight}"
+                        Glyph="{x:Static Icons:IconFonts.ChevronLeft}"
+                        Color="{DynamicResource WhiteColor}" />
+                </Image.Source>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateGoBackCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Label
+                Grid.Column="1"
+                FontFamily="{StaticResource RobotoCondensedBold}"
+                FontSize="Medium"
+                Text="{trans:Translate EuroApplianceServiceLtd}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ContentView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            ControlTemplate="{StaticResource EuroMasterTemplate}">
+            <Grid RowDefinitions="Auto,Auto,*,Auto">
+                <Grid
+                    Grid.Row="0"
+                    Padding="5"
+                    BackgroundColor="{DynamicResource blueDark}"
+                    ColumnDefinitions="10*,45*,30*,15*"
+                    RowDefinitions="Auto,Auto"
+                    RowSpacing="0">
+
+                    <Image
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="0,5,0,0"
+                        Aspect="AspectFill"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesomeIconSolid}"
+                                Glyph="{x:Static Icons:IconFonts.UserCircle}"
+                                Size="30"
+                                Color="{DynamicResource WhiteColor}" />
+                        </Image.Source>
+                    </Image>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="Small"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource grayLight}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate CustomerName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="Medium"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding SelectedWorkOrderModel.CustomerName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontFamily="{StaticResource FontsFreeNetKonnect}"
+                        FontSize="Small"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource grayLight}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate JobNumber}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="Medium"
+                        HorizontalOptions="Start"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+
+                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding SelectedWorkOrderModel.WorkOrderId}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="3"
+                        Aspect="AspectFill"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesomeIconLight}"
+                                Glyph="{x:Static Icons:IconFonts.Save}"
+                                Size="30"
+                                Color="{DynamicResource WhiteColor}" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SaveCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                </Grid>
+                <ScrollView
+                    Grid.Row="1"
+                    Margin="5,10,5,10"
+                    HorizontalScrollBarVisibility="Never"
+                    IsClippedToBounds="True"
+                    Orientation="Horizontal">
+                    <StackLayout
+                        IsClippedToBounds="True"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate OrderTotalTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="0">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="0" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="0">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate LimitedWarrantyTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="1">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="1" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="1">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate LiabilitiesTabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="2">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="2" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="2">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                            <StackLayout Padding="5,0,5,0" Spacing="0">
+                                <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate Covid19TabTitle}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding PositionSelected}"
+                                            TargetType="Label"
+                                            Value="3">
+                                            <Setter Property="Style" Value="{StaticResource SelectedTabStyle}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectItemCommand}" CommandParameter="3" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                BackgroundColor="{StaticResource IndianRed}"
+                                HeightRequest="2"
+                                IsVisible="false">
+                                <BoxView.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PositionSelected}"
+                                        TargetType="BoxView"
+                                        Value="3">
+                                        <Setter Property="IsVisible" Value="true" />
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+                <SignatureView:OrderTotalContentView
+                    Grid.Row="2"
+                    Margin="5,10,5,10"
+                    prism:ViewModelLocator.AutowireViewModel="True"
+                    IsVisible="False"
+                    VerticalOptions="FillAndExpand">
+                    <SignatureView:OrderTotalContentView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding PositionSelected}"
+                            TargetType="SignatureView:OrderTotalContentView"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="true" />
+                        </DataTrigger>
+                    </SignatureView:OrderTotalContentView.Triggers>
+                </SignatureView:OrderTotalContentView>
+
+                <SignatureView:LimitedWarrantyContentView
+                    Grid.Row="2"
+                    Margin="5,10,5,10"
+                    prism:ViewModelLocator.AutowireViewModel="True"
+                    IsVisible="false"
+                    VerticalOptions="FillAndExpand">
+                    <SignatureView:LimitedWarrantyContentView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding PositionSelected}"
+                            TargetType="SignatureView:LimitedWarrantyContentView"
+                            Value="1">
+                            <Setter Property="IsVisible" Value="true" />
+                        </DataTrigger>
+                    </SignatureView:LimitedWarrantyContentView.Triggers>
+                </SignatureView:LimitedWarrantyContentView>
+                <SignatureView:LiabilitiesContentView
+                    Grid.Row="2"
+                    Margin="5,10,5,10"
+                    prism:ViewModelLocator.AutowireViewModel="True"
+                    IsVisible="false"
+                    VerticalOptions="FillAndExpand">
+                    <SignatureView:LiabilitiesContentView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding PositionSelected}"
+                            TargetType="SignatureView:LiabilitiesContentView"
+                            Value="2">
+                            <Setter Property="IsVisible" Value="true" />
+                        </DataTrigger>
+                    </SignatureView:LiabilitiesContentView.Triggers>
+                </SignatureView:LiabilitiesContentView>
+
+                <SignatureView:Covid19ContentView
+                    Grid.Row="2"
+                    Margin="5,10,5,10"
+                    prism:ViewModelLocator.AutowireViewModel="True"
+                    IsVisible="false"
+                    VerticalOptions="FillAndExpand">
+                    <SignatureView:Covid19ContentView.Triggers>
+                        <DataTrigger
+                            Binding="{Binding PositionSelected}"
+                            TargetType="SignatureView:Covid19ContentView"
+                            Value="3">
+                            <Setter Property="IsVisible" Value="true" />
+                        </DataTrigger>
+                    </SignatureView:Covid19ContentView.Triggers>
+                </SignatureView:Covid19ContentView>
+                <StackLayout
+                    Grid.Row="3"
+                    Margin="5,10,5,10"
+                    Spacing="10">
+                    <Yummy:PancakeView Border="{Yummy:BorderMarkup Color={DynamicResource black}, Thickness=1}" HeightRequest="50">
+
+                        <Grid
+                            ColumnDefinitions="50*,50*"
+                            HorizontalOptions="Start"
+                            VerticalOptions="CenterAndExpand">
+                            <Label Grid.Column="0" Margin="10,0,10,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            FontFamily="{StaticResource RobotoCondensedBold}"
+                                            FontSize="18"
+                                            Text="{trans:Translate OrderTotalCustomerSignature}" />
+                                        <Span Text=" " />
+
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Grid.Column="1" HorizontalOptions="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+
+                                        <Span Text=" " />
+                                        <Span
+                                            FontFamily="{StaticResource RobotoCondensedBold}"
+                                            FontSize="18"
+                                            Text="{trans:Translate PleaseSignLabel}"
+                                            TextColor="{DynamicResource blueDark}"
+                                            TextDecorations="Underline">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding PleaseSigninCommand}" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </Yummy:PancakeView>
+
+                    <Yummy:PancakeView
+                        Border="{Yummy:BorderMarkup Color={DynamicResource black},
+                                                    Thickness=1}"
+                        HeightRequest="80"
+                        VerticalOptions="CenterAndExpand">
+                        <StackLayout>
+
+                            <Label
+                                FontAttributes="Italic"
+                                FontFamily="{StaticResource RobotoCondensedBoldItalic}"
+                                FontSize="Title"
+                                HorizontalOptions="Center"
+                                VerticalOptions="CenterAndExpand">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SignatureViewTitle}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+
+                    </Yummy:PancakeView>
+                </StackLayout>
+
+            </Grid>
+        </ContentView>
+        <control:ActivityProgressBar IsVisible="{Binding IsBusy}" />
+    </AbsoluteLayout>
+</ContentPage>

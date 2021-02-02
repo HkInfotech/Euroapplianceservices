@@ -286,6 +286,42 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Covid-19.
+        /// </summary>
+        internal static string Covid19TabTitle {
+            get {
+                return ResourceManager.GetString("Covid19TabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have you or any one in family travelled outside of Canada with in  the past few weeks?.
+        /// </summary>
+        internal static string CovidQuestion1 {
+            get {
+                return ResourceManager.GetString("CovidQuestion1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have you or any one in family come in contact with any one who   travelled outside of Canada or who has COVID-19?.
+        /// </summary>
+        internal static string CovidQuestion2 {
+            get {
+                return ResourceManager.GetString("CovidQuestion2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you or any member at the residence sick?.
+        /// </summary>
+        internal static string CovidQuestion3 {
+            get {
+                return ResourceManager.GetString("CovidQuestion3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         internal static string CustomerAddress {
@@ -385,7 +421,7 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter valid customer.
+        ///   Looks up a localized string similar to Enter valid customer email.
         /// </summary>
         internal static string CustomerEnterValidEmailAddress {
             get {
@@ -646,6 +682,24 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Liabilities.
+        /// </summary>
+        internal static string LiabilitiesTabTitle {
+            get {
+                return ResourceManager.GetString("LiabilitiesTabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limited Warranty.
+        /// </summary>
+        internal static string LimitedWarrantyTabTitle {
+            get {
+                return ResourceManager.GetString("LimitedWarrantyTabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to logout ?.
         /// </summary>
         internal static string LogOutConfirmAlert {
@@ -853,6 +907,69 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Amount Due.
+        /// </summary>
+        internal static string OrderTotalAmountDue {
+            get {
+                return ResourceManager.GetString("OrderTotalAmountDue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Amount.
+        /// </summary>
+        internal static string OrderTotalAmountLabel {
+            get {
+                return ResourceManager.GetString("OrderTotalAmountLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount Paid.
+        /// </summary>
+        internal static string OrderTotalAmountPaidLabel {
+            get {
+                return ResourceManager.GetString("OrderTotalAmountPaidLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CUSTOMER SIGNATURE.
+        /// </summary>
+        internal static string OrderTotalCustomerSignature {
+            get {
+                return ResourceManager.GetString("OrderTotalCustomerSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HST (13%).
+        /// </summary>
+        internal static string OrderTotalHSTLabel {
+            get {
+                return ResourceManager.GetString("OrderTotalHSTLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        internal static string OrderTotalLabel {
+            get {
+                return ResourceManager.GetString("OrderTotalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Total.
+        /// </summary>
+        internal static string OrderTotalTabTitle {
+            get {
+                return ResourceManager.GetString("OrderTotalTabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Part Name.
         /// </summary>
         internal static string PartNameLabel {
@@ -961,6 +1078,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLEASE SIGN.
+        /// </summary>
+        internal static string PleaseSignLabel {
+            get {
+                return ResourceManager.GetString("PleaseSignLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Qty.
         /// </summary>
         internal static string QuantityLabel {
@@ -1015,11 +1141,29 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Option.
         /// </summary>
         internal static string SelectOption {
             get {
                 return ResourceManager.GetString("SelectOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Invoice.
+        /// </summary>
+        internal static string SendInvoice {
+            get {
+                return ResourceManager.GetString("SendInvoice", resourceCulture);
             }
         }
         
@@ -1110,6 +1254,24 @@ namespace EuroMobileApp.Resources {
         internal static string ServiceTimeRequired {
             get {
                 return ResourceManager.GetString("ServiceTimeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIGNATURE.
+        /// </summary>
+        internal static string SignatureLabel {
+            get {
+                return ResourceManager.GetString("SignatureLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signatures.
+        /// </summary>
+        internal static string Signatures {
+            get {
+                return ResourceManager.GetString("Signatures", resourceCulture);
             }
         }
         

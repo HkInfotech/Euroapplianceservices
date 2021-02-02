@@ -28,6 +28,8 @@ namespace EuroMobileApp.Helpers
         public static string Confirm { get; set; }
         public static string No { get; set; }
         public static string Cancel { get; set; }
+        public static string Save { get; set; }
+        public static string Signatures { get; set; }
 
         public static string Disconnectedfromthenetwork { get; set; }
 
@@ -96,5 +98,11 @@ namespace EuroMobileApp.Helpers
         public static string CustomerEmailRequired { get; set; }
         public static string CustomerEnterValidEmailAddress { get; set; }
         public static string CustomerDetailSaveSuccessAlert { get; set; }
+        public static string OrderTotalCustomerSignature { get; set; }
+        public static string SendInvoice { get; set; }
+        public static string CovidQuestion1 { get; set; }
+        public static string CovidQuestion2 { get; set; }
+        public static string CovidQuestion3 { get; set; }
+
     }
 }

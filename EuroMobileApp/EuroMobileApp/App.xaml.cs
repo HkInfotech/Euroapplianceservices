@@ -11,7 +11,9 @@ using EuroMobileApp.Resources;
 using EuroMobileApp.Services.Implements;
 using EuroMobileApp.Services.Interfaces;
 using EuroMobileApp.ViewModels;
+using EuroMobileApp.ViewModels.SignaturePageContententViewModels;
 using EuroMobileApp.Views;
+using EuroMobileApp.Views.SignaturePageContentView;
 using Plugin.Connectivity;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
@@ -66,7 +68,7 @@ namespace EuroMobileApp
 
             }
 
-           // await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.SideMenuPage}");
+           // await NavigationService.NavigateAsync($"{PageName.Navigation}/{PageName.SignaturePage}");
 
         }
         public static Action StringResourceAction { get; set; }
@@ -87,6 +89,8 @@ namespace EuroMobileApp
             containerRegistry.RegisterForNavigation<WorkOrderSearchFilterPage, WorkOrderSearchFilterPageViewModel>(PageName.WorkOrderSearchFilterPage);
             containerRegistry.RegisterForNavigation<SideMenuPage, SideMenuPageViewModel>(PageName.SideMenuPage);
             containerRegistry.RegisterForNavigation<CustomerDetailPage, CustomerDetailPageViewModel>(PageName.CustomerDetailPage);
+            containerRegistry.RegisterForNavigation<SignaturePage, SignaturePageViewModel>(PageName.SignaturePage);
+           
 
             // Instances
             containerRegistry.RegisterInstance(typeof(IUserDialogs), UserDialogs.Instance);

@@ -107,30 +107,7 @@
                         <TapGestureRecognizer Command="{Binding NavigateToWorkOrderFilterCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                <!--
-                <Label
-                    Grid.Column="1"
-                    FontFamily="{StaticResource FontsFreeNetKonnect}"
-                    FontSize="Small"
-                    HorizontalOptions="Start"
-                    Text="{trans:Translate MyOrders}"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="Center" />
-                <Image
-                    Grid.Column="2"
-                    Aspect="AspectFill"
-                    HorizontalOptions="End"
-                    VerticalOptions="Center">
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="{StaticResource FontAwesomeIconLight}"
-                            Glyph="{x:Static Icons:IconFonts.Search}"
-                            Color="{DynamicResource WhiteColor}" />
-                    </Image.Source>
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToWorkOrderFilterCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>-->
+
             </Grid>
             <ContentView
                 x:Name="contentView"
@@ -139,37 +116,7 @@
                 ControlTemplate="{StaticResource EuroMasterTemplate}">
                 <Grid RowDefinitions="Auto,*">
 
-                    <!--<Yummy:PancakeView>
-                        <Grid Padding="20" ColumnDefinitions="*,Auto">
-                            <control:BorderlessEntry
-                                Grid.Column="0"
-                                FontFamily="{StaticResource RobotoCondensedRegular}"
-                                FontSize="16"
-                                Keyboard="Text"
-                                Placeholder="{trans:Translate UserName}"
-                                PlaceholderColor="{DynamicResource grayMedium}"
-                                Text="{Binding UserName.Value}"
-                                VerticalOptions="Center">
-                                <control:BorderlessEntry.Behaviors>
-                                    <prism:EventToCommandBehavior Command="{Binding ValidateUserNameCommand}" EventName="TextChanged" />
-                                </control:BorderlessEntry.Behaviors>
-                            </control:BorderlessEntry>
-                            <Image
-                                Grid.Column="1"
-                                Aspect="AspectFit"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                                <Image.Source>
-                                    <FontImageSource
-                                        FontFamily="{StaticResource FontAwesomeIconLight}"
-                                        Glyph="{x:Static Icons:IconFonts.Search}"
-                                        Size="25"
-                                        Color="{DynamicResource grayMedium}" />
-                                </Image.Source>
-                            </Image>
 
-                        </Grid>
-                    </Yummy:PancakeView>-->
                     <StackLayout Grid.Row="1">
                         <RefreshView
                             Command="{Binding RefreshCommand}"

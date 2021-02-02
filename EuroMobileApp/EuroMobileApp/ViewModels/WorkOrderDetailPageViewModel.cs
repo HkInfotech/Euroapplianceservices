@@ -48,41 +48,6 @@ namespace EuroMobileApp.ViewModels
         private async Task ExecuteSelectItemCommand(string parameter)
         {
             PositionSelected = parameter;
-            //IsBusy = true;
-            //switch (PositionSelected)
-            //{
-
-            //    case "1":
-            //        {
-            //            await GetWorkOrderDetailTabInfo();
-            //            break;
-            //        }
-            //    case "2":
-            //        {
-            //            await GetWorkOrderServicesTabInfo();
-            //            break;
-            //        }
-            //    case "3":
-            //        {
-            //            await GetWorkOrderPartsTabInfo();
-            //            break;
-            //        }
-            //    case "4":
-            //        {
-
-            //            break;
-            //        }
-            //    case "0":
-            //    default:
-            //        {
-            //            await GetWorkOrderApplianceTabInfo();
-            //            break;
-            //        }
-
-            //}
-            //IsBusy = false;
-
-
         }
 
 
@@ -105,74 +70,29 @@ namespace EuroMobileApp.ViewModels
         {
             try
             {
-                if (IsConnected == true)
-                {
-                    ValidateFields();
-                    if (OrderAppliance.IsValid && OrderManufacturer.IsValid && OrderSerialNumber.IsValid && ModelNumber.IsValid && ServiceDate.IsValid && ServiceTIme.IsValid && JobNature.IsValid && JobStatus.IsValid && Technician.IsValid && TicketNumber.IsValid && CodorWarNumber.IsValid && Mileage.IsValid && TechRemarksNote.IsValid)
+                var buttons = new List<IActionSheetButton>() {
+                    ActionSheetButton.CreateCancelButton(StringResources.Cancel, () =>
                     {
-                        IsBusy = true;
-                        WorkOrderRequestModel request = new WorkOrderRequestModel();
-
-
-
-                        //Work Order detail info
-                        request.ServiceTime = ServiceTIme.Value.ToString();
-                        request.ServiceDate = ServiceDate.Value.ToString();
-                        request.JobNatureId = string.IsNullOrEmpty(SelectedJobNature.JobNature) ? 0 : Convert.ToInt32(SelectedJobNature.JobNatureId);
-                        request.JobStatusId = string.IsNullOrEmpty(SelectedJobStatus.JobStatus) ? 0 : Convert.ToInt32(SelectedJobStatus.JobStatusId);
-                        request.TechanicianId = string.IsNullOrEmpty(SelectedTechnician.TechnicanName) ? 0 : Convert.ToInt32(SelectedTechnician.UserId);
-                        request.TicketNumber = string.IsNullOrEmpty(TicketNumber.Value) ? "" : TicketNumber.Value;
-                        //request.COD_WARN = CodorWarNumber.Value;
-                        if (SelectCodWarnty == StringResources.CODValue)
-                        {
-                            request.COD_WARN = "C";
-                        }
-                        else if (SelectCodWarnty == StringResources.WARValue)
-                        {
-                            request.COD_WARN = "W";
-                        }
-                        else
-                        {
-                            request.COD_WARN = "";
-                        }
-
-                        request.Mileage = string.IsNullOrEmpty(Mileage.Value) ? 0 : Convert.ToDecimal(Mileage.Value);
-                        request.WorkOrderServiceNote = OrderNote.Value;
-
-                        request.ApplianceTypeId = string.IsNullOrEmpty(SelectedApplianceType.ApplianceName) ? 0 : Convert.ToInt64(SelectedApplianceType.ApplianceTypeId);
-                        request.ManufacturerId = string.IsNullOrEmpty(SelectedManufacturer.ManufacturerName) ? 0 : Convert.ToInt32(SelectedManufacturer.ManufacturerId);
-                        request.SerialNumber = OrderSerialNumber.Value;
-                        request.ModelNumber = ModelNumber.Value;
-                        request.Documents = DocumentItems.ToList();
-
-
-                        request.CustomerApplianceId = Applianceinfo.CustomerApplianceId;
-                        request.CustomerId = Applianceinfo.CustomerId;
-                        request.UserId = Convert.ToInt32(_appSettings.UserId);
-                        request.CustomerName = Applianceinfo.CustomerName;
-                        request.WorkOrderParts = WorkOrderParts.ToList();
-                        request.WorkOrderTechRemark = TechRemarksNote.Value;
-                        request.WorkOrderId = SelectedOrderModel.WorkOrderId;
-                        request.WorkOrderServices = WorkOrderServices.ToList();
-
-
-
-                        var response = await _euroMobileService.SaveWorkOrder(request);
-                        await GetWorkOrderApplianceTabInfo();
-                        await GetWorkOrderDetailTabInfo();
-                        await GetWorkOrderServicesTabInfo();
-                        await GetWorkOrderPartsTabInfo();
-                        await GetWorkOrderTechRemarkTabInfo();
-
-                        await UserDialogsService.AlertAsync(StringResources.WorkOrderSaveAlert, null, StringResources.OK);
-                        IsBusy = false;
-
-                    }
-                }
-                else
+                        
+                    })
+                };
+                buttons.Add(ActionSheetButton.CreateButton(StringResources.Save, async () =>
                 {
-                    await UserDialogsService.AlertAsync($"{StringResources.OfflineNotAvailableForResource}", null, StringResources.OK);
-                }
+                    await SaveWorkOrderPartResponse();
+                }));
+
+                buttons.Add(ActionSheetButton.CreateButton(StringResources.Signatures, async () =>
+                {
+                    NavigationParameters navigationParameters = new NavigationParameters();
+
+                    navigationParameters.Add("SelectedWorkOrderModel", SelectedOrderModel);
+                    await NavigationServiceExtensions.TryNavigateAsync(NavigationService, PageName.SignaturePage, navigationParameters);
+                }));
+                buttons.Add(ActionSheetButton.CreateButton(StringResources.SendInvoice, () =>
+                {
+
+                }));
+                await PageDialogService.DisplayActionSheetAsync(null, buttons.ToArray());
 
 
             }
@@ -181,6 +101,78 @@ namespace EuroMobileApp.ViewModels
 
             }
 
+        }
+
+        private async Task SaveWorkOrderPartResponse()
+        {
+            if (IsConnected == true)
+            {
+                ValidateFields();
+                if (OrderAppliance.IsValid && OrderManufacturer.IsValid && OrderSerialNumber.IsValid && ModelNumber.IsValid && ServiceDate.IsValid && ServiceTIme.IsValid && JobNature.IsValid && JobStatus.IsValid && Technician.IsValid && TicketNumber.IsValid && CodorWarNumber.IsValid && Mileage.IsValid && TechRemarksNote.IsValid)
+                {
+                    IsBusy = true;
+                    WorkOrderRequestModel request = new WorkOrderRequestModel();
+
+
+
+                    //Work Order detail info
+                    request.ServiceTime = ServiceTIme.Value.ToString();
+                    request.ServiceDate = ServiceDate.Value.ToString();
+                    request.JobNatureId = string.IsNullOrEmpty(SelectedJobNature.JobNature) ? 0 : Convert.ToInt32(SelectedJobNature.JobNatureId);
+                    request.JobStatusId = string.IsNullOrEmpty(SelectedJobStatus.JobStatus) ? 0 : Convert.ToInt32(SelectedJobStatus.JobStatusId);
+                    request.TechanicianId = string.IsNullOrEmpty(SelectedTechnician.TechnicanName) ? 0 : Convert.ToInt32(SelectedTechnician.UserId);
+                    request.TicketNumber = string.IsNullOrEmpty(TicketNumber.Value) ? "" : TicketNumber.Value;
+                    //request.COD_WARN = CodorWarNumber.Value;
+                    if (SelectCodWarnty == StringResources.CODValue)
+                    {
+                        request.COD_WARN = "C";
+                    }
+                    else if (SelectCodWarnty == StringResources.WARValue)
+                    {
+                        request.COD_WARN = "W";
+                    }
+                    else
+                    {
+                        request.COD_WARN = "";
+                    }
+
+                    request.Mileage = string.IsNullOrEmpty(Mileage.Value) ? 0 : Convert.ToDecimal(Mileage.Value);
+                    request.WorkOrderServiceNote = OrderNote.Value;
+
+                    request.ApplianceTypeId = string.IsNullOrEmpty(SelectedApplianceType.ApplianceName) ? 0 : Convert.ToInt64(SelectedApplianceType.ApplianceTypeId);
+                    request.ManufacturerId = string.IsNullOrEmpty(SelectedManufacturer.ManufacturerName) ? 0 : Convert.ToInt32(SelectedManufacturer.ManufacturerId);
+                    request.SerialNumber = OrderSerialNumber.Value;
+                    request.ModelNumber = ModelNumber.Value;
+                    request.Documents = DocumentItems.ToList();
+
+
+                    request.CustomerApplianceId = Applianceinfo.CustomerApplianceId;
+                    request.CustomerId = Applianceinfo.CustomerId;
+                    request.UserId = Convert.ToInt32(_appSettings.UserId);
+                    request.CustomerName = Applianceinfo.CustomerName;
+                    request.WorkOrderParts = WorkOrderParts.ToList();
+                    request.WorkOrderTechRemark = TechRemarksNote.Value;
+                    request.WorkOrderId = SelectedOrderModel.WorkOrderId;
+                    request.WorkOrderServices = WorkOrderServices.ToList();
+
+
+
+                    var response = await _euroMobileService.SaveWorkOrder(request);
+                    await GetWorkOrderApplianceTabInfo();
+                    await GetWorkOrderDetailTabInfo();
+                    await GetWorkOrderServicesTabInfo();
+                    await GetWorkOrderPartsTabInfo();
+                    await GetWorkOrderTechRemarkTabInfo();
+
+                    await UserDialogsService.AlertAsync(StringResources.WorkOrderSaveAlert, null, StringResources.OK);
+                    IsBusy = false;
+
+                }
+            }
+            else
+            {
+                await UserDialogsService.AlertAsync($"{StringResources.OfflineNotAvailableForResource}", null, StringResources.OK);
+            }
         }
         #endregion
 
@@ -1162,7 +1154,7 @@ namespace EuroMobileApp.ViewModels
         {
             // Services Data
             var services = await _euroMobileService.GetWorkOrderServicesbyId(SelectedOrderModel.WorkOrderId) ?? new List<WorkOrderServiceModel>();
-           
+
             WorkOrderServices = new ObservableCollection<WorkOrderServiceModel>(services);
 
         }

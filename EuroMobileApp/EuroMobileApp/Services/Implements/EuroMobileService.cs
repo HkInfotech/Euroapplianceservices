@@ -250,12 +250,14 @@ namespace EuroMobileApp.Services.Implements
         {
             try
             {
-
-                var response = await _restClient.PostAsync<string>(Endpoint.GetInvoiceText, textType, appConfiguration.BaseUrl).ConfigureAwait(false);
+                InvoiceTextRequest request = new InvoiceTextRequest();
+                request.TextType = textType;
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<string>(Endpoint.GetInvoiceText, json, appConfiguration.BaseUrl).ConfigureAwait(false);
                 return response;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return string.Empty;
             }
@@ -279,11 +281,13 @@ namespace EuroMobileApp.Services.Implements
 
        
 
-        public async Task<InvoiceTotalModel> GetInvoiceTotal(MobileRequest request)
+        public async Task<InvoiceTotalModel> GetInvoiceTotal(long WorkOrderId)
         {
             try
             {
-
+                MobileRequest request = new MobileRequest();
+                request.UserId = _setting.UserId;
+                request.Username = _setting.Username;
                 var json = JsonConvert.SerializeObject(request);
                 var response = await _restClient.PostAsync<InvoiceTotalModel>(Endpoint.GetInvoiceTotal, json, appConfiguration.BaseUrl).ConfigureAwait(false);
                 return response;
@@ -292,6 +296,24 @@ namespace EuroMobileApp.Services.Implements
             catch (Exception)
             {
                 return new InvoiceTotalModel();
+            }
+        }
+        public async Task<CustomerInvoiceSignatureModel> GetInvoiceSignatureInfo(long WorkOrderId)
+        {
+            try
+            {
+                MobileRequest request = new MobileRequest();
+                request.UserId = _setting.UserId;
+                request.Username = _setting.Username;
+                request.WorkOrderId = WorkOrderId;
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<CustomerInvoiceSignatureModel>(Endpoint.GetInvoiceSignatureInfo, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return new CustomerInvoiceSignatureModel();
             }
         }
     }

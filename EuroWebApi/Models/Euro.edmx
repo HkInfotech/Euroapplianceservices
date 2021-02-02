@@ -89,6 +89,17 @@
           <Property Name="DealerName" Type="varchar" MaxLength="50" />
           <Property Name="ModelImage" Type="varchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="CustomerInvoiceSignatures">
+          <Key>
+            <PropertyRef Name="CustomerSignatureId" />
+          </Key>
+          <Property Name="CustomerSignatureId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkOrderId" Type="bigint" />
+          <Property Name="InvoiceSigned" Type="char" MaxLength="1" />
+          <Property Name="Covid_answer_1" Type="char" MaxLength="1" />
+          <Property Name="Covid_answer_2" Type="char" MaxLength="1" />
+          <Property Name="Covid_answer_3" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -483,6 +494,9 @@
         <Function Name="sp_webapi_getCustomerInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerId" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="sp_webapi_GetInvoiceSignatureInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="sp_webapi_getInvoiceText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TextType" Type="varchar" Mode="In" />
         </Function>
@@ -619,6 +633,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompanyServiceCharges" EntityType="Self.CompanyServiceCharges" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerAppliances" EntityType="Self.CustomerAppliances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerInvoiceSignatures" EntityType="Self.CustomerInvoiceSignatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobNature" EntityType="Self.JobNature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobStatus" EntityType="Self.JobStatus" Schema="dbo" store:Type="Tables" />
@@ -938,6 +953,10 @@
           <FunctionImport Name="sp_webapi_UpdateWorkOrderServiceItems_v2" ReturnType="Collection(EUROModel.sp_webapi_UpdateWorkOrderServiceItems_v2_Result)">
             <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
             <Parameter Name="ServiceXML" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CustomerInvoiceSignatures" EntityType="EUROModel.CustomerInvoiceSignatures" />
+          <FunctionImport Name="sp_webapi_GetInvoiceSignatureInfo" ReturnType="Collection(EUROModel.sp_webapi_GetInvoiceSignatureInfo_Result)">
+            <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Company_Pricelist_Result">
@@ -1724,6 +1743,25 @@
         </ComplexType>
         <ComplexType Name="sp_webapi_getInvoiceText_Result">
           <Property Type="String" Name="ConsentText" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="CustomerInvoiceSignatures">
+          <Key>
+            <PropertyRef Name="CustomerSignatureId" />
+          </Key>
+          <Property Name="CustomerSignatureId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkOrderId" Type="Int64" />
+          <Property Name="InvoiceSigned" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Covid_answer_1" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Covid_answer_2" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Covid_answer_3" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_webapi_GetInvoiceSignatureInfo_Result">
+          <Property Type="Int64" Name="CustomerSignatureId" Nullable="false" />
+          <Property Type="Int64" Name="WorkOrderId" Nullable="true" />
+          <Property Type="String" Name="InvoiceSigned" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Covid_answer_1" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Covid_answer_2" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Covid_answer_3" Nullable="true" MaxLength="1" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2700,6 +2738,30 @@
               <ComplexTypeMapping TypeName="EUROModel.sp_webapi_UpdateWorkOrderServiceItems_v2_Result">
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CustomerInvoiceSignatures">
+            <EntityTypeMapping TypeName="EUROModel.CustomerInvoiceSignatures">
+              <MappingFragment StoreEntitySet="CustomerInvoiceSignatures">
+                <ScalarProperty Name="Covid_answer_3" ColumnName="Covid_answer_3" />
+                <ScalarProperty Name="Covid_answer_2" ColumnName="Covid_answer_2" />
+                <ScalarProperty Name="Covid_answer_1" ColumnName="Covid_answer_1" />
+                <ScalarProperty Name="InvoiceSigned" ColumnName="InvoiceSigned" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="CustomerSignatureId" ColumnName="CustomerSignatureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_webapi_GetInvoiceSignatureInfo" FunctionName="EUROModel.Store.sp_webapi_GetInvoiceSignatureInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.sp_webapi_GetInvoiceSignatureInfo_Result">
+                <ScalarProperty Name="CustomerSignatureId" ColumnName="CustomerSignatureId" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="InvoiceSigned" ColumnName="InvoiceSigned" />
+                <ScalarProperty Name="Covid_answer_1" ColumnName="Covid_answer_1" />
+                <ScalarProperty Name="Covid_answer_2" ColumnName="Covid_answer_2" />
+                <ScalarProperty Name="Covid_answer_3" ColumnName="Covid_answer_3" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

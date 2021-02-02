@@ -521,7 +521,7 @@ namespace EuroWebApi.Services.Implements
                     };
                     response.ResponseContent = item;
                 }
-                response.ResponseContent = null;
+                
 
             }
             catch (Exception ex)
@@ -575,13 +575,13 @@ namespace EuroWebApi.Services.Implements
             }
             return response;
         }
-        public Response<string> GetInvoiceText(string textType)
+        public Response<string> GetInvoiceText(InvoiceTextRequest request)
         {
             var response = new Response<string>() { Success = true };
 
             try
             {
-                var result = db.sp_webapi_getInvoiceText(textType)?.FirstOrDefault() ?? new sp_webapi_getInvoiceText_Result();
+                var result = db.sp_webapi_getInvoiceText(request.TextType)?.FirstOrDefault() ?? new sp_webapi_getInvoiceText_Result();
                 response.ResponseContent = result.ConsentText;
                 return response;
             }
@@ -601,6 +601,33 @@ namespace EuroWebApi.Services.Implements
                 var result = db.sp_webapi_saveSignatures(request.WorkOrderId, request.InvoiceSigned, request.covidanswer1, request.covidanswer2, request.covidanswer3);
                 response.ResponseContent = true;
 
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
+        }
+        public Response<CustomerInvoiceSignatureViewModel> GetInvoiceSignatureInfo(MobileRequest mobileRequest)
+        {
+            var response = new Response<CustomerInvoiceSignatureViewModel>() { Success = true };
+
+            try
+            {
+                var result = db.sp_webapi_GetInvoiceSignatureInfo(mobileRequest.WorkOrderId)?.FirstOrDefault<sp_webapi_GetInvoiceSignatureInfo_Result>();
+                if (result != null)
+                {
+                    CustomerInvoiceSignatureViewModel item = new CustomerInvoiceSignatureViewModel()
+                    {
+                        WorkOrderId = result.WorkOrderId,
+                        Covid_answer_1 = result.Covid_answer_1,
+                        Covid_answer_2 = result.Covid_answer_2,
+                        Covid_answer_3 = result.Covid_answer_3,
+                        InvoiceSigned = result.InvoiceSigned,
+                        CustomerSignatureId = result.CustomerSignatureId
+                    };
+                    response.ResponseContent = item;
+                }
             }
             catch (Exception ex)
             {

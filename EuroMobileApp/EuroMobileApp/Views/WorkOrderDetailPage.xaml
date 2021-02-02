@@ -142,7 +142,7 @@
                                     WidthRequest="3" />
                                 <Grid
                                     Grid.Column="1"
-                                    ColumnDefinitions="35*,10*,25*,30*"
+                                    ColumnDefinitions="35*,15*,25*,25*"
                                     RowDefinitions="Auto,Auto">
 
                                     <StackLayout
@@ -174,7 +174,6 @@
                                             FontAttributes="Bold"
                                             FontSize="14"
                                             HorizontalTextAlignment="End"
-                                            LineBreakMode="TailTruncation"
                                             Text="{Binding Quantity}" />
                                     </StackLayout>
                                     <StackLayout
@@ -216,8 +215,7 @@
                                         <Label
                                             FontAttributes="Bold"
                                             FontSize="14"
-                                            HorizontalTextAlignment="End"
-                                            LineBreakMode="TailTruncation">
+                                            HorizontalTextAlignment="End">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="$" />
@@ -344,60 +342,7 @@
                             <TapGestureRecognizer Command="{Binding SaveCommand}" />
                         </Image.GestureRecognizers>
                     </Image>
-                    <!--<Label
-                        Grid.Column="0"
-                        FontFamily="{StaticResource FontsFreeNetKonnect}"
-                        FontSize="30"
-                        TextColor="{DynamicResource WhiteColor}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span
-                                    FontFamily="{DynamicResource FontAwesomeIconLight}"
-                                    FontSize="Medium"
-                                    Text="{Static Icons:IconFonts.UserCircle}" />
-                                <Span Text=" " />
 
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                    <Label
-                        Grid.Column="1"
-                        FontFamily="{StaticResource FontsFreeNetKonnect}"
-                        FontSize="30"
-                        TextColor="{DynamicResource WhiteColor}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{trans:Translate CustomerName}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                    <Label
-                        Grid.Column="2"
-                        FontFamily="{StaticResource FontsFreeNetKonnect}"
-                        FontSize="30"
-                        TextColor="{DynamicResource WhiteColor}">
-                        <Label.FormattedText>
-                            <FormattedString>
-
-                                <Span FontFamily="{StaticResource FontsFreeNetKonnect}" Text="{Binding Applianceinfo.CustomerName}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Image
-                        Grid.Column="3"
-                        Aspect="AspectFill"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource
-                                FontFamily="{StaticResource FontAwesomeIconLight}"
-                                Glyph="{x:Static Icons:IconFonts.Save}"
-                                Size="30"
-                                Color="{DynamicResource WhiteColor}" />
-                        </Image.Source>
-                    </Image>-->
                 </Grid>
                 <!--#region Order Tab View Page-->
                 <ScrollView

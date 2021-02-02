@@ -52,6 +52,7 @@ namespace EuroWebApi.Models
         public virtual DbSet<WorkOrder_ServiceItems> WorkOrder_ServiceItems { get; set; }
         public virtual DbSet<WorkOrder_ServiceLocation> WorkOrder_ServiceLocation { get; set; }
         public virtual DbSet<WorkOrder_Services> WorkOrder_Services { get; set; }
+        public virtual DbSet<CustomerInvoiceSignatures> CustomerInvoiceSignatures { get; set; }
     
         [DbFunction("EURODbContext", "Split")]
         public virtual IQueryable<Split_Result> Split(string input, string character)
@@ -892,6 +893,15 @@ namespace EuroWebApi.Models
                 new ObjectParameter("ServiceXML", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_UpdateWorkOrderServiceItems_v2_Result>("sp_webapi_UpdateWorkOrderServiceItems_v2", workOrderIdParameter, serviceXMLParameter);
+        }
+    
+        public virtual ObjectResult<sp_webapi_GetInvoiceSignatureInfo_Result> sp_webapi_GetInvoiceSignatureInfo(Nullable<long> workOrderId)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_GetInvoiceSignatureInfo_Result>("sp_webapi_GetInvoiceSignatureInfo", workOrderIdParameter);
         }
     }
 }

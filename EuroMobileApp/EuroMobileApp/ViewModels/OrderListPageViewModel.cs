@@ -136,6 +136,15 @@ namespace EuroMobileApp.ViewModels
                             IsRefreshing = true;
                             await RefreshAsync();
                         }
+                        else
+                        {
+                            await RefreshAsync();
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        await RefreshAsync();
                         break;
                     }
             }

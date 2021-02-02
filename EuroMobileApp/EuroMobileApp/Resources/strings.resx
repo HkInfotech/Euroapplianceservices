@@ -544,9 +544,63 @@
     <value>Postal Code</value>
   </data>
   <data name="CustomerEnterValidEmailAddress" xml:space="preserve">
-    <value>Enter valid customer</value>
+    <value>Enter valid customer email</value>
   </data>
   <data name="CustomerDetailSaveSuccessAlert" xml:space="preserve">
     <value>Customer detail update successfully. Thank you</value>
+  </data>
+  <data name="Covid19TabTitle" xml:space="preserve">
+    <value>Covid-19</value>
+  </data>
+  <data name="LiabilitiesTabTitle" xml:space="preserve">
+    <value>Liabilities</value>
+  </data>
+  <data name="LimitedWarrantyTabTitle" xml:space="preserve">
+    <value>Limited Warranty</value>
+  </data>
+  <data name="OrderTotalTabTitle" xml:space="preserve">
+    <value>Order Total</value>
+  </data>
+  <data name="OrderTotalAmountDue" xml:space="preserve">
+    <value>Total Amount Due</value>
+  </data>
+  <data name="OrderTotalAmountLabel" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="OrderTotalAmountPaidLabel" xml:space="preserve">
+    <value>Amount Paid</value>
+  </data>
+  <data name="OrderTotalHSTLabel" xml:space="preserve">
+    <value>HST (13%)</value>
+  </data>
+  <data name="OrderTotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="PleaseSignLabel" xml:space="preserve">
+    <value>PLEASE SIGN</value>
+  </data>
+  <data name="SignatureLabel" xml:space="preserve">
+    <value>SIGNATURE</value>
+  </data>
+  <data name="OrderTotalCustomerSignature" xml:space="preserve">
+    <value>CUSTOMER SIGNATURE</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SendInvoice" xml:space="preserve">
+    <value>Send Invoice</value>
+  </data>
+  <data name="Signatures" xml:space="preserve">
+    <value>Signatures</value>
+  </data>
+  <data name="CovidQuestion1" xml:space="preserve">
+    <value>Have you or any one in family travelled outside of Canada with in  the past few weeks?</value>
+  </data>
+  <data name="CovidQuestion2" xml:space="preserve">
+    <value>Have you or any one in family come in contact with any one who   travelled outside of Canada or who has COVID-19?</value>
+  </data>
+  <data name="CovidQuestion3" xml:space="preserve">
+    <value>Are you or any member at the residence sick?</value>
   </data>
 </root>

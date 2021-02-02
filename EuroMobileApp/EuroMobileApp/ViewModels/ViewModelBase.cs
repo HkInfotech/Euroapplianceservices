@@ -78,7 +78,15 @@ namespace EuroMobileApp.ViewModels
         #endregion
 
         #region Commands
-        
+        private DelegateCommand _navigateGoBackCommand;
+
+        public DelegateCommand NavigateGoBackCommand =>
+            _navigateGoBackCommand ?? (_navigateGoBackCommand = new DelegateCommand(async () => await ExecuteNavigateGoBackCommand()));
+
+        public virtual async Task ExecuteNavigateGoBackCommand()
+        {
+            await NavigationService.GoBackAsync();
+        }
         #endregion
 
         #region Constrictors

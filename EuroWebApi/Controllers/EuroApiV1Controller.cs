@@ -403,12 +403,12 @@ namespace EuroWebApi.Controllers
         [Route("GetInvoiceText")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IHttpActionResult> GetInvoiceText(string textType)
+        public async Task<IHttpActionResult> GetInvoiceText(InvoiceTextRequest request)
         {
             Response<string> response = new Response<string>();
             try
             {
-                response = _euroService.GetInvoiceText(textType);
+                response = _euroService.GetInvoiceText(request);
                 if (response.Success)
                 {
                     return Ok(response);
@@ -479,6 +479,30 @@ namespace EuroWebApi.Controllers
             try
             {
                 response = _euroService.GetCustomerInfo(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("GetInvoiceSignatureInfo")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetInvoiceSignatureInfo(MobileRequest request)
+        {
+            Response<CustomerInvoiceSignatureViewModel> response = new Response<CustomerInvoiceSignatureViewModel>();
+            try
+            {
+                response = _euroService.GetInvoiceSignatureInfo(request);
                 if (response.Success)
                 {
                     return Ok(response);

@@ -17,6 +17,7 @@ namespace EuroMobileApp.Helpers
         internal static string WorkOrderSearchFilterPage = "WorkOrderSearchFilterPage";
         internal static string SideMenuPage = "SideMenuPage";
         internal static string CustomerDetailPage = "CustomerDetailPage";
+        internal static string SignaturePage = "SignaturePage";
     }
     //public static class AlertMessages
     //{
@@ -57,5 +58,6 @@ namespace EuroMobileApp.Helpers
         public const string UpdateCustomerInfo = "/api/EuroApiV1/UpdateCustomerInfo";
         public const string GetCustomerInfo = "/api/EuroApiV1/GetCustomerInfo";
         public const string GetInvoiceTotal = "/api/EuroApiV1/GetInvoiceTotal";
+        public const string GetInvoiceSignatureInfo = "/api/EuroApiV1/GetInvoiceSignatureInfo";
     }
 }

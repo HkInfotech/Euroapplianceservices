@@ -189,6 +189,7 @@
     <Compile Include="Models\clsLogin.cs" />
     <Compile Include="Models\Common\Enums\APIEnums.cs" />
     <Compile Include="Models\Common\Request\CustomerInfoRequest.cs" />
+    <Compile Include="Models\Common\Request\InvoiceTextRequest.cs" />
     <Compile Include="Models\Common\Request\MobileRequest.cs" />
     <Compile Include="Models\Common\Request\SaveSignatureRequest.cs" />
     <Compile Include="Models\Common\Request\WorkOrderFilterRequest.cs" />
@@ -202,6 +203,9 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerAppliances.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerInvoiceSignatures.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customers.cs">
@@ -330,6 +334,9 @@
     <Compile Include="Models\sp_webapi_getCustomerInfo_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_webapi_GetInvoiceSignatureInfo_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_webapi_getInvoiceText_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -424,6 +431,7 @@
     <Compile Include="ViewModels\ApplianceTypeViewModel.cs" />
     <Compile Include="ViewModels\ApplianceViewModel.cs" />
     <Compile Include="ViewModels\CustomerInfoViewModel.cs" />
+    <Compile Include="ViewModels\CustomerInvoiceSignatureViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\InvoiceTotalViewModel.cs" />
     <Compile Include="ViewModels\JobNatureViewModel.cs" />

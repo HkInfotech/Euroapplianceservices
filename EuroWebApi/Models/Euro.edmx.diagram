@@ -33,6 +33,7 @@
         <AssociationConnector Association="EUROModel.FK_ServiceItems_ServiceItems" />
         <AssociationConnector Association="EUROModel.FK_WorkOrder_ServiceItems_ServiceItems" />
         <AssociationConnector Association="EUROModel.FK_WorkOrder_ServiceItems_WorkOrder_ServiceItems" />
+        <EntityTypeShape EntityType="EUROModel.CustomerInvoiceSignatures" Width="1.5" PointX="13.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -29,6 +29,7 @@ namespace EuroMobileApp.Services.Interfaces
         Task<bool> SaveSignature(SaveSignatureRequest request);
         Task<string> GetInvoiceText(string textType);
         Task<CustomerModel> UpdateCustomerInfo(CustomerInfoRequest request);
-        Task<InvoiceTotalModel> GetInvoiceTotal(MobileRequest request);
+        Task<InvoiceTotalModel> GetInvoiceTotal(long WorkOrderId);
+        Task<CustomerInvoiceSignatureModel> GetInvoiceSignatureInfo(long WorkOrderId);
     }
 }

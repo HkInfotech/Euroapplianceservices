@@ -34,10 +34,11 @@ namespace EuroWebApi.Services.Interfaces
         Response<SaveWorkOrderPartResponse> DeleteWorkOrderPart(WorkOrderPartViewModel workOrderRequestModel);
 
         Response<bool> SaveSignature(SaveSignatureRequest request);
-        Response<string> GetInvoiceText(string textType);
+        Response<string> GetInvoiceText(InvoiceTextRequest request);
         Response<InvoiceTotalViewModel> GetInvoiceTotal(MobileRequest request);
         Response<CustomerInfoViewModel> UpdateCustomerInfo(CustomerInfoRequest customerRequest);
         Response<CustomerInfoViewModel> GetCustomerInfo(MobileRequest mobileRequest);
+        Response<CustomerInvoiceSignatureViewModel> GetInvoiceSignatureInfo(MobileRequest mobileRequest);
 
 
 
