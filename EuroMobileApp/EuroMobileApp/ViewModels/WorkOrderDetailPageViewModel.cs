@@ -90,23 +90,33 @@ namespace EuroMobileApp.ViewModels
                 }));
                 buttons.Add(ActionSheetButton.CreateButton(StringResources.SendInvoice, async () =>
                 {
-                    CustomerInvoiceSignature = new CustomerInvoiceSignatureModel();
-                    CustomerInvoiceSignature = await _euroMobileService.GetInvoiceSignatureInfo(SelectedOrderModel.WorkOrderId);
-                    bool InvoiceSigned = CustomerInvoiceSignature.InvoiceSigned == "Y" || CustomerInvoiceSignature.InvoiceSigned == "y" ? true : false;
-                    if (!InvoiceSigned)
+                    try
                     {
-                        bool ConfirmResult = await UserDialogsService.ConfirmAsync(StringResources.CustomerSignaturesArePendingConfirmAlert, null, StringResources.OK, StringResources.Cancel);
-                        if (ConfirmResult)
+                        CustomerInvoiceSignature = new CustomerInvoiceSignatureModel();
+                        IsBusy = true;
+                        CustomerInvoiceSignature = await _euroMobileService.GetInvoiceSignatureInfo(SelectedOrderModel.WorkOrderId);
+                        bool InvoiceSigned = CustomerInvoiceSignature.InvoiceSigned == "Y" || CustomerInvoiceSignature.InvoiceSigned == "y" ? true : false;
+                        if (!InvoiceSigned)
                         {
-                           await _euroMobileService.SendCustomerInvoice(SelectedOrderModel.WorkOrderId, SelectedOrderModel.CustomerId);
+                            bool ConfirmResult = await UserDialogsService.ConfirmAsync(StringResources.CustomerSignaturesArePendingConfirmAlert, null, StringResources.OK, StringResources.Cancel);
+                            if (ConfirmResult)
+                            {
+                                var responseObject = await _euroMobileService.SendCustomerInvoice(SelectedOrderModel.WorkOrderId, SelectedOrderModel.CustomerId);
+                                await UserDialogsService.AlertAsync(responseObject.Message, null, StringResources.OK);
+                            }
                         }
+                        else
+                        {
+                            var responseObject = await _euroMobileService.SendCustomerInvoice(SelectedOrderModel.WorkOrderId, SelectedOrderModel.CustomerId);
+                            await UserDialogsService.AlertAsync(responseObject.Message, null, StringResources.OK);
+                        }
+                        IsBusy = false;
                     }
-                    else
+                    catch (Exception)
                     {
-                        await _euroMobileService.SendCustomerInvoice(SelectedOrderModel.WorkOrderId, SelectedOrderModel.CustomerId);
+                        IsBusy = false;
                     }
-
-
+                   
                 }));
                 await PageDialogService.DisplayActionSheetAsync(null, buttons.ToArray());
 
@@ -211,7 +221,7 @@ namespace EuroMobileApp.ViewModels
         public ObservableCollection<WorkOrderServiceChargeModel> OrderServiceCharges { get; set; }
         public ObservableCollection<WorkOrderPartModel> WorkOrderParts { get; set; }
         public ObservableCollection<WorkOrderServiceModel> WorkOrderServices { get; set; }
-
+        public List<WorkOrderImage> WorkOrderImages { get; set; }
         #endregion
 
         #region Constructor
@@ -243,6 +253,8 @@ namespace EuroMobileApp.ViewModels
             WorkOrderParts = new ObservableCollection<WorkOrderPartModel>();
             WorkOrderServices = new ObservableCollection<WorkOrderServiceModel>();
             _appConfiguration = appConfiguration;
+            WorkOrderImages = new List<WorkOrderImage>();
+
         }
 
         #endregion Constructor
@@ -1002,10 +1014,10 @@ namespace EuroMobileApp.ViewModels
             {
                 ValidationMessage = StringResources.TechnicianRequired
             });
-            _ticketNumber.Validations.Add(new AlphanumericValidation<string>
-            {
-                ValidationMessage = StringResources.AlphanumericRequired
-            });
+            //_ticketNumber.Validations.Add(new AlphanumericValidation<string>
+            //{
+            //    ValidationMessage = StringResources.AlphanumericRequired
+            //});
 
             //_ticketNumber.Validations.Add(new IsNotNullOrEmptyRule<string>
             //{
@@ -1055,53 +1067,100 @@ namespace EuroMobileApp.ViewModels
             var appliances = await _euroMobileService.GetCustomerAppliancesByWorkOrderId(SelectedOrderModel.WorkOrderId);
 
             Applianceinfo = appliances.FirstOrDefault();
+            WorkOrderImages = new List<WorkOrderImage>();
+            WorkOrderImages = await _euroMobileService.GetWorkOrderImages(SelectedOrderModel.WorkOrderId) ?? new List<WorkOrderImage>(); ;
+            List<string> ImageFullPath = new List<string>();
+            int i = 0;
+            ImageFile1 = Applianceinfo.ImageFile1;
+            ImageFile2 = Applianceinfo.ImageFile2;
+            ImageFile3 = Applianceinfo.ImageFile3;
+            ImageFile4 = Applianceinfo.ImageFile4;
+
+            string ImageFullPathFile1 = Applianceinfo.ImageFile1;
+            string ImageFullPathFile2 = Applianceinfo.ImageFile2;
+            string ImageFullPathFile3 = Applianceinfo.ImageFile3;
+            string ImageFullPathFile4 = Applianceinfo.ImageFile4;
+
+            int ImageCount = 0;
+            foreach (var item in WorkOrderImages)
+            {
+                if (!string.IsNullOrEmpty(item.ImageFullPath))
+                {
+
+                    var stringSplit = item.ImageFullPath.Split(new string[] { "\\" }, StringSplitOptions.None);
+                    int splitCount = stringSplit.Count() - 1;
+                    string AbsoulutePath = "/" + stringSplit[splitCount - 2] + "/" + stringSplit[splitCount - 1] + "/" + stringSplit[splitCount];
+                    if (ImageCount == 0)
+                    {
+                        ImageFile1 = AbsoulutePath;
+                        ImageFullPathFile1 = item.ImageFullPath;
+                    }
+
+                    if (ImageCount == 1)
+                    {
+                        ImageFile2 = AbsoulutePath;
+                        ImageFullPathFile2 = item.ImageFullPath;
+
+                    }
+                    if (ImageCount == 2)
+                    {
+                        ImageFile3 = AbsoulutePath;
+                        ImageFullPathFile3 = item.ImageFullPath;
+                    }
+
+                    if (ImageCount == 3)
+                    {
+                        ImageFile4 = AbsoulutePath;
+                        ImageFullPathFile4 = item.ImageFullPath;
+                    }
+                    ImageCount++;
+                }
+            }
+
             SelectedApplianceType = ApplianceListItems.Where(a => a.ApplianceTypeId == Applianceinfo.ApplianceTypeId).FirstOrDefault();
             SelectedManufacturer = ManufacturerListItem.Where(a => a.ManufacturerId == Applianceinfo.ManufacturerId).FirstOrDefault();
             ModelNumber.Value = Applianceinfo.ModelNumber;
             OrderSerialNumber.Value = Applianceinfo.SerialNumber;
             OrderManufacturer.Value = SelectedManufacturer.ManufacturerName;
             OrderAppliance.Value = SelectedApplianceType.ApplianceName;
-            ImageFile1 = Applianceinfo.ImageFile1;
-            ImageFile2 = Applianceinfo.ImageFile2;
-            ImageFile3 = Applianceinfo.ImageFile3;
-            ImageFile4 = Applianceinfo.ImageFile4;
+          
 
 
             DocumentItems = new ObservableCollection<DocumentModel>();
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile1) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile1}",
+                FileURL = string.IsNullOrEmpty(ImageFile1) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile1}",
                 IsActive = 'N',
                 Id = 1,
-                Name = string.IsNullOrEmpty(Applianceinfo.ImageFile1) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile1),
-                ServerDocumentPath = Applianceinfo.ImageFile1,
+                Name = string.IsNullOrEmpty(ImageFile1) ? "" : ReturnLastStringFormImageUrl(ImageFile1),
+                ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile1) ? "" : ImageFullPathFile1,
 
 
             });
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile2) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile2}",
+                FileURL = string.IsNullOrEmpty(ImageFile2) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile2}",
                 IsActive = 'N',
                 Id = 2,
-                Name = string.IsNullOrEmpty(Applianceinfo.ImageFile2) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile2),
-                ServerDocumentPath = Applianceinfo.ImageFile2,
+                Name = string.IsNullOrEmpty(ImageFile2) ? "" : ReturnLastStringFormImageUrl(ImageFile2),
+                ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile2) ? "" : ImageFullPathFile2,
             });
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile3) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile3}",
+                FileURL = string.IsNullOrEmpty(ImageFile3) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile3}",
                 IsActive = 'N',
                 Id = 3,
-                Name = string.IsNullOrEmpty(Applianceinfo.ImageFile3) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile3),
-                ServerDocumentPath = Applianceinfo.ImageFile3,
+                Name = string.IsNullOrEmpty(ImageFile3) ? "" : ReturnLastStringFormImageUrl(ImageFile3),
+                ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile3) ? "" : ImageFullPathFile3,
 
             });
             DocumentItems.Add(new DocumentModel()
             {
-                FileURL = string.IsNullOrEmpty(Applianceinfo.ImageFile4) ? "" : $"{_appConfiguration.BaseUrl}{Applianceinfo.ImageFile4}",
+                FileURL = string.IsNullOrEmpty(ImageFile4) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile4}",
                 IsActive = 'N',
                 Id = 4,
-                Name = string.IsNullOrEmpty(Applianceinfo.ImageFile4) ? "" : ReturnLastStringFormImageUrl(Applianceinfo.ImageFile4),
-                ServerDocumentPath = Applianceinfo.ImageFile4,
+                Name = string.IsNullOrEmpty(ImageFile4) ? "" : ReturnLastStringFormImageUrl(ImageFile4),
+                ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile4) ? "" : ImageFullPathFile4,
             });
 
 

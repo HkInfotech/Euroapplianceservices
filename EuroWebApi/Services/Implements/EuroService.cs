@@ -176,7 +176,6 @@ namespace EuroWebApi.Services.Implements
                 var result = db.sp_webapi_GetOrdersByUserID(Convert.ToInt64(request.UserId), request.WorkOrderId, request.FirstName, request.LastName, request.PhoneNumber, request.CustomerAddress)?.ToList() ?? new List<sp_webapi_GetOrdersByUserID_Result>();
                 if (result.Count > 0)
                 {
-
                     orders = result.Select(a => new OrdersViewModel() { ApplianceType = a.ApplianceType, CustomerName = a.CustomerName, JobStatus = a.JobStatus, message = "", UserId = a.UserId ?? Convert.ToInt64(request.UserId), WorkOrderDate = Convert.ToDateTime(a.WorkOrderDate), WorkOrderId = a.WorkOrderId, CustomerId = a.CustomerId ?? 0 }).ToList();
                     response.ResponseContent = orders;
                 }
@@ -407,6 +406,9 @@ namespace EuroWebApi.Services.Implements
 
                     var UpdateWorkOrderDetailResult = db.sp_webapi_UpdateOrderDetailsByWorkOrderId(request.WorkOrderId, request.UserId, request.ServiceDate, request.ServiceTime, request.JobNatureId, request.JobStatusId, request.TicketNumber, request.COD_WARN, request.Mileage, request.WorkOrderServiceNote, request.CustomerName);
                     List<string> DocumentPath = new List<string>();
+
+                    List<WorkOrderImageViewModel> WOImages = new List<WorkOrderImageViewModel>();
+
                     string[] images = { "", "", "", "" };
 
                     if (request.Documents?.Count > 0)
@@ -420,18 +422,41 @@ namespace EuroWebApi.Services.Implements
                                 var ServerPath = System.Web.Hosting.HostingEnvironment.MapPath(filePath);
                                 System.IO.File.WriteAllBytes(ServerPath, request.Documents[i].FileBlob);
                                 images[i] = "/Uploads/Images/" + fileName;
+
+                                WOImages.Add(new WorkOrderImageViewModel
+                                {
+                                    WorkOrderId = request.WorkOrderId,
+                                    DateUploaded = DateTime.Now,
+                                    FileName = fileName,
+                                    ImageFullPath = ServerPath,
+                                    Notes = "",
+                                    IsMobileUpload = true
+                                });
                             }
                             else
                             {
-
                                 images[i] = request.Documents[i].ServerDocumentPath;
+
+                                WOImages.Add(new WorkOrderImageViewModel
+                                {
+                                    WorkOrderId = request.WorkOrderId,
+                                    DateUploaded = DateTime.Now,
+                                    FileName = request.Documents[i].Name,
+                                    ImageFullPath = request.Documents[i].ServerDocumentPath,
+                                    Notes = "",
+                                    IsMobileUpload = true
+                                });
                             }
                         }
                     }
 
                     var servicesXML = Serialize(request.WorkOrderServices);
                     var SaveWorkOrderService = db.sp_webapi_UpdateWorkOrderServiceItems(request.WorkOrderId, servicesXML);
-                    var UpdateWorkOrderAppliances = db.sp_webapi_update_appliance(request.WorkOrderId, Convert.ToInt32(request.CustomerApplianceId), Convert.ToInt32(request.ApplianceTypeId), Convert.ToInt32(request.ManufacturerId), request.SerialNumber, request.ModelNumber, images[0], images[1], images[2], images[3]);
+                    //var UpdateWorkOrderAppliances = db.sp_webapi_update_appliance(request.WorkOrderId, Convert.ToInt32(request.CustomerApplianceId), Convert.ToInt32(request.ApplianceTypeId), Convert.ToInt32(request.ManufacturerId), request.SerialNumber, request.ModelNumber, images[0], images[1], images[2], images[3]);
+                    var UpdateWorkOrderAppliances = db.sp_webapi_update_appliance(request.WorkOrderId, Convert.ToInt32(request.CustomerApplianceId), Convert.ToInt32(request.ApplianceTypeId), Convert.ToInt32(request.ManufacturerId), request.SerialNumber, request.ModelNumber);
+                    var WOImagesML = Serialize(WOImages);
+                    var UpdateWorkOrderImages = db.sp_webapi_UpdateWorkOrderImages(request.WorkOrderId, WOImagesML);
+
                     response.ResponseContent = true;
                 };
 
@@ -445,10 +470,44 @@ namespace EuroWebApi.Services.Implements
             }
             return response;
         }
+
+        public Response<List<WorkOrderImageViewModel>> GetWorkOrderImages(MobileRequest request)
+        {
+            var response = new Response<List<WorkOrderImageViewModel>>() { Success = true };
+            try
+            {
+                List<WorkOrderImageViewModel> items = new List<WorkOrderImageViewModel>();
+                var result = db.SP_webapi_GetWorkOrderImages(request.WorkOrderId)?.ToList();
+                if (result.Count > 0)
+                {
+                    items = result?.Select(a => new WorkOrderImageViewModel()
+                    {
+                        WorkOrderImageId = a.WorkOrderImageId,
+                        WorkOrderId = a.WorkOrderId ?? request.WorkOrderId,
+                        FileName = a.FileName,
+                        DateUploaded = Convert.ToDateTime(a.DateUploaded),
+                        ImageFullPath = a.ImageFullPath,
+                        IsMobileUpload = a.IsMobileUpload ?? true,
+                        Notes = a.Notes
+                    })?.ToList() ?? new List<WorkOrderImageViewModel>();
+                }
+                response.ResponseContent = items;
+                return response;
+                //var result=db.sp_webapi_GetManufactures()
+
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
+        }
+
         private string ReturnLastStringFormImageUrl(string ImageUrl)
         {
             return ImageUrl.Split('/').LastOrDefault();
         }
+
         public Response<SaveWorkOrderPartResponse> SaveWorkOrderPart(WorkOrderPartViewModel workOrderRequestModel)
         {
             var response = new Response<SaveWorkOrderPartResponse>() { Success = true };
@@ -495,7 +554,6 @@ namespace EuroWebApi.Services.Implements
             }
             return response;
         }
-
 
         public Response<CustomerInfoViewModel> GetCustomerInfo(MobileRequest mobileRequest)
         {
@@ -608,6 +666,7 @@ namespace EuroWebApi.Services.Implements
             }
             return response;
         }
+
         public Response<CustomerInvoiceSignatureViewModel> GetInvoiceSignatureInfo(MobileRequest mobileRequest)
         {
             var response = new Response<CustomerInvoiceSignatureViewModel>() { Success = true };

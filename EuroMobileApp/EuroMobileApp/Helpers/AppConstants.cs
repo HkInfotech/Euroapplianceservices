@@ -60,5 +60,6 @@ namespace EuroMobileApp.Helpers
         public const string GetInvoiceTotal = "/api/EuroApiV1/GetInvoiceTotal";
         public const string GetInvoiceSignatureInfo = "/api/EuroApiV1/GetInvoiceSignatureInfo";
         public const string SendCustomerInvoice = "/api/EuroApiV1/SendCustomerInvoice";
+        public const string GetWorkOrderImages = "/api/EuroApiV1/GetWorkOrderImages";
     }
 }

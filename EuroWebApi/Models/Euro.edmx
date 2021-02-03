@@ -224,6 +224,8 @@
           <Property Name="FileName" Type="varchar" MaxLength="200" />
           <Property Name="DateUploaded" Type="datetime" />
           <Property Name="Notes" Type="varchar" MaxLength="500" />
+          <Property Name="IsMobileUpload" Type="bit" />
+          <Property Name="ImageFullPath" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="WorkOrder_Notes">
           <Key>
@@ -324,7 +326,7 @@
           <Property Name="LastUpdatedDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO_QA.dbo.vw_CustomerAppliances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Eurodb.dbo.vw_CustomerAppliances' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_CustomerAppliances">
           <Key>
             <PropertyRef Name="CustomerApplianceId" />
@@ -342,7 +344,7 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_CustomerAppliances' does not have a
           <Property Name="CustomerId" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO_QA.dbo.vw_Customers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Eurodb.dbo.vw_Customers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_Customers">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -367,7 +369,7 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_Customers' does not have a primary 
           <Property Name="Province" Type="varchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Eurodb.dbo.vw_ServiceLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_ServiceLocations">
           <Key>
             <PropertyRef Name="ServiceLocationId" />
@@ -558,6 +560,9 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
         <Function Name="SP_webapi_GetCustomerAppliances" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WOrkOrderId" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="SP_webapi_GetCustomerDetailsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustomerId" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="sp_webapi_getCustomerInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerId" Type="bigint" Mode="In" />
         </Function>
@@ -593,8 +598,17 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
         <Function Name="SP_webapi_getTechRemarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="workOrderId" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="SP_webapi_GetWorkOrderImages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="sp_webapi_GetWorkOrderServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SP_webapi_Invoice_Print_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WOrkOrderId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SP_webapi_Invoice_Print_LineItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WOrkORderId" Type="bigint" Mode="In" />
         </Function>
         <Function Name="sp_webapi_saveSignatures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
@@ -610,10 +624,6 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Parameter Name="ManufacturerId" Type="int" Mode="In" />
           <Parameter Name="SerialNumber" Type="varchar" Mode="In" />
           <Parameter Name="ModelNumber" Type="varchar" Mode="In" />
-          <Parameter Name="ImageNum1" Type="varchar" Mode="In" />
-          <Parameter Name="ImageNum2" Type="varchar" Mode="In" />
-          <Parameter Name="ImageNum3" Type="varchar" Mode="In" />
-          <Parameter Name="ImageNum4" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_webapi_UpdateCustomerInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerId" Type="bigint" Mode="In" />
@@ -643,6 +653,10 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
         <Function Name="sp_webapi_UpdateTechRemarks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
           <Parameter Name="TechRemarks" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_webapi_UpdateWorkOrderImages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
+          <Parameter Name="ImagesXML" Type="xml" Mode="In" />
         </Function>
         <Function Name="sp_webapi_UpdateWorkOrderServiceItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderId" Type="bigint" Mode="In" />
@@ -998,6 +1012,8 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="DateUploaded" Type="DateTime" Precision="3" />
           <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsMobileUpload" Type="Boolean" />
+          <Property Name="ImageFullPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WorkOrder_Notes">
           <Key>
@@ -1391,10 +1407,6 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
             <Parameter Name="ManufacturerId" Mode="In" Type="Int32" />
             <Parameter Name="SerialNumber" Mode="In" Type="String" />
             <Parameter Name="ModelNumber" Mode="In" Type="String" />
-            <Parameter Name="ImageNum1" Mode="In" Type="String" />
-            <Parameter Name="ImageNum2" Mode="In" Type="String" />
-            <Parameter Name="ImageNum3" Mode="In" Type="String" />
-            <Parameter Name="ImageNum4" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_UpdateOrderDetailsByWorkOrderId" ReturnType="Collection(EUROModel.sp_webapi_UpdateOrderDetailsByWorkOrderId_Result)">
             <Parameter Name="WorkOrderId" Mode="In" Type="Int32" />
@@ -1458,16 +1470,16 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           </FunctionImport>
           <FunctionImport Name="sp_webapi_getCOVIDTab" ReturnType="Collection(String)" />
           <FunctionImport Name="sp_webapi_getCustomerInfo" ReturnType="Collection(EUROModel.sp_webapi_getCustomerInfo_Result)">
-            <Parameter Name="CustomerId" Mode="In" Type="Int64" />
+          <Parameter Name="CustomerId" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_GetInvoiceSignatureInfo" ReturnType="Collection(EUROModel.sp_webapi_GetInvoiceSignatureInfo_Result)">
-            <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+          <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_getInvoiceText" ReturnType="Collection(EUROModel.sp_webapi_getInvoiceText_Result)">
-            <Parameter Name="TextType" Mode="In" Type="String" />
+          <Parameter Name="TextType" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_getInvoiceTotals" ReturnType="Collection(EUROModel.sp_webapi_getInvoiceTotals_Result)">
-            <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+          <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_webapi_saveSignatures">
             <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
@@ -1491,6 +1503,28 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <FunctionImport Name="sp_webapi_UpdateWorkOrderServiceItems_v2" ReturnType="Collection(EUROModel.sp_webapi_UpdateWorkOrderServiceItems_v2_Result)">
             <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
             <Parameter Name="ServiceXML" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_webapi_GetWorkOrderImages" ReturnType="Collection(EUROModel.SP_webapi_GetWorkOrderImages_Result)">
+          <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_webapi_UpdateWorkOrderImages" ReturnType="Collection(EUROModel.sp_webapi_UpdateWorkOrderImages_Result)">
+            <Parameter Name="WorkOrderId" Mode="In" Type="Int64" />
+            <Parameter Name="ImagesXML" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Invoice_Print_Header_backup2" ReturnType="Collection(EUROModel.SP_Invoice_Print_Header_backup2_Result)">
+          <Parameter Name="WOrkOrderId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Invoice_Print_Header_test2" ReturnType="Collection(EUROModel.SP_Invoice_Print_Header_test2_Result)">
+          <Parameter Name="WOrkOrderId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_webapi_GetCustomerDetailsById" ReturnType="Collection(EUROModel.SP_webapi_GetCustomerDetailsById_Result)">
+          <Parameter Name="CustomerId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_webapi_Invoice_Print_Header" ReturnType="Collection(EUROModel.SP_webapi_Invoice_Print_Header_Result)">
+          <Parameter Name="WOrkOrderId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_webapi_Invoice_Print_LineItems">
+          <Parameter Name="WOrkORderId" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Company_Pricelist_Result">
@@ -2017,6 +2051,121 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
         <ComplexType Name="sp_webapi_getInvoiceText_Result">
           <Property Type="String" Name="ConsentText" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SP_webapi_GetWorkOrderImages_Result">
+          <Property Type="Int64" Name="WorkOrderImageId" Nullable="false" />
+          <Property Type="Int64" Name="WorkOrderId" Nullable="true" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="DateUploaded" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="IsMobileUpload" Nullable="true" />
+          <Property Type="String" Name="ImageFullPath" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_webapi_UpdateWorkOrderImages_Result">
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="38" />
+          <Property Type="Int64" Name="WorkOrderId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Invoice_Print_Header_backup2_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="7" />
+          <Property Type="DateTime" Name="InvoiceDate" Nullable="true" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="Address_Line_1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Address_Line_2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Province" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="FullName_Location" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="Address_Line_1_Location" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address_Line_2_Location" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City_Location" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Province_Location" Nullable="false" />
+          <Property Type="String" Name="PostalCode_Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber_Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CellPone_Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email_Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Notes_Complaintes" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="ApplianceType" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Manufacturer" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SerialNumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ModelNumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PNS" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DealerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TechRemarks" Nullable="true" MaxLength="1500" />
+          <Property Type="DateTime" Name="LastServiceDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_Invoice_Print_Header_test2_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="7" />
+          <Property Type="DateTime" Name="InvoiceDate" Nullable="true" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="Address_Line_1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address_Line_2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Province" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FullName_Location" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="Address_Line_1_Location" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Address_Line_2_Location" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="City_Location" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Province_Location" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalCode_Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber_Location" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Email_Location" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Notes_Complaintes" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="ApplianceType" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Manufacturer" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SerialNumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ModelNumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PNS" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DealerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TechRemarks" Nullable="true" MaxLength="1500" />
+          <Property Type="DateTime" Name="LastServiceDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_webapi_GetCustomerDetailsById_Result">
+          <Property Type="Int64" Name="CustomerId" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="201" />
+          <Property Type="String" Name="CustomerEmail" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="SP_webapi_Invoice_Print_Header_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="7" />
+          <Property Type="DateTime" Name="InvoiceDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Address_Line_1" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Address_Line_2" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Province" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CellPhone" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="FullName_Location" Nullable="false" MaxLength="201" />
+          <Property Type="String" Name="Address_Line_1_Location" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Address_Line_2_Location" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="City_Location" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Province_Location" Nullable="false" />
+          <Property Type="String" Name="PostalCode_Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber_Location" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CellPone_Location" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Email_Location" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Notes_Complaintes" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="ApplianceType" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Manufacturer" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SerialNumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ModelNumber" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PNS" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DealerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TechRemarks" Nullable="true" MaxLength="1500" />
+          <Property Type="DateTime" Name="LastServiceDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="COD_WARN" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="HST" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="InvoiceTotal" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2232,6 +2381,8 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
           <EntitySetMapping Name="Workorder_Images">
             <EntityTypeMapping TypeName="EUROModel.Workorder_Images">
               <MappingFragment StoreEntitySet="Workorder_Images">
+                <ScalarProperty Name="ImageFullPath" ColumnName="ImageFullPath" />
+                <ScalarProperty Name="IsMobileUpload" ColumnName="IsMobileUpload" />
                 <ScalarProperty Name="WorkOrderImageId" ColumnName="WorkOrderImageId" />
                 <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -2957,74 +3108,6 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_Invoice_Print_Header_backup1" FunctionName="EUROModel.Store.SP_Invoice_Print_Header_backup">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="EUROModel.SP_Invoice_Print_Header_backup1_Result">
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FullName_Location" ColumnName="FullName_Location" />
-                <ScalarProperty Name="Address_Line_1_Location" ColumnName="Address_Line_1_Location" />
-                <ScalarProperty Name="Address_Line_2_Location" ColumnName="Address_Line_2_Location" />
-                <ScalarProperty Name="City_Location" ColumnName="City_Location" />
-                <ScalarProperty Name="Province_Location" ColumnName="Province_Location" />
-                <ScalarProperty Name="PostalCode_Location" ColumnName="PostalCode_Location" />
-                <ScalarProperty Name="PhoneNumber_Location" ColumnName="PhoneNumber_Location" />
-                <ScalarProperty Name="CellPone_Location" ColumnName="CellPone_Location" />
-                <ScalarProperty Name="Email_Location" ColumnName="Email_Location" />
-                <ScalarProperty Name="Notes_Complaintes" ColumnName="Notes_Complaintes" />
-                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
-                <ScalarProperty Name="PNS" ColumnName="PNS" />
-                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
-                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
-                <ScalarProperty Name="LastServiceDate" ColumnName="LastServiceDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Invoice_Print_Header_test1" FunctionName="EUROModel.Store.SP_Invoice_Print_Header_test">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="EUROModel.SP_Invoice_Print_Header_test1_Result">
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FullName_Location" ColumnName="FullName_Location" />
-                <ScalarProperty Name="Address_Line_1_Location" ColumnName="Address_Line_1_Location" />
-                <ScalarProperty Name="Address_Line_2_Location" ColumnName="Address_Line_2_Location" />
-                <ScalarProperty Name="City_Location" ColumnName="City_Location" />
-                <ScalarProperty Name="Province_Location" ColumnName="Province_Location" />
-                <ScalarProperty Name="PostalCode_Location" ColumnName="PostalCode_Location" />
-                <ScalarProperty Name="PhoneNumber_Location" ColumnName="PhoneNumber_Location" />
-                <ScalarProperty Name="Email_Location" ColumnName="Email_Location" />
-                <ScalarProperty Name="Notes_Complaintes" ColumnName="Notes_Complaintes" />
-                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
-                <ScalarProperty Name="PNS" ColumnName="PNS" />
-                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
-                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
-                <ScalarProperty Name="LastServiceDate" ColumnName="LastServiceDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_webapi_getCOVIDTab" FunctionName="EUROModel.Store.sp_webapi_getCOVIDTab" />
           <FunctionImportMapping FunctionImportName="sp_webapi_getCustomerInfo" FunctionName="EUROModel.Store.sp_webapi_getCustomerInfo">
             <ResultMapping>
@@ -3082,6 +3165,146 @@ warning 6002: The table/view 'EURO_QA.dbo.vw_ServiceLocations' does not have a p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_webapi_GetWorkOrderImages" FunctionName="EUROModel.Store.SP_webapi_GetWorkOrderImages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.SP_webapi_GetWorkOrderImages_Result">
+                <ScalarProperty Name="WorkOrderImageId" ColumnName="WorkOrderImageId" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="DateUploaded" ColumnName="DateUploaded" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsMobileUpload" ColumnName="IsMobileUpload" />
+                <ScalarProperty Name="ImageFullPath" ColumnName="ImageFullPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_webapi_UpdateWorkOrderImages" FunctionName="EUROModel.Store.sp_webapi_UpdateWorkOrderImages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.sp_webapi_UpdateWorkOrderImages_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="WorkOrderId" ColumnName="WorkOrderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Invoice_Print_Header_backup2" FunctionName="EUROModel.Store.SP_Invoice_Print_Header_backup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.SP_Invoice_Print_Header_backup2_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName_Location" ColumnName="FullName_Location" />
+                <ScalarProperty Name="Address_Line_1_Location" ColumnName="Address_Line_1_Location" />
+                <ScalarProperty Name="Address_Line_2_Location" ColumnName="Address_Line_2_Location" />
+                <ScalarProperty Name="City_Location" ColumnName="City_Location" />
+                <ScalarProperty Name="Province_Location" ColumnName="Province_Location" />
+                <ScalarProperty Name="PostalCode_Location" ColumnName="PostalCode_Location" />
+                <ScalarProperty Name="PhoneNumber_Location" ColumnName="PhoneNumber_Location" />
+                <ScalarProperty Name="CellPone_Location" ColumnName="CellPone_Location" />
+                <ScalarProperty Name="Email_Location" ColumnName="Email_Location" />
+                <ScalarProperty Name="Notes_Complaintes" ColumnName="Notes_Complaintes" />
+                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
+                <ScalarProperty Name="PNS" ColumnName="PNS" />
+                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
+                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
+                <ScalarProperty Name="LastServiceDate" ColumnName="LastServiceDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Invoice_Print_Header_test2" FunctionName="EUROModel.Store.SP_Invoice_Print_Header_test">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.SP_Invoice_Print_Header_test2_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName_Location" ColumnName="FullName_Location" />
+                <ScalarProperty Name="Address_Line_1_Location" ColumnName="Address_Line_1_Location" />
+                <ScalarProperty Name="Address_Line_2_Location" ColumnName="Address_Line_2_Location" />
+                <ScalarProperty Name="City_Location" ColumnName="City_Location" />
+                <ScalarProperty Name="Province_Location" ColumnName="Province_Location" />
+                <ScalarProperty Name="PostalCode_Location" ColumnName="PostalCode_Location" />
+                <ScalarProperty Name="PhoneNumber_Location" ColumnName="PhoneNumber_Location" />
+                <ScalarProperty Name="Email_Location" ColumnName="Email_Location" />
+                <ScalarProperty Name="Notes_Complaintes" ColumnName="Notes_Complaintes" />
+                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
+                <ScalarProperty Name="PNS" ColumnName="PNS" />
+                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
+                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
+                <ScalarProperty Name="LastServiceDate" ColumnName="LastServiceDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_webapi_GetCustomerDetailsById" FunctionName="EUROModel.Store.SP_webapi_GetCustomerDetailsById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.SP_webapi_GetCustomerDetailsById_Result">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_webapi_Invoice_Print_Header" FunctionName="EUROModel.Store.SP_webapi_Invoice_Print_Header">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EUROModel.SP_webapi_Invoice_Print_Header_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address_Line_1" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address_Line_2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName_Location" ColumnName="FullName_Location" />
+                <ScalarProperty Name="Address_Line_1_Location" ColumnName="Address_Line_1_Location" />
+                <ScalarProperty Name="Address_Line_2_Location" ColumnName="Address_Line_2_Location" />
+                <ScalarProperty Name="City_Location" ColumnName="City_Location" />
+                <ScalarProperty Name="Province_Location" ColumnName="Province_Location" />
+                <ScalarProperty Name="PostalCode_Location" ColumnName="PostalCode_Location" />
+                <ScalarProperty Name="PhoneNumber_Location" ColumnName="PhoneNumber_Location" />
+                <ScalarProperty Name="CellPone_Location" ColumnName="CellPone_Location" />
+                <ScalarProperty Name="Email_Location" ColumnName="Email_Location" />
+                <ScalarProperty Name="Notes_Complaintes" ColumnName="Notes_Complaintes" />
+                <ScalarProperty Name="ApplianceType" ColumnName="ApplianceType" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
+                <ScalarProperty Name="PNS" ColumnName="PNS" />
+                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
+                <ScalarProperty Name="TechRemarks" ColumnName="TechRemarks" />
+                <ScalarProperty Name="LastServiceDate" ColumnName="LastServiceDate" />
+                <ScalarProperty Name="COD_WARN" ColumnName="COD_WARN" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="HST" ColumnName="HST" />
+                <ScalarProperty Name="InvoiceTotal" ColumnName="InvoiceTotal" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_webapi_Invoice_Print_LineItems" FunctionName="EUROModel.Store.SP_webapi_Invoice_Print_LineItems" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

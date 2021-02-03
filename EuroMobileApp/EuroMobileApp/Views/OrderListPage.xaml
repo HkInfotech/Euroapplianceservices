@@ -189,7 +189,7 @@
                                                                 <Label
                                                                     FontSize="10"
                                                                     Text="{trans:Translate CustomerName}"
-                                                                    TextColor="{DynamicResource grayDark}" />
+                                                                    TextColor="{DynamicResource blueDark}" />
                                                                 <Label
                                                                     FontAttributes="Bold"
                                                                     FontSize="16"

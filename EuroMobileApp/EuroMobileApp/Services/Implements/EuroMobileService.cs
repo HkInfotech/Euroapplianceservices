@@ -316,7 +316,7 @@ namespace EuroMobileApp.Services.Implements
                 return new CustomerInvoiceSignatureModel();
             }
         }
-        public async Task SendCustomerInvoice(long WorkOrderId, long CustomerId)
+        public async Task<SendInvoiceResponseModel> SendCustomerInvoice(long WorkOrderId, long CustomerId)
         {
             try
             {
@@ -324,13 +324,31 @@ namespace EuroMobileApp.Services.Implements
                 request.WorkOrderId = WorkOrderId;
                 request.CustomerId = CustomerId;
                 var json = JsonConvert.SerializeObject(request);
-                await _restClient.PostAsync<object>(Endpoint.SendCustomerInvoice, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                var result = await _restClient.PostAsync<SendInvoiceResponseModel>(Endpoint.SendCustomerInvoice, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return result;
             }
             catch (Exception)
             {
-                
+                return new SendInvoiceResponseModel();
             }
         }
+        public async Task<List<WorkOrderImage>> GetWorkOrderImages(long WorkOrderId)
+        {
+            try
+            {
+                MobileRequest request = new MobileRequest();
+                request.UserId = _setting.UserId;
+                request.Username = _setting.Username;
+                request.WorkOrderId = WorkOrderId;
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<List<WorkOrderImage>>(Endpoint.GetWorkOrderImages, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
 
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

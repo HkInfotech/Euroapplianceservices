@@ -349,11 +349,11 @@
                     Spacing="10">
                     <Yummy:PancakeView Border="{Yummy:BorderMarkup Color={DynamicResource black}, Thickness=1}" HeightRequest="50">
 
-                        <Grid
-                            ColumnDefinitions="50*,50*"
-                            HorizontalOptions="Start"
-                            VerticalOptions="CenterAndExpand">
-                            <Label Grid.Column="0" Margin="10,0,10,0">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <Label
+                                Grid.Column="0"
+                                Margin="10,0,10,0"
+                                HorizontalOptions="Start">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
@@ -365,7 +365,10 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Label Grid.Column="1" HorizontalOptions="End">
+                            <Label
+                                Grid.Column="1"
+                                Margin="0,0,5,0"
+                                HorizontalOptions="EndAndExpand">
                                 <Label.FormattedText>
                                     <FormattedString>
 
@@ -383,20 +386,20 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                        </Grid>
+                        </StackLayout>
                     </Yummy:PancakeView>
 
                     <Yummy:PancakeView
                         Border="{Yummy:BorderMarkup Color={DynamicResource black},
                                                     Thickness=1}"
-                        HeightRequest="80"
+                        HeightRequest="130"
                         VerticalOptions="CenterAndExpand">
                         <StackLayout>
 
                             <Label
                                 FontAttributes="Italic"
                                 FontFamily="{StaticResource RobotoCondensedBoldItalic}"
-                                FontSize="Title"
+                                FontSize="24"
                                 HorizontalOptions="Center"
                                 VerticalOptions="CenterAndExpand">
                                 <Label.FormattedText>

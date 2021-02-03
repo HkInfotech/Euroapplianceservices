@@ -40,7 +40,7 @@ namespace EuroWebApi.Services.Interfaces
         Response<CustomerInfoViewModel> GetCustomerInfo(MobileRequest mobileRequest);
         Response<CustomerInvoiceSignatureViewModel> GetInvoiceSignatureInfo(MobileRequest mobileRequest);
 
-
+        Response<List<WorkOrderImageViewModel>> GetWorkOrderImages(MobileRequest request);
 
     }
 }

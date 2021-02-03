@@ -10,9 +10,8 @@
 namespace EuroWebApi.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Workorder_Images
+    public partial class SP_webapi_GetWorkOrderImages_Result
     {
         public long WorkOrderImageId { get; set; }
         public Nullable<long> WorkOrderId { get; set; }

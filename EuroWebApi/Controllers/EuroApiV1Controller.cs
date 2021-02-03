@@ -525,10 +525,12 @@ namespace EuroWebApi.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> SendCustomerInvoice(WorkOrderViewModel request)
         {
-            ResponseModel response = new ResponseModel();
+
+            Response<ResponseModel> response = new Response<ResponseModel>() { Success = true };
             string connection = System.Configuration.ConfigurationManager.ConnectionStrings["ADO"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connection))
             {
+                ResponseModel responseModel = new ResponseModel();
                 try
                 {
                     con.Open();
@@ -569,7 +571,7 @@ namespace EuroWebApi.Controllers
                             #region Send Confirmation Email to Dealer
                             var mailMessage = new Message
                             {
-                                To = "makavana.vishal@gmail.com",
+                                To = customer.CustomerEmail,
                                 Subject = "Customer Invoice",
                                 Type = MessageType.CustomerInvoiceEmail,
                                 AttachmentName = fileName,
@@ -579,20 +581,22 @@ namespace EuroWebApi.Controllers
                             MailerService.Instance().Send(mailMessage);
                             #endregion
 
-                            response.IsError = false;
-                            response.Message = "An Invoice Email Send Successfully to customer.";
+                            responseModel.IsError = false;
+                            responseModel.Message = "An Invoice Email Send Successfully to customer.";
+                            response.ResponseContent = responseModel;
                         }
                         else
                         {
-                            response.IsError = true;
-                            response.Message = "Email address not exist for customer.";
+                            responseModel.IsError = true;
+                            responseModel.Message = "Email address not exist for customer.";
+                            response.ResponseContent = responseModel;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    response.IsError = true;
-                    response.Message = "Failed to send an invoice email to customer. Error: " + ex.Message;
+                    responseModel.IsError = true;
+                    responseModel.Message = "Failed to send an invoice email to customer. Error: " + ex.Message;
                 }
                 finally
                 {
@@ -602,5 +606,30 @@ namespace EuroWebApi.Controllers
             }
             return Ok(response);
         }
+
+        [Route("GetWorkOrderImages")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetWorkOrderImages(MobileRequest request)
+        {
+            Response<List<WorkOrderImageViewModel>> response = new Response<List<WorkOrderImageViewModel>>();
+            try
+            {
+                response = _euroService.GetWorkOrderImages(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

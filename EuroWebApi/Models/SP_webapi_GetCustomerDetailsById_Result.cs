@@ -10,16 +10,11 @@
 namespace EuroWebApi.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Workorder_Images
+    public partial class SP_webapi_GetCustomerDetailsById_Result
     {
-        public long WorkOrderImageId { get; set; }
-        public Nullable<long> WorkOrderId { get; set; }
-        public string FileName { get; set; }
-        public Nullable<System.DateTime> DateUploaded { get; set; }
-        public string Notes { get; set; }
-        public Nullable<bool> IsMobileUpload { get; set; }
-        public string ImageFullPath { get; set; }
+        public long CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
     }
 }

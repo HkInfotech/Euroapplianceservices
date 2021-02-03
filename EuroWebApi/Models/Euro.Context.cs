@@ -561,7 +561,7 @@ namespace EuroWebApi.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_getTechniciansList_Result>("sp_webapi_getTechniciansList");
         }
     
-        public virtual ObjectResult<sp_webapi_update_appliance_Result> sp_webapi_update_appliance(Nullable<int> workorderId, Nullable<int> customerApplianceId, Nullable<int> applianceTypeId, Nullable<int> manufacturerId, string serialNumber, string modelNumber, string imageNum1, string imageNum2, string imageNum3, string imageNum4)
+        public virtual ObjectResult<sp_webapi_update_appliance_Result> sp_webapi_update_appliance(Nullable<int> workorderId, Nullable<int> customerApplianceId, Nullable<int> applianceTypeId, Nullable<int> manufacturerId, string serialNumber, string modelNumber)
         {
             var workorderIdParameter = workorderId.HasValue ?
                 new ObjectParameter("WorkorderId", workorderId) :
@@ -587,23 +587,7 @@ namespace EuroWebApi.Models
                 new ObjectParameter("ModelNumber", modelNumber) :
                 new ObjectParameter("ModelNumber", typeof(string));
     
-            var imageNum1Parameter = imageNum1 != null ?
-                new ObjectParameter("ImageNum1", imageNum1) :
-                new ObjectParameter("ImageNum1", typeof(string));
-    
-            var imageNum2Parameter = imageNum2 != null ?
-                new ObjectParameter("ImageNum2", imageNum2) :
-                new ObjectParameter("ImageNum2", typeof(string));
-    
-            var imageNum3Parameter = imageNum3 != null ?
-                new ObjectParameter("ImageNum3", imageNum3) :
-                new ObjectParameter("ImageNum3", typeof(string));
-    
-            var imageNum4Parameter = imageNum4 != null ?
-                new ObjectParameter("ImageNum4", imageNum4) :
-                new ObjectParameter("ImageNum4", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_update_appliance_Result>("sp_webapi_update_appliance", workorderIdParameter, customerApplianceIdParameter, applianceTypeIdParameter, manufacturerIdParameter, serialNumberParameter, modelNumberParameter, imageNum1Parameter, imageNum2Parameter, imageNum3Parameter, imageNum4Parameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_update_appliance_Result>("sp_webapi_update_appliance", workorderIdParameter, customerApplianceIdParameter, applianceTypeIdParameter, manufacturerIdParameter, serialNumberParameter, modelNumberParameter);
         }
     
         public virtual ObjectResult<sp_webapi_UpdateOrderDetailsByWorkOrderId_Result> sp_webapi_UpdateOrderDetailsByWorkOrderId(Nullable<int> workOrderId, Nullable<int> userId, string serviceDate, string serviceTime, Nullable<int> jobNatureID, Nullable<int> jobStatusID, string ticketNumber, string codwar, Nullable<decimal> mileage, string note, string customerName)
@@ -923,6 +907,73 @@ namespace EuroWebApi.Models
                 new ObjectParameter("ServiceXML", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_UpdateWorkOrderServiceItems_v2_Result>("sp_webapi_UpdateWorkOrderServiceItems_v2", workOrderIdParameter, serviceXMLParameter);
+        }
+    
+        public virtual ObjectResult<SP_webapi_GetWorkOrderImages_Result> SP_webapi_GetWorkOrderImages(Nullable<long> workOrderId)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_webapi_GetWorkOrderImages_Result>("SP_webapi_GetWorkOrderImages", workOrderIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_webapi_UpdateWorkOrderImages_Result> sp_webapi_UpdateWorkOrderImages(Nullable<long> workOrderId, string imagesXML)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            var imagesXMLParameter = imagesXML != null ?
+                new ObjectParameter("ImagesXML", imagesXML) :
+                new ObjectParameter("ImagesXML", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_UpdateWorkOrderImages_Result>("sp_webapi_UpdateWorkOrderImages", workOrderIdParameter, imagesXMLParameter);
+        }
+    
+        public virtual ObjectResult<SP_Invoice_Print_Header_backup2_Result> SP_Invoice_Print_Header_backup2(Nullable<long> wOrkOrderId)
+        {
+            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
+                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
+                new ObjectParameter("WOrkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Invoice_Print_Header_backup2_Result>("SP_Invoice_Print_Header_backup2", wOrkOrderIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_Invoice_Print_Header_test2_Result> SP_Invoice_Print_Header_test2(Nullable<long> wOrkOrderId)
+        {
+            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
+                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
+                new ObjectParameter("WOrkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Invoice_Print_Header_test2_Result>("SP_Invoice_Print_Header_test2", wOrkOrderIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_webapi_GetCustomerDetailsById_Result> SP_webapi_GetCustomerDetailsById(Nullable<long> customerId)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("CustomerId", customerId) :
+                new ObjectParameter("CustomerId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_webapi_GetCustomerDetailsById_Result>("SP_webapi_GetCustomerDetailsById", customerIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_webapi_Invoice_Print_Header_Result> SP_webapi_Invoice_Print_Header(Nullable<long> wOrkOrderId)
+        {
+            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
+                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
+                new ObjectParameter("WOrkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_webapi_Invoice_Print_Header_Result>("SP_webapi_Invoice_Print_Header", wOrkOrderIdParameter);
+        }
+    
+        public virtual int SP_webapi_Invoice_Print_LineItems(Nullable<long> wOrkORderId)
+        {
+            var wOrkORderIdParameter = wOrkORderId.HasValue ?
+                new ObjectParameter("WOrkORderId", wOrkORderId) :
+                new ObjectParameter("WOrkORderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_webapi_Invoice_Print_LineItems", wOrkORderIdParameter);
         }
     }
 }

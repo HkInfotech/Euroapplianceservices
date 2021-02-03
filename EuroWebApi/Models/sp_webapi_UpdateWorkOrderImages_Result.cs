@@ -10,16 +10,10 @@
 namespace EuroWebApi.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Workorder_Images
+    public partial class sp_webapi_UpdateWorkOrderImages_Result
     {
-        public long WorkOrderImageId { get; set; }
+        public string Status { get; set; }
         public Nullable<long> WorkOrderId { get; set; }
-        public string FileName { get; set; }
-        public Nullable<System.DateTime> DateUploaded { get; set; }
-        public string Notes { get; set; }
-        public Nullable<bool> IsMobileUpload { get; set; }
-        public string ImageFullPath { get; set; }
     }
 }

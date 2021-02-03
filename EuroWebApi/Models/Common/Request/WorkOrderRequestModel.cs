@@ -38,5 +38,18 @@ namespace EuroWebApi.Models.Common.Request
         public string ImageFile2 { get; set; }
         public string ImageFile3 { get; set; }
         public string ImageFile4 { get; set; }
+
+        public List<WorkOrderImageViewModel> WorkOrderImages { get; set; }
+    }
+
+    public class WorkOrderImageViewModel
+    {
+        public long WorkOrderImageId { get; set; }
+        public long WorkOrderId { get; set; }
+        public string FileName { get; set; }
+        public DateTime DateUploaded { get; set; }
+        public string Notes { get; set; }
+        public bool IsMobileUpload { get; set; }
+        public string ImageFullPath { get; set; }
     }
 }

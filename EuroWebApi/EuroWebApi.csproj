@@ -296,6 +296,9 @@
     <Compile Include="Models\SP_Invoice_Print_Header_backup1_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Invoice_Print_Header_backup2_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_backup_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -303,6 +306,9 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_test1_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Invoice_Print_Header_test2_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_test_Result.cs">
@@ -341,6 +347,9 @@
     <Compile Include="Models\SP_webapi_GetCustomerAppliances_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_webapi_GetCustomerDetailsById_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_webapi_getCustomerInfo_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -377,10 +386,19 @@
     <Compile Include="Models\sp_webapi_getTechniciansList_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_webapi_GetWorkOrderImages_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_webapi_GetWorkOrderServices_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_webapi_Invoice_Print_Header_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_webapi_UpdateOrderDetailsByWorkOrderId_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_webapi_UpdateWorkOrderImages_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_webapi_UpdateWorkOrderServiceItems_Result.cs">
@@ -577,6 +595,8 @@
           <DevelopmentServerPort>61177</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44339/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44339/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -18,6 +18,7 @@ namespace EuroWebApi.ViewModels
         public bool IsDelete { get; set; }
         public bool IsNew { get; set; }
         public string ServerDocumentPath { get; set; }
+        public string ServerDocumentFullPath { get; set; }
         public DocumentOperationType DocumnetOperation { get; set; }
     }
 }
