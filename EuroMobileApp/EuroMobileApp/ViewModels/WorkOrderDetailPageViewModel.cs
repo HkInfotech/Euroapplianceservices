@@ -98,12 +98,12 @@ namespace EuroMobileApp.ViewModels
                         bool ConfirmResult = await UserDialogsService.ConfirmAsync(StringResources.CustomerSignaturesArePendingConfirmAlert, null, StringResources.OK, StringResources.Cancel);
                         if (ConfirmResult)
                         {
-                            //Send invoice
+                           await _euroMobileService.SendCustomerInvoice(SelectedOrderModel.WorkOrderId, SelectedOrderModel.CustomerId);
                         }
                     }
                     else
                     {
-                        //Send invoice
+                        await _euroMobileService.SendCustomerInvoice(SelectedOrderModel.WorkOrderId, SelectedOrderModel.CustomerId);
                     }
 
 

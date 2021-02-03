@@ -63,6 +63,7 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -97,6 +98,8 @@
     <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -144,6 +147,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Reporting, Version=13.0.19.222, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -155,6 +159,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -170,7 +175,6 @@
     <Compile Include="Controllers\EuroApiController.cs" />
     <Compile Include="Controllers\EuroApiV1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Extension\CommonExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -226,14 +230,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Euro.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Common\Request\LoginRequest.cs" />
-    <Compile Include="Models\Common\Response\LoginResponse.cs" />
     <Compile Include="Models\JobNature.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JobStatus.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\Request\LoginRequest.cs" />
+    <Compile Include="Models\Common\Response\LoginResponse.cs" />
     <Compile Include="Models\Manufacturers.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -289,10 +293,16 @@
     <Compile Include="Models\SP_Invoice_Print_Detail_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Invoice_Print_Header_backup1_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_backup_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_Result.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Invoice_Print_Header_test1_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_test_Result.cs">
@@ -397,6 +407,15 @@
     <Compile Include="Models\UserTypes.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\vw_CustomerAppliances.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_Customers.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_ServiceLocations.cs">
+      <DependentUpon>Euro.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\WorkOrder_Header.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -425,8 +444,15 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\MobileInvoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MobileInvoice.Designer.cs">
+      <DependentUpon>MobileInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\Implements\EuroService.cs" />
     <Compile Include="Services\Interfaces\IEuroService.cs" />
+    <Compile Include="Services\MailerService.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="ViewModels\ApplianceTypeViewModel.cs" />
     <Compile Include="ViewModels\ApplianceViewModel.cs" />
@@ -485,6 +511,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <EmbeddedResource Include="Services\assets\imgs\logo_transparent.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\assets\templates\customer-invoice-email.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -519,6 +551,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\MobileInvoice.resx">
+      <DependentUpon>MobileInvoice.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

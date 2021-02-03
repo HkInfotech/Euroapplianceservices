@@ -5,11 +5,14 @@ using EuroWebApi.Models.Common;
 using EuroWebApi.Models.Common.Request;
 using EuroWebApi.Models.Common.Response;
 using EuroWebApi.Models.ModelDTO;
+using EuroWebApi.Services;
 using EuroWebApi.Services.Implements;
 using EuroWebApi.Services.Interfaces;
 using EuroWebApi.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -375,7 +378,6 @@ namespace EuroWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [Route("SaveSignature")]
         [AllowAnonymous]
         [HttpPost]
@@ -516,6 +518,89 @@ namespace EuroWebApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [Route("SendCustomerInvoice")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> SendCustomerInvoice(WorkOrderViewModel request)
+        {
+            ResponseModel response = new ResponseModel();
+            string connection = System.Configuration.ConfigurationManager.ConnectionStrings["ADO"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connection))
+            {
+                try
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("SP_webapi_GetCustomerDetailsById", con))
+                    {
+                        #region Customer Detail
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = request.CustomerId;
+
+                        CustomerViewModel customer = new CustomerViewModel();
+                        SqlDataReader r = cmd.ExecuteReader();
+                        while (r.Read())
+                        {
+                            customer.CustomerId = Convert.ToInt64(r[0].ToString());
+                            customer.CustomerName = r[1].ToString();
+                            customer.CustomerEmail = r[2].ToString();
+                        }
+                        r.Close();
+                        cmd.Dispose();
+                        #endregion
+
+                        if (!string.IsNullOrEmpty(customer.CustomerEmail))
+                        {
+                            #region Generating PDF to send as attachment
+                            var reportProcessor = new Telerik.Reporting.Processing.ReportProcessor();
+                            var typeReportSource = new Telerik.Reporting.TypeReportSource();
+                            // reportToExport is the Assembly Qualified Name of the report
+                            typeReportSource.TypeName = typeof(EuroWebApi.Reports.MobileInvoice).AssemblyQualifiedName;
+                            typeReportSource.Parameters.Add(new Telerik.Reporting.Parameter("WOrkOrderId", request.WorkOrderId.ToString()));
+                            var deviceInfo = new System.Collections.Hashtable();
+                            deviceInfo["JavaScript"] = "this.print({bUI: true, bSilent: false, bShrinkToFit: true});";
+
+                            var result = reportProcessor.RenderReport("PDF", typeReportSource, deviceInfo);
+                            string fileName = "Invoice." + result.Extension;
+                            #endregion
+
+                            #region Send Confirmation Email to Dealer
+                            var mailMessage = new Message
+                            {
+                                To = "makavana.vishal@gmail.com",
+                                Subject = "Customer Invoice",
+                                Type = MessageType.CustomerInvoiceEmail,
+                                AttachmentName = fileName,
+                                Attachment = result.DocumentBytes
+                            };
+                            mailMessage.Data.Add("CUSTOMER_NAME", customer.CustomerName);
+                            MailerService.Instance().Send(mailMessage);
+                            #endregion
+
+                            response.IsError = false;
+                            response.Message = "An Invoice Email Send Successfully to customer.";
+                        }
+                        else
+                        {
+                            response.IsError = true;
+                            response.Message = "Email address not exist for customer.";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    response.IsError = true;
+                    response.Message = "Failed to send an invoice email to customer. Error: " + ex.Message;
+                }
+                finally
+                {
+                    con.Close();
+                    con.Dispose();
+                }
+            }
+            return Ok(response);
         }
     }
 }

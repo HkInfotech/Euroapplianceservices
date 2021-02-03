@@ -1,5 +1,4 @@
-﻿using EuroWebApi.Extension;
-using EuroWebApi.Models;
+﻿using EuroWebApi.Models;
 using EuroWebApi.Models.Common;
 using EuroWebApi.Models.Common.Request;
 using EuroWebApi.Models.Common.Response;
@@ -430,7 +429,7 @@ namespace EuroWebApi.Services.Implements
                         }
                     }
 
-                    var servicesXML = CommonExtension.Serialize(request.WorkOrderServices);
+                    var servicesXML = Serialize(request.WorkOrderServices);
                     var SaveWorkOrderService = db.sp_webapi_UpdateWorkOrderServiceItems(request.WorkOrderId, servicesXML);
                     var UpdateWorkOrderAppliances = db.sp_webapi_update_appliance(request.WorkOrderId, Convert.ToInt32(request.CustomerApplianceId), Convert.ToInt32(request.ApplianceTypeId), Convert.ToInt32(request.ManufacturerId), request.SerialNumber, request.ModelNumber, images[0], images[1], images[2], images[3]);
                     response.ResponseContent = true;
@@ -497,6 +496,7 @@ namespace EuroWebApi.Services.Implements
             return response;
         }
 
+
         public Response<CustomerInfoViewModel> GetCustomerInfo(MobileRequest mobileRequest)
         {
             var response = new Response<CustomerInfoViewModel>() { Success = true };
@@ -521,7 +521,7 @@ namespace EuroWebApi.Services.Implements
                     };
                     response.ResponseContent = item;
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -634,6 +634,22 @@ namespace EuroWebApi.Services.Implements
                 response.Fail(ex.Message);
             }
             return response;
+        }
+
+
+        private string Serialize<T>(T dataToSerialize)
+        {
+            try
+            {
+                var stringwriter = new System.IO.StringWriter();
+                var serializer = new XmlSerializer(typeof(T));
+                serializer.Serialize(stringwriter, dataToSerialize);
+                return stringwriter.ToString().Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

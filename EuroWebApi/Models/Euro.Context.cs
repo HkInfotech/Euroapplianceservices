@@ -27,7 +27,6 @@ namespace EuroWebApi.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AppConfig> AppConfig { get; set; }
         public virtual DbSet<AppliancesImages> AppliancesImages { get; set; }
         public virtual DbSet<ApplianceTypes> ApplianceTypes { get; set; }
         public virtual DbSet<BillingAddress> BillingAddress { get; set; }
@@ -52,6 +51,10 @@ namespace EuroWebApi.Models
         public virtual DbSet<WorkOrder_ServiceItems> WorkOrder_ServiceItems { get; set; }
         public virtual DbSet<WorkOrder_ServiceLocation> WorkOrder_ServiceLocation { get; set; }
         public virtual DbSet<WorkOrder_Services> WorkOrder_Services { get; set; }
+        public virtual DbSet<vw_CustomerAppliances> vw_CustomerAppliances { get; set; }
+        public virtual DbSet<vw_Customers> vw_Customers { get; set; }
+        public virtual DbSet<vw_ServiceLocations> vw_ServiceLocations { get; set; }
+        public virtual DbSet<AppConfig> AppConfig { get; set; }
         public virtual DbSet<CustomerInvoiceSignatures> CustomerInvoiceSignatures { get; set; }
     
         [DbFunction("EURODbContext", "Split")]
@@ -780,6 +783,24 @@ namespace EuroWebApi.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_webapi_getTechRemarks", workOrderIdParameter);
         }
     
+        public virtual ObjectResult<SP_Invoice_Print_Header_backup1_Result> SP_Invoice_Print_Header_backup1(Nullable<long> wOrkOrderId)
+        {
+            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
+                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
+                new ObjectParameter("WOrkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Invoice_Print_Header_backup1_Result>("SP_Invoice_Print_Header_backup1", wOrkOrderIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_Invoice_Print_Header_test1_Result> SP_Invoice_Print_Header_test1(Nullable<long> wOrkOrderId)
+        {
+            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
+                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
+                new ObjectParameter("WOrkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Invoice_Print_Header_test1_Result>("SP_Invoice_Print_Header_test1", wOrkOrderIdParameter);
+        }
+    
         public virtual ObjectResult<string> sp_webapi_getCOVIDTab()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("sp_webapi_getCOVIDTab");
@@ -792,6 +813,15 @@ namespace EuroWebApi.Models
                 new ObjectParameter("CustomerId", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_getCustomerInfo_Result>("sp_webapi_getCustomerInfo", customerIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_webapi_GetInvoiceSignatureInfo_Result> sp_webapi_GetInvoiceSignatureInfo(Nullable<long> workOrderId)
+        {
+            var workOrderIdParameter = workOrderId.HasValue ?
+                new ObjectParameter("WorkOrderId", workOrderId) :
+                new ObjectParameter("WorkOrderId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_GetInvoiceSignatureInfo_Result>("sp_webapi_GetInvoiceSignatureInfo", workOrderIdParameter);
         }
     
         public virtual ObjectResult<sp_webapi_getInvoiceText_Result> sp_webapi_getInvoiceText(string textType)
@@ -893,15 +923,6 @@ namespace EuroWebApi.Models
                 new ObjectParameter("ServiceXML", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_UpdateWorkOrderServiceItems_v2_Result>("sp_webapi_UpdateWorkOrderServiceItems_v2", workOrderIdParameter, serviceXMLParameter);
-        }
-    
-        public virtual ObjectResult<sp_webapi_GetInvoiceSignatureInfo_Result> sp_webapi_GetInvoiceSignatureInfo(Nullable<long> workOrderId)
-        {
-            var workOrderIdParameter = workOrderId.HasValue ?
-                new ObjectParameter("WorkOrderId", workOrderId) :
-                new ObjectParameter("WorkOrderId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_GetInvoiceSignatureInfo_Result>("sp_webapi_GetInvoiceSignatureInfo", workOrderIdParameter);
         }
     }
 }

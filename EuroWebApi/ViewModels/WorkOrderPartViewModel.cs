@@ -17,4 +17,17 @@ namespace EuroWebApi.ViewModels
         public long WorkOrderId { get; set; }
         public int  UserId { get; set; }
     }
+
+
+    public class WorkOrderViewModel
+    {
+        public long CustomerId { get; set; }
+        public long WorkOrderId { get; set; }
+    }
+    public class CustomerViewModel
+    {
+        public long CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
+    }
 }

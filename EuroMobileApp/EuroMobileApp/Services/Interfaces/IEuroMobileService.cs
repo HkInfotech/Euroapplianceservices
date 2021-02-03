@@ -31,5 +31,6 @@ namespace EuroMobileApp.Services.Interfaces
         Task<CustomerModel> UpdateCustomerInfo(CustomerInfoRequest request);
         Task<InvoiceTotalModel> GetInvoiceTotal(long WorkOrderId);
         Task<CustomerInvoiceSignatureModel> GetInvoiceSignatureInfo(long WorkOrderId);
+        Task SendCustomerInvoice(long WorkOrderId,long CustomerId);
     }
 }

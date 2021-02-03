@@ -42,8 +42,5 @@ namespace EuroWebApi.Services.Interfaces
 
 
 
-
-
-
     }
 }

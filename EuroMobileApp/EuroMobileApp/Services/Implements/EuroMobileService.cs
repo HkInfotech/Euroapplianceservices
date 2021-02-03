@@ -316,5 +316,21 @@ namespace EuroMobileApp.Services.Implements
                 return new CustomerInvoiceSignatureModel();
             }
         }
+        public async Task SendCustomerInvoice(long WorkOrderId, long CustomerId)
+        {
+            try
+            {
+                SendInvoiceRequest request = new SendInvoiceRequest();
+                request.WorkOrderId = WorkOrderId;
+                request.CustomerId = CustomerId;
+                var json = JsonConvert.SerializeObject(request);
+                await _restClient.PostAsync<object>(Endpoint.SendCustomerInvoice, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
+
     }
 }
