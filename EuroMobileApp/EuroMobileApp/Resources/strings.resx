@@ -603,4 +603,10 @@
   <data name="CovidQuestion3" xml:space="preserve">
     <value>Are you or any member at the residence sick?</value>
   </data>
+  <data name="SaveSignatureSuccessAlert" xml:space="preserve">
+    <value>Signature and Covid19 info save successfully. Thank you</value>
+  </data>
+  <data name="CustomerSignaturesArePendingConfirmAlert" xml:space="preserve">
+    <value>Customer signatures are pending, do you want to send invoice ?</value>
+  </data>
 </root>

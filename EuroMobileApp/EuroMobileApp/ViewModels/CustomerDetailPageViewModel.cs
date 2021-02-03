@@ -21,7 +21,7 @@ namespace EuroMobileApp.ViewModels
         #endregion
 
         #region Properties
-
+        public bool IsUpdateUser { get; set; }
         #endregion
 
         #region Variable
@@ -56,7 +56,7 @@ namespace EuroMobileApp.ViewModels
                     var result = await _euroService.UpdateCustomerInfo(request);
                     IsBusy = false;
                     await UserDialogsService.AlertAsync(StringResources.CustomerDetailSaveSuccessAlert, null, StringResources.OK, null);
-           
+                    IsUpdateUser = true;
 
                 }
             }
@@ -282,6 +282,7 @@ namespace EuroMobileApp.ViewModels
         {
             AddValidations();
             this._euroService = _euroService;
+            IsUpdateUser = false;
         }
         #endregion
 
@@ -360,6 +361,19 @@ namespace EuroMobileApp.ViewModels
             }
 
         }
+        public async override Task ExecuteNavigateGoBackCommand()
+        {
+            NavigationParameters navigationParameters = new NavigationParameters();
+            navigationParameters.Add("IsUpdateUser", IsUpdateUser);
+            await NavigationService.GoBackAsync(navigationParameters);
+        }
+        //public async override void OnNavigatedFrom(INavigationParameters parameters)
+        //{
+        //    base.OnNavigatedFrom(parameters);
+        //    NavigationParameters navigationParameters = new NavigationParameters();
+        //    navigationParameters.Add("IsUpdateUser", IsUpdateUser);
+        //    await NavigationService.GoBackAsync(navigationParameters);
+        //}
         #endregion
     }
 }

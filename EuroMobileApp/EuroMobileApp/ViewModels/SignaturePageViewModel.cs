@@ -88,6 +88,7 @@ namespace EuroMobileApp.ViewModels
                     saveSignatureRequest.WorkOrderId = SelectedWorkOrderModel.WorkOrderId;
                     var result = await _euroServices.SaveSignature(saveSignatureRequest);
                     await GetInvoiceSignature();
+                    await UserDialogsService.AlertAsync(StringResources.SaveSignatureSuccessAlert, null, StringResources.OK);
                     IsBusy = false;
                 }
             }
@@ -112,16 +113,19 @@ namespace EuroMobileApp.ViewModels
             {
                 new Covid19FormModel()
                 {
+                    QuestionNo="1.",
                     QuestionTitle=StringResources.CovidQuestion1,
                     QuestionAnswer=false
                 },
                 new Covid19FormModel()
                 {
+                    QuestionNo="2.",
                     QuestionTitle=StringResources.CovidQuestion2,
                     QuestionAnswer=false
                 },
                 new Covid19FormModel()
                 {
+                    QuestionNo="3.",
                     QuestionTitle=StringResources.CovidQuestion3,
                     QuestionAnswer=false
                 }
@@ -144,7 +148,7 @@ namespace EuroMobileApp.ViewModels
             await GetInvoiceTotal();
             await GetInvoiceText();
             await GetInvoiceSignature();
-            
+
             IsBusy = false;
         }
         public async override void OnNavigatedFrom(INavigationParameters parameters)
@@ -189,16 +193,19 @@ namespace EuroMobileApp.ViewModels
                     {
                         new Covid19FormModel()
                         {
+                            QuestionNo="1.",
                             QuestionTitle=StringResources.CovidQuestion1,
                             QuestionAnswer=CustomerInvoiceSignature.Covid_answer_1=="Y"||CustomerInvoiceSignature.Covid_answer_1=="y"?true:false
                         },
                         new Covid19FormModel()
                         {
+                             QuestionNo="2.",
                             QuestionTitle = StringResources.CovidQuestion2,
                             QuestionAnswer=CustomerInvoiceSignature.Covid_answer_2=="Y"||CustomerInvoiceSignature.Covid_answer_2=="y"?true:false
                         },
                         new Covid19FormModel()
                         {
+                             QuestionNo="3.",
                             QuestionTitle = StringResources.CovidQuestion3,
                             QuestionAnswer=CustomerInvoiceSignature.Covid_answer_3=="Y"||CustomerInvoiceSignature.Covid_answer_3=="y"?true:false
                         }

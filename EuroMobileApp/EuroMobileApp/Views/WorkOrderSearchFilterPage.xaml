@@ -197,14 +197,23 @@
                     </Grid>
                 </ScrollView>
 
+                <Grid Grid.Row="2" ColumnDefinitions="50*,50*">
+                    <Button
+                        Grid.Column="0"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource NavigationPrimary}"
+                        Command="{Binding NavigateToWorkOrderListCommand}"
+                        Text="{trans:Translate OK}"
+                        TextColor="{DynamicResource WhiteColor}" />
+                    <Button
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource LoginButtonColor}"
+                        Command="{Binding NavigateGoBackCommand}"
+                        Text="{trans:Translate Cancel}"
+                        TextColor="{DynamicResource WhiteColor}" />
+                </Grid>
 
-                <Button
-                    Grid.Row="2"
-                    Padding="0"
-                    BackgroundColor="{DynamicResource NavigationPrimary}"
-                    Command="{Binding NavigateToWorkOrderListCommand}"
-                    Text="{trans:Translate OK}"
-                    TextColor="{DynamicResource WhiteColor}" />
 
             </Grid>
             <control:ActivityProgressBar IsVisible="{Binding IsBusy}" />

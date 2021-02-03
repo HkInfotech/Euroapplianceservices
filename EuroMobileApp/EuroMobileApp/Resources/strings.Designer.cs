@@ -511,6 +511,15 @@ namespace EuroMobileApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer signatures are pending, do you want to send invoice ?.
+        /// </summary>
+        internal static string CustomerSignaturesArePendingConfirmAlert {
+            get {
+                return ResourceManager.GetString("CustomerSignaturesArePendingConfirmAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Try adjusting your search or fliter to find what you&apos;re looking for.
         /// </summary>
         internal static string DefaultSubtitle {
@@ -1146,6 +1155,15 @@ namespace EuroMobileApp.Resources {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signature and Covid19 info save successfully. Thank you.
+        /// </summary>
+        internal static string SaveSignatureSuccessAlert {
+            get {
+                return ResourceManager.GetString("SaveSignatureSuccessAlert", resourceCulture);
             }
         }
         

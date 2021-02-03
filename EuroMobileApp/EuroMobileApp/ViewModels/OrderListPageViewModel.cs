@@ -130,23 +130,26 @@ namespace EuroMobileApp.ViewModels
             {
                 case NavigationMode.Back:
                     {
-                        if (parameters.TryGetValue("FilterRequest", out WorkOrderFilterRequest request))
+                        if (parameters.TryGetValue("FilterRequest", out WorkOrderFilterRequest request) && parameters.TryGetValue("IsRequestFilterData", out bool IsRequestFilterData))
                         {
-                            FilterRequest = request;
-                            IsRefreshing = true;
-                            await RefreshAsync();
+                            if (IsRequestFilterData)
+                            {
+                                FilterRequest = request;
+                                IsRefreshing = true;
+                                await RefreshAsync();
+                            }
                         }
-                        else
+                        else if (parameters.TryGetValue("IsUpdateUser", out bool IsUpdateUser))
                         {
-                            await RefreshAsync();
+                            if (IsUpdateUser)
+                            {
+                                IsRefreshing = true;
+                                await RefreshAsync();
+                            }
                         }
                         break;
                     }
-                default:
-                    {
-                        await RefreshAsync();
-                        break;
-                    }
+                
             }
 
 

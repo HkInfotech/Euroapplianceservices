@@ -50,7 +50,7 @@ namespace EuroMobileApp.ViewModels
             PositionSelected = parameter;
         }
 
-
+        public CustomerInvoiceSignatureModel CustomerInvoiceSignature { get; set; }
         #region Services
         private readonly IEuroMobileService _euroMobileService;
         private readonly IAppSettings _appSettings;
@@ -73,7 +73,7 @@ namespace EuroMobileApp.ViewModels
                 var buttons = new List<IActionSheetButton>() {
                     ActionSheetButton.CreateCancelButton(StringResources.Cancel, () =>
                     {
-                        
+
                     })
                 };
                 buttons.Add(ActionSheetButton.CreateButton(StringResources.Save, async () =>
@@ -88,8 +88,24 @@ namespace EuroMobileApp.ViewModels
                     navigationParameters.Add("SelectedWorkOrderModel", SelectedOrderModel);
                     await NavigationServiceExtensions.TryNavigateAsync(NavigationService, PageName.SignaturePage, navigationParameters);
                 }));
-                buttons.Add(ActionSheetButton.CreateButton(StringResources.SendInvoice, () =>
+                buttons.Add(ActionSheetButton.CreateButton(StringResources.SendInvoice, async () =>
                 {
+                    CustomerInvoiceSignature = new CustomerInvoiceSignatureModel();
+                    CustomerInvoiceSignature = await _euroMobileService.GetInvoiceSignatureInfo(SelectedOrderModel.WorkOrderId);
+                    bool InvoiceSigned = CustomerInvoiceSignature.InvoiceSigned == "Y" || CustomerInvoiceSignature.InvoiceSigned == "y" ? true : false;
+                    if (!InvoiceSigned)
+                    {
+                        bool ConfirmResult = await UserDialogsService.ConfirmAsync(StringResources.CustomerSignaturesArePendingConfirmAlert, null, StringResources.OK, StringResources.Cancel);
+                        if (ConfirmResult)
+                        {
+                            //Send invoice
+                        }
+                    }
+                    else
+                    {
+                        //Send invoice
+                    }
+
 
                 }));
                 await PageDialogService.DisplayActionSheetAsync(null, buttons.ToArray());

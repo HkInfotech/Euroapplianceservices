@@ -13,11 +13,13 @@ namespace EuroMobileApp.ViewModels
     public class WorkOrderSearchFilterPageViewModel : ViewModelBase
     {
         public WorkOrderFilterRequest request { get; set; }
+        public bool IsRequestFilterData { get; set; }
 
        
         public WorkOrderSearchFilterPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             request = new WorkOrderFilterRequest();
+            IsRequestFilterData = false;
         }
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -33,9 +35,25 @@ namespace EuroMobileApp.ViewModels
         {
             NavigationParameters navigationParameters = new NavigationParameters();
             navigationParameters.Add("FilterRequest", request);
+            IsRequestFilterData = true;
+            navigationParameters.Add("IsRequestFilterData", IsRequestFilterData);
             await NavigationService.GoBackAsync(navigationParameters);
 
         }));
-        
+        public async override Task ExecuteNavigateGoBackCommand()
+        {
+            NavigationParameters navigationParameters = new NavigationParameters();
+            navigationParameters.Add("FilterRequest", request);
+            navigationParameters.Add("IsRequestFilterData", IsRequestFilterData);
+            await NavigationService.GoBackAsync(navigationParameters);
+        }
+        public async override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+            NavigationParameters navigationParameters = new NavigationParameters();
+            navigationParameters.Add("FilterRequest", request);
+            navigationParameters.Add("IsRequestFilterData", IsRequestFilterData);
+            await NavigationService.GoBackAsync(navigationParameters);
+        }
     }
 }

@@ -103,6 +103,8 @@ namespace EuroMobileApp.Helpers
         public static string CovidQuestion1 { get; set; }
         public static string CovidQuestion2 { get; set; }
         public static string CovidQuestion3 { get; set; }
+        public static string SaveSignatureSuccessAlert { get; set; }
+        public static string CustomerSignaturesArePendingConfirmAlert { get; set; }
 
     }
 }

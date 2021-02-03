@@ -399,7 +399,7 @@
                         Grid.Column="1"
                         Padding="0"
                         BackgroundColor="{DynamicResource LoginButtonColor}"
-                        Command="{prism:GoBack}"
+                        Command="{Binding NavigateGoBackCommand}"
                         Text="{trans:Translate Cancel}"
                         TextColor="{DynamicResource WhiteColor}" />
                 </Grid>

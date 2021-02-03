@@ -7,6 +7,7 @@ namespace EuroMobileApp.Models
     public class Covid19FormModel
     {
         public string QuestionTitle { get; set; }
+        public string QuestionNo { get; set; }
 
         public bool QuestionAnswer { get; set; }
     }
