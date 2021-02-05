@@ -1132,7 +1132,7 @@ namespace EuroMobileApp.ViewModels
                 FileURL = string.IsNullOrEmpty(ImageFile1) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile1}",
                 IsActive = 'N',
                 Id = 1,
-                Name = string.IsNullOrEmpty(ImageFile1) ? "" : ReturnLastStringFormImageUrl(ImageFile1),
+                Name = WorkOrderImages.Count > 0 ? WorkOrderImages[0].FileName : "",
                 ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile1) ? "" : ImageFullPathFile1,
 
 
@@ -1142,7 +1142,7 @@ namespace EuroMobileApp.ViewModels
                 FileURL = string.IsNullOrEmpty(ImageFile2) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile2}",
                 IsActive = 'N',
                 Id = 2,
-                Name = string.IsNullOrEmpty(ImageFile2) ? "" : ReturnLastStringFormImageUrl(ImageFile2),
+                Name = WorkOrderImages.Count > 1 ? WorkOrderImages[1].FileName : "",
                 ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile2) ? "" : ImageFullPathFile2,
             });
             DocumentItems.Add(new DocumentModel()
@@ -1150,7 +1150,7 @@ namespace EuroMobileApp.ViewModels
                 FileURL = string.IsNullOrEmpty(ImageFile3) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile3}",
                 IsActive = 'N',
                 Id = 3,
-                Name = string.IsNullOrEmpty(ImageFile3) ? "" : ReturnLastStringFormImageUrl(ImageFile3),
+                Name = WorkOrderImages.Count > 2 ? WorkOrderImages[2].FileName : "",
                 ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile3) ? "" : ImageFullPathFile3,
 
             });
@@ -1159,7 +1159,7 @@ namespace EuroMobileApp.ViewModels
                 FileURL = string.IsNullOrEmpty(ImageFile4) ? "" : $"{_appConfiguration.BaseUrl}{ImageFile4}",
                 IsActive = 'N',
                 Id = 4,
-                Name = string.IsNullOrEmpty(ImageFile4) ? "" : ReturnLastStringFormImageUrl(ImageFile4),
+                Name = WorkOrderImages.Count > 3 ? WorkOrderImages[3].FileName : "",
                 ServerDocumentPath = string.IsNullOrEmpty(ImageFullPathFile4) ? "" : ImageFullPathFile4,
             });
 
