@@ -930,50 +930,5 @@ namespace EuroWebApi.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_webapi_UpdateWorkOrderImages_Result>("sp_webapi_UpdateWorkOrderImages", workOrderIdParameter, imagesXMLParameter);
         }
-    
-        public virtual ObjectResult<SP_Invoice_Print_Header_backup2_Result> SP_Invoice_Print_Header_backup2(Nullable<long> wOrkOrderId)
-        {
-            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
-                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
-                new ObjectParameter("WOrkOrderId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Invoice_Print_Header_backup2_Result>("SP_Invoice_Print_Header_backup2", wOrkOrderIdParameter);
-        }
-    
-        public virtual ObjectResult<SP_Invoice_Print_Header_test2_Result> SP_Invoice_Print_Header_test2(Nullable<long> wOrkOrderId)
-        {
-            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
-                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
-                new ObjectParameter("WOrkOrderId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Invoice_Print_Header_test2_Result>("SP_Invoice_Print_Header_test2", wOrkOrderIdParameter);
-        }
-    
-        public virtual ObjectResult<SP_webapi_GetCustomerDetailsById_Result> SP_webapi_GetCustomerDetailsById(Nullable<long> customerId)
-        {
-            var customerIdParameter = customerId.HasValue ?
-                new ObjectParameter("CustomerId", customerId) :
-                new ObjectParameter("CustomerId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_webapi_GetCustomerDetailsById_Result>("SP_webapi_GetCustomerDetailsById", customerIdParameter);
-        }
-    
-        public virtual ObjectResult<SP_webapi_Invoice_Print_Header_Result> SP_webapi_Invoice_Print_Header(Nullable<long> wOrkOrderId)
-        {
-            var wOrkOrderIdParameter = wOrkOrderId.HasValue ?
-                new ObjectParameter("WOrkOrderId", wOrkOrderId) :
-                new ObjectParameter("WOrkOrderId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_webapi_Invoice_Print_Header_Result>("SP_webapi_Invoice_Print_Header", wOrkOrderIdParameter);
-        }
-    
-        public virtual int SP_webapi_Invoice_Print_LineItems(Nullable<long> wOrkORderId)
-        {
-            var wOrkORderIdParameter = wOrkORderId.HasValue ?
-                new ObjectParameter("WOrkORderId", wOrkORderId) :
-                new ObjectParameter("WOrkORderId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_webapi_Invoice_Print_LineItems", wOrkORderIdParameter);
-        }
     }
 }

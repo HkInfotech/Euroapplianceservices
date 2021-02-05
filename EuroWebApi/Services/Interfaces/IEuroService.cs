@@ -42,5 +42,7 @@ namespace EuroWebApi.Services.Interfaces
 
         Response<List<WorkOrderImageViewModel>> GetWorkOrderImages(MobileRequest request);
 
+        Response<AppConfigViewModel> GetCovidAppConfig(MobileRequest request);
+
     }
 }

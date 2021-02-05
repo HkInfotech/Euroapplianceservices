@@ -248,7 +248,10 @@
                                 </BoxView.Triggers>
                             </BoxView>
                         </StackLayout>
-                        <StackLayout HorizontalOptions="StartAndExpand" Spacing="5">
+                        <StackLayout
+                            HorizontalOptions="StartAndExpand"
+                            IsVisible="{Binding CovidTabVisible}"
+                            Spacing="5">
                             <StackLayout Padding="5,0,5,0" Spacing="0">
                                 <Label Style="{StaticResource UnSelectedTabStyle}" Text="{trans:Translate Covid19TabTitle}">
                                     <Label.Triggers>
@@ -346,7 +349,8 @@
                 <StackLayout
                     Grid.Row="3"
                     Margin="5,10,5,10"
-                    Spacing="10">
+                    Spacing="10"
+                    VerticalOptions="End">
                     <Yummy:PancakeView Border="{Yummy:BorderMarkup Color={DynamicResource black}, Thickness=1}" HeightRequest="50">
 
                         <StackLayout Orientation="Horizontal" VerticalOptions="Center">
@@ -365,10 +369,7 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Label
-                                Grid.Column="1"
-                                Margin="0,0,5,0"
-                                HorizontalOptions="EndAndExpand">
+                            <Label Grid.Column="1" Margin="0,0,5,0">
                                 <Label.FormattedText>
                                     <FormattedString>
 
@@ -393,7 +394,7 @@
                         Border="{Yummy:BorderMarkup Color={DynamicResource black},
                                                     Thickness=1}"
                         HeightRequest="130"
-                        VerticalOptions="CenterAndExpand">
+                        VerticalOptions="Center">
                         <StackLayout>
 
                             <Label

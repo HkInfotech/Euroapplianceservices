@@ -296,9 +296,6 @@
     <Compile Include="Models\SP_Invoice_Print_Header_backup1_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SP_Invoice_Print_Header_backup2_Result.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_backup_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
@@ -306,9 +303,6 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_test1_Result.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SP_Invoice_Print_Header_test2_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Invoice_Print_Header_test_Result.cs">
@@ -345,9 +339,6 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_webapi_GetCustomerAppliances_Result.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SP_webapi_GetCustomerDetailsById_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_webapi_getCustomerInfo_Result.cs">
@@ -390,9 +381,6 @@
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_webapi_GetWorkOrderServices_Result.cs">
-      <DependentUpon>Euro.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SP_webapi_Invoice_Print_Header_Result.cs">
       <DependentUpon>Euro.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_webapi_UpdateOrderDetailsByWorkOrderId_Result.cs">
@@ -472,6 +460,7 @@
     <Compile Include="Services\Interfaces\IEuroService.cs" />
     <Compile Include="Services\MailerService.cs" />
     <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="ViewModels\AppConfigViewModel.cs" />
     <Compile Include="ViewModels\ApplianceTypeViewModel.cs" />
     <Compile Include="ViewModels\ApplianceViewModel.cs" />
     <Compile Include="ViewModels\CustomerInfoViewModel.cs" />

@@ -350,5 +350,23 @@ namespace EuroMobileApp.Services.Implements
                 return null;
             }
         }
+
+        public async Task<AppConfigModel> GetCovidAppConfig()
+        {
+            try
+            {
+                MobileRequest request = new MobileRequest();
+                request.UserId = _setting.UserId;
+                request.Username = _setting.Username;
+                var json = JsonConvert.SerializeObject(request);
+                var response = await _restClient.PostAsync<AppConfigModel>(Endpoint.GetCovidAppConfig, json, appConfiguration.BaseUrl).ConfigureAwait(false);
+                return response;
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

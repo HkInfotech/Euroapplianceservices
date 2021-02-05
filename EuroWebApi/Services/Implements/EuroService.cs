@@ -695,6 +695,34 @@ namespace EuroWebApi.Services.Implements
             return response;
         }
 
+        public Response<AppConfigViewModel> GetCovidAppConfig(MobileRequest request)
+        {
+            var response = new Response<AppConfigViewModel>() { Success = true };
+
+            try
+            {
+                var result = db.AppConfig?.Where(a => a.ParentKey.Equals("COVID", StringComparison.OrdinalIgnoreCase))?.FirstOrDefault() ?? new AppConfig();
+                if (result.AppConfigId != 0)
+                {
+                    AppConfigViewModel model = new AppConfigViewModel()
+                    {
+                        AppConfigId = result.AppConfigId,
+                        ChildKEy = result.ChildKEy,
+                        ConfigValue = result.ConfigValue,
+                        ParentKey = result.ParentKey
+                    };
+                    response.ResponseContent = model;
+                }
+                else
+                    response.ResponseContent = new AppConfigViewModel();
+            }
+            catch (Exception ex)
+            {
+                response.Fail(ex.Message);
+            }
+            return response;
+        }
+
 
         private string Serialize<T>(T dataToSerialize)
         {

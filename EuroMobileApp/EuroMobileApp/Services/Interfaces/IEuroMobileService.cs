@@ -34,5 +34,6 @@ namespace EuroMobileApp.Services.Interfaces
         Task<SendInvoiceResponseModel> SendCustomerInvoice(long WorkOrderId, long CustomerId);
 
         Task<List<WorkOrderImage>> GetWorkOrderImages(long WorkOrderId);
+        Task<AppConfigModel> GetCovidAppConfig();
     }
 }

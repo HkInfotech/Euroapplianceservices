@@ -597,6 +597,7 @@ namespace EuroWebApi.Controllers
                 {
                     responseModel.IsError = true;
                     responseModel.Message = "Failed to send an invoice email to customer. Error: " + ex.Message;
+                    response.ResponseContent = responseModel;
                 }
                 finally
                 {
@@ -616,6 +617,30 @@ namespace EuroWebApi.Controllers
             try
             {
                 response = _euroService.GetWorkOrderImages(request);
+                if (response.Success)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Content(System.Net.HttpStatusCode.BadRequest, response);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("GetCovidAppConfig")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCovidAppConfig(MobileRequest request)
+        {
+            Response<AppConfigViewModel> response = new Response<AppConfigViewModel>();
+            try
+            {
+                response = _euroService.GetCovidAppConfig(request);
                 if (response.Success)
                 {
                     return Ok(response);

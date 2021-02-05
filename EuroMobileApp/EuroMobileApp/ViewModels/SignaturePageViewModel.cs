@@ -25,6 +25,7 @@ namespace EuroMobileApp.ViewModels
         public InvoiceTotalModel InvoiceTotalItem { get; set; }
 
         public OrderModel SelectedWorkOrderModel { get; set; }
+        public AppConfigModel CovidAppConfig { get; set; }
         private InvoiceTotalModel _totalOrder;
 
         public InvoiceTotalModel TotalOrder
@@ -38,6 +39,7 @@ namespace EuroMobileApp.ViewModels
         public string LiabilitiesInfo { get; set; }
         public string SignatureViewTitle { get; set; }
         public bool InvoiceSigned { get; set; }
+        public bool CovidTabVisible { get; set; }
 
         public List<Covid19FormModel> covid19FormModels { get; set; }
         public CustomerInvoiceSignatureModel CustomerInvoiceSignature { get; set; }
@@ -132,6 +134,8 @@ namespace EuroMobileApp.ViewModels
             };
             CustomerInvoiceSignature = new CustomerInvoiceSignatureModel();
             InvoiceSigned = false;
+            CovidTabVisible = false;
+            CovidAppConfig = new AppConfigModel();
 
         }
         #endregion
@@ -145,6 +149,7 @@ namespace EuroMobileApp.ViewModels
                 SelectedWorkOrderModel = orderModel;
             }
             IsBusy = true;
+            await GetCovidAppConfig();
             await GetInvoiceTotal();
             await GetInvoiceText();
             await GetInvoiceSignature();
@@ -178,6 +183,23 @@ namespace EuroMobileApp.ViewModels
                 InvoiceTotalItem = new InvoiceTotalModel();
                 LimitedWarrantyInfo = await _euroServices.GetInvoiceText("W");
                 LiabilitiesInfo = await _euroServices.GetInvoiceText("L");
+            }
+
+        }
+        public async Task GetCovidAppConfig()
+        {
+            if (IsConnected)
+            {
+               
+                CovidAppConfig = await _euroServices.GetCovidAppConfig();
+                if (CovidAppConfig.ConfigValue== "Yes")
+                {
+                    CovidTabVisible = true;
+                }
+                else
+                {
+                    CovidTabVisible = false;
+                }
             }
 
         }
