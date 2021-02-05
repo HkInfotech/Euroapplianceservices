@@ -17,11 +17,13 @@
             <Image
                 Grid.Column="0"
                 Aspect="AspectFill"
+
                 HorizontalOptions="Start"
                 VerticalOptions="Center">
                 <Image.Source>
                     <FontImageSource
                         FontFamily="{StaticResource FontAwesomeIconLight}"
+                         Size="Large"   
                         Glyph="{x:Static Icons:IconFonts.ChevronLeft}"
                         Color="{DynamicResource WhiteColor}" />
                 </Image.Source>

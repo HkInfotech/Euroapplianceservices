@@ -7,7 +7,7 @@ namespace EuroMobileApp.Configurations
 {
     public class DevConfiguration : IAppConfiguration
     {
-        public string BaseUrl => "http://192.168.0.104:61177";
+        public string BaseUrl => "";
         public string LocalDB => "";
     }
 }

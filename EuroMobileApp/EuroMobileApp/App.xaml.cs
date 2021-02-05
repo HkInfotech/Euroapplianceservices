@@ -97,7 +97,7 @@ namespace EuroMobileApp
             containerRegistry.RegisterInstance(typeof(Plugin.Connectivity.Abstractions.IConnectivity), CrossConnectivity.Current);
             containerRegistry.RegisterInstance(typeof(ISettings), CrossSettings.Current);
             containerRegistry.RegisterInstance<IAppSettings>(new AppSettings());
-            containerRegistry.RegisterInstance<IAppConfiguration>(new DevConfiguration());
+            containerRegistry.RegisterInstance<IAppConfiguration>(new ProductionConfiguration());
 
             StringResourceAction = () =>
             {
