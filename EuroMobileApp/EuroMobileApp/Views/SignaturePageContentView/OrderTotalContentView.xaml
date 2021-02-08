@@ -8,80 +8,85 @@
     xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentView.Content>
-        <StackLayout VerticalOptions="FillAndExpand">
-            <Grid ColumnDefinitions="50*,50*">
-                <Label
-                    Grid.Column="0"
-                    FontFamily="{StaticResource RobotoCondensedBold}"
-                    FontSize="18"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{trans:Translate OrderTotalLabel}" />
-                <Label
-                    Grid.Column="1"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding TotalOrder.Total}" />
-            </Grid>
-            <Grid ColumnDefinitions="50*,50*">
-                <Label
-                    Grid.Column="0"
-                    FontFamily="{StaticResource RobotoCondensedBold}"
-                    FontSize="18"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{trans:Translate OrderTotalHSTLabel}" />
-                <Label
-                    Grid.Column="1"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding TotalOrder.HST}" />
-            </Grid>
-            <Grid ColumnDefinitions="50*,50*">
-                <Label
-                    Grid.Column="0"
-                    FontFamily="{StaticResource RobotoCondensedBold}"
-                    FontSize="18"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{trans:Translate OrderTotalAmountLabel}" />
-                <Label
-                    Grid.Column="1"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding TotalOrder.TotalAmount}" />
-            </Grid>
-            <Grid ColumnDefinitions="50*,50*">
-                <Label
-                    Grid.Column="0"
-                    FontFamily="{StaticResource RobotoCondensedBold}"
-                    FontSize="18"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{trans:Translate OrderTotalAmountPaidLabel}" />
-                <Label
-                    Grid.Column="1"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding TotalOrder.AmountPaid}" />
-            </Grid>
-            <Grid ColumnDefinitions="50*,50*">
-                <Label
-                    Grid.Column="0"
-                    FontFamily="{StaticResource RobotoCondensedBold}"
-                    FontSize="18"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{trans:Translate OrderTotalAmountDue}" />
-                <Label
-                    Grid.Column="1"
-                    FontFamily="{StaticResource RobotoMedium}"
-                    FontSize="18"
-                    HorizontalOptions="EndAndExpand"
-                    Text="{Binding TotalOrder.TotalAmountDue}" />
-            </Grid>
+        <ScrollView
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Grid ColumnDefinitions="50*,50*">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{trans:Translate OrderTotalLabel}" />
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoMedium}"
+                        FontSize="18"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding TotalOrder.Total}" />
+                </Grid>
+                <Grid ColumnDefinitions="50*,50*">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{trans:Translate OrderTotalHSTLabel}" />
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoMedium}"
+                        FontSize="18"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding TotalOrder.HST}" />
+                </Grid>
+                <Grid ColumnDefinitions="50*,50*">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{trans:Translate OrderTotalAmountLabel}" />
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoMedium}"
+                        FontSize="18"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding TotalOrder.TotalAmount}" />
+                </Grid>
+                <Grid ColumnDefinitions="50*,50*">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{trans:Translate OrderTotalAmountPaidLabel}" />
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoMedium}"
+                        FontSize="18"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding TotalOrder.AmountPaid}" />
+                </Grid>
+                <Grid ColumnDefinitions="50*,50*">
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{StaticResource RobotoCondensedBold}"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{trans:Translate OrderTotalAmountDue}" />
+                    <Label
+                        Grid.Column="1"
+                        FontFamily="{StaticResource RobotoMedium}"
+                        FontSize="18"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{Binding TotalOrder.TotalAmountDue}" />
+                </Grid>
 
 
 
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentView.Content>
 </ContentView>

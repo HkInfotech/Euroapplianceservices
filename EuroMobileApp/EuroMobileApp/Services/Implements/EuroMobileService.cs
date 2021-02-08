@@ -288,6 +288,7 @@ namespace EuroMobileApp.Services.Implements
                 MobileRequest request = new MobileRequest();
                 request.UserId = _setting.UserId;
                 request.Username = _setting.Username;
+                request.WorkOrderId = WorkOrderId;
                 var json = JsonConvert.SerializeObject(request);
                 var response = await _restClient.PostAsync<InvoiceTotalModel>(Endpoint.GetInvoiceTotal, json, appConfiguration.BaseUrl).ConfigureAwait(false);
                 return response;

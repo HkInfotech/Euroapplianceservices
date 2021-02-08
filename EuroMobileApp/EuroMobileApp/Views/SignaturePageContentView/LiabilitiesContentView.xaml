@@ -5,12 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Margin="5,10,0,10">
     <ContentView.Content>
-        <StackLayout>
+        <ScrollView
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
             <Label
                 FontFamily="{StaticResource RobotoMedium}"
                 FontSize="Medium"
                 LineBreakMode="WordWrap"
                 Text="{Binding LiabilitiesInfo}" />
-        </StackLayout>
+        </ScrollView>
     </ContentView.Content>
 </ContentView>
