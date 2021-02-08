@@ -346,73 +346,7 @@
                         </DataTrigger>
                     </SignatureView:Covid19ContentView.Triggers>
                 </SignatureView:Covid19ContentView>
-                <StackLayout
-                    Grid.Row="3"
-                    Margin="5,10,5,10"
-                    Spacing="10"
-                    VerticalOptions="End">
-                    <Yummy:PancakeView Border="{Yummy:BorderMarkup Color={DynamicResource black}, Thickness=1}" HeightRequest="50">
 
-                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                            <Label
-                                Grid.Column="0"
-                                Margin="10,0,10,0"
-                                HorizontalOptions="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span
-                                            FontFamily="{StaticResource RobotoCondensedBold}"
-                                            FontSize="18"
-                                            Text="{trans:Translate OrderTotalCustomerSignature}" />
-                                        <Span Text=" " />
-
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label Grid.Column="1" Margin="0,0,5,0">
-                                <Label.FormattedText>
-                                    <FormattedString>
-
-                                        <Span Text=" " />
-                                        <Span
-                                            FontFamily="{StaticResource RobotoCondensedBold}"
-                                            FontSize="18"
-                                            Text="{trans:Translate PleaseSignLabel}"
-                                            TextColor="{DynamicResource blueDark}"
-                                            TextDecorations="Underline">
-                                            <Span.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding PleaseSigninCommand}" />
-                                            </Span.GestureRecognizers>
-                                        </Span>
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </StackLayout>
-                    </Yummy:PancakeView>
-
-                    <Yummy:PancakeView
-                        Border="{Yummy:BorderMarkup Color={DynamicResource black},
-                                                    Thickness=1}"
-                        HeightRequest="130"
-                        VerticalOptions="Center">
-                        <StackLayout>
-
-                            <Label
-                                FontAttributes="Italic"
-                                FontFamily="{StaticResource RobotoCondensedBoldItalic}"
-                                FontSize="24"
-                                HorizontalOptions="Center"
-                                VerticalOptions="CenterAndExpand">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding SignatureViewTitle}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </StackLayout>
-
-                    </Yummy:PancakeView>
-                </StackLayout>
 
             </Grid>
         </ContentView>
