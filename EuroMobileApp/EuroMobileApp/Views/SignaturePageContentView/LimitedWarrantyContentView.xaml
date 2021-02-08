@@ -10,7 +10,7 @@
         <ScrollView
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
-            VerticalScrollBarVisibility="Never">
+            >
             <Grid RowDefinitions="*,Auto">
                 <Label
                     Grid.Row="0"
@@ -68,7 +68,7 @@
                     <Yummy:PancakeView
                         Border="{Yummy:BorderMarkup Color={DynamicResource black},
                                                     Thickness=1}"
-                        HeightRequest="100"
+                      HeightRequest="{OnPlatform Android=100, iOS=80}"
                         VerticalOptions="Center">
                         <StackLayout>
 

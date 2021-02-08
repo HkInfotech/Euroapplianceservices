@@ -13,7 +13,7 @@
     NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="True">
     <NavigationPage.TitleView>
-        <Grid Padding="0,0,5,5" ColumnDefinitions="15*,80*,15*">
+        <Grid Padding="0,0,5,5" ColumnDefinitions="15*,80*">
             <Image
                 Grid.Column="0"
                 Aspect="AspectFill"

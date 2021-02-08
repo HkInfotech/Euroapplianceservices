@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    Margin="5,10,0,10"
     xmlns:trans="clr-namespace:EuroMobileApp.Helpers"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentView.Content>
@@ -138,7 +139,7 @@
                     <Yummy:PancakeView
                         Border="{Yummy:BorderMarkup Color={DynamicResource black},
                                                     Thickness=1}"
-                        HeightRequest="100"
+                        HeightRequest="{OnPlatform Android=100, iOS=80}"
                         VerticalOptions="Center">
                         <StackLayout>
 

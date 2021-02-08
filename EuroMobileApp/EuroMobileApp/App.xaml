@@ -162,7 +162,7 @@
                     <Grid AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="{OnPlatform Android=100, iOS=150}" />
+                            <RowDefinition Height="{OnPlatform Android=80, iOS=100}" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
