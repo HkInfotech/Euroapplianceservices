@@ -459,6 +459,7 @@
     <Compile Include="Services\Implements\EuroService.cs" />
     <Compile Include="Services\Interfaces\IEuroService.cs" />
     <Compile Include="Services\MailerService.cs" />
+    <Compile Include="Utils\ErrorLogHelper.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="ViewModels\AppConfigViewModel.cs" />
     <Compile Include="ViewModels\ApplianceTypeViewModel.cs" />
@@ -524,6 +525,9 @@
     <EmbeddedResource Include="Services\assets\templates\customer-invoice-email.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uploads\Images\logo_transparent.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -541,7 +545,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\Images\" />
+    <Folder Include="ErrorLog\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -584,8 +588,6 @@
           <DevelopmentServerPort>61177</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44339/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>https://localhost:44339/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

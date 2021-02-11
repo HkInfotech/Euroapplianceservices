@@ -192,7 +192,7 @@ namespace EuroMobileApp.ViewModels
             {
                
                 CovidAppConfig = await _euroServices.GetCovidAppConfig();
-                if (CovidAppConfig.ConfigValue.Equals("Yes",StringComparison.OrdinalIgnoreCase))
+                 if (CovidAppConfig.ConfigValue.Equals("Yes",StringComparison.OrdinalIgnoreCase))
                 {
                     CovidTabVisible = true;
                 }

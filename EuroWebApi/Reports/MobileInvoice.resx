@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="InvoiceHeader.ParameterValues" xml:space="preserve">
-    <value>{"@WOrkOrderId":"16996"}</value>
-  </metadata>
   <metadata name="InvoiceLines.ParameterValues" xml:space="preserve">
     <value>{"@WOrkORderId":"16996"}</value>
   </metadata>
@@ -236,32 +233,17 @@
 </value>
   </data>
   <data name="textBox29.Value" xml:space="preserve">
-    <value>All repairs performed by Company are warranted for 30 days labor and 90 days for parts. Company makes no other warranties, express or implied, and its agent or technicians are not authorized to make such warranites on behalf of the Company                                                         
-Initials: ________________</value>
+    <value>= 'All repairs performed by Company are warranted for 30 days labor and 90 days for parts. Company makes no other warranties, express or implied, and its agent or technicians are not authorized to make such warranites on behalf of the Company.        Initials:  '+IIF(Fields.InvoiceSigned='Y', Fields.FullName_Location,' ')                                                        
+</value>
   </data>
   <data name="textBox57.Value" xml:space="preserve">
-    <value>I hereby authorize the technician to move the appliance to gain unfettered access for repair/diagnosis and I waive all liability of Euro Appliance Services Ltd, and the technician, including any damage to my property, that may result directly and indirectly from moving the appliance
+    <value>='I hereby authorize the technician to move the appliance to gain unfettered access for repair/diagnosis and I waive all liability of Euro Appliance Services Ltd, and the technician, including any damage to my property, that may result directly and indirectly from moving the appliance.    Initials: '+IIF(Fields.InvoiceSigned='Y', Fields.FullName_Location,' ')
 
-Initials:_________________</value>
+</value>
   </data>
   <data name="textBox33.Value" xml:space="preserve">
     <value>
 We accept Cheque, Cash, Visa, MasterCard, AMEX and eTransfers. All cheques should be made in the name of "Euro Appliance Services Ltd." For all dishonored cheques, additional $25 admin fee will be charged. All Payments are due immediately after the service is completed. Any delays will subject to late charges. Our HST # 71534 8710 RT0001</value>
-  </data>
-  <data name="textBox61.Value" xml:space="preserve">
-    <value>- Have you or any one in family travelled outside of Canada with in
-  the past few weeks? YES    NO
-
-- Have you or any one in family come in contact with any one who 
-  travelled outside of Canada or who has COVID-19?     YES     NO
-
-- Are you or any member at the residence sick?      YES    NO 
-
-
-PRINT NAME_________________________________________________
-
-
-SIGNATURE:__________________________________________________</value>
   </data>
   <metadata name="$this.SnapToGrid" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
