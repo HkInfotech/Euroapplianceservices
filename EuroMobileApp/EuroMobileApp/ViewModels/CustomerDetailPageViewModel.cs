@@ -344,7 +344,7 @@ namespace EuroMobileApp.ViewModels
                         CustomerAddress.Value = CustomerInfo.AddressLine;
                         CustomerCity.Value = CustomerInfo.City;
                         CustomerPostalCode.Value = CustomerInfo.PostalCode;
-                        CustomerNearestIntersection.Value = CustomerInfo.AddressLine;
+                        CustomerNearestIntersection.Value = CustomerInfo.NearestIntersection;
                         CustomerPhoneNumber.Value = CustomerInfo.PhoneNumber;
                         CustomerCellNumber.Value = CustomerInfo.CellPhone;
                         CustomerEmail.Value = CustomerInfo.Email;
